@@ -1,4 +1,4 @@
-name: Publicar dashboard demonstrativa
+name: Publicar dashboard LSP 133
 on:
   push:
     branches: [main]
@@ -25,15 +25,22 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Gerar indicadores fictícios atualizados
-        run: node scripts/generate-demo.mjs
+      - name: Gerar dados fictícios quando não houver publicação real
+        run: |
+          if [ ! -f data/indicadores.json ]; then
+            node scripts/generate-demo.mjs
+          fi
       - name: Configurar GitHub Pages
         uses: actions/configure-pages@v5
       - name: Separar somente arquivos públicos
         run: |
           mkdir -p dist/data
           cp index.html .nojekyll dist/
-          cp data/indicadores-demo.json dist/data/
+          if [ -f data/indicadores.json ]; then
+            cp data/indicadores.json dist/data/
+          else
+            cp data/indicadores-demo.json dist/data/
+          fi
       - name: Preparar arquivos estáticos
         uses: actions/upload-pages-artifact@v3
         with:
