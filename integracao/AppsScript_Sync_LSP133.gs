@@ -4,7 +4,8 @@
  *
  * Requer aprovação corporativa para publicar os indicadores.
  * Propriedades do Script (não coloque tokens neste arquivo):
- *   SOURCE_SPREADSHEET_ID = ID da planilha de origem (nunca registrar no GitHub)\n *   GITHUB_TOKEN = token fine-grained com Contents: Read and write somente em lsp133-pages
+ *   SOURCE_SPREADSHEET_ID = ID da planilha de origem (nunca registrar no GitHub)
+ *   GITHUB_TOKEN = token fine-grained com Contents: Read and write somente em lsp133-pages
  *   PUBLICATION_APPROVED = YES (depois da aprovação para divulgação pública)
  *
  * Execute syncLsp133ToGitHub para testar.
@@ -27,7 +28,9 @@ function syncLsp133ToGitHub() {
   }
   const token = cfg.getProperty('GITHUB_TOKEN');
   if (!token) throw new Error('Configure GITHUB_TOKEN nas Propriedades do script.');
-  const spreadsheetId = cfg.getProperty('SOURCE_SPREADSHEET_ID');\n  if (!spreadsheetId) throw new Error('Configure SOURCE_SPREADSHEET_ID nas Propriedades do script.');\n  const ss = SpreadsheetApp.openById(spreadsheetId);
+  const spreadsheetId = cfg.getProperty('SOURCE_SPREADSHEET_ID');
+  if (!spreadsheetId) throw new Error('Configure SOURCE_SPREADSHEET_ID nas Propriedades do script.');
+  const ss = SpreadsheetApp.openById(spreadsheetId);
   const p = ss.getSheetByName('Base de Produção');
   const e = ss.getSheetByName('Resumo de Expedição');
   if (!p || !e) throw new Error('Não encontrei Base de Produção ou Resumo de Expedição.');
