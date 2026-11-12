@@ -140,12 +140,15 @@ case'producao':{const out=sum(rs,'packagesOut'),routes=sum(rs,'routesOut');const
     metric('Variação nas atribuições',delta===null?'—':(delta>=0?'+':'')+fmt(delta),prev===null?'Sem data anterior':fmtShort(prevEvent.date)+' → '+fmtShort(lastEvent.date))+
     metric(rebuilt?'ATs sem data de atribuição':'Cobertura do histórico',rebuilt?fmt(quality?.missingAssignedTime||0):'Parcial',rebuilt?'Atribuídas/concluídas com horário V vazio':'Capturas disponíveis desde 10/11')+
     metric('Aderência FIFO','—','Aguardando regra de elegibilidade')+'</div>';
-  const rowsForChart=rs.map(r=>({...r,assignedTotal:r.preferredAssignedTotal||0}));
-  content=panel('Rotas operacionais x atribuições por dia','Colunas: rotas da data operacional. Linha: total do Resumo de Expedição nas datas com captura; demais datas reconstruídas pelo horário V.',attributionComboChart(rowsForChart));
+  const operationalRows=rs.filter(r=>r.routesObserved===true||(r.routesObserved!==false&&((+r.routesOut||0)+(+r.routesFloor||0)>0))).map(r=>({...r,operationalTotal:(+r.routesOut||0)+(+r.routesFloor||0)}));
+  const assignmentRows=rs.filter(r=>r.eventDataCovered===true).map(r=>({...r,assignedOnDate:Number(r.assignedOnDate)||0}));
+  content=panel('Rotas por data operacional','Quantidade de rotas de cada data operacional, incluindo expedidas e No-Show.',bars(operationalRows,[{name:'Total de rotas',key:'operationalTotal'}]));
+  content+=panel('Atribuições por dia','ATs únicas pela data de atribuição registrada na coluna V. Uma única fonte em todo o gráfico; capturas históricas aparecem separadamente abaixo.',assignmentRows.length?bars(assignmentRows,[{name:'Rotas atribuídas',key:'assignedOnDate'}]):'<div class="empty">Sem horários de atribuição disponíveis no período.</div>');
+
   if(rebuilt){
     const timelineTable=rs.filter(r=>r.eventDataCovered===true).map(r=>({...r,assignedOnDate:r.assignedOnDate||0,completedOnDate:r.completedOnDate||0}));
     content+=panel('Concluídas por dia · Complete time','Cada AT com status atual Complete é contada uma vez na data da coluna U.',bars(timelineTable,[{name:'Concluídas (U)',key:'completedOnDate'}]));
-    content+=panel('Reconstrução da carga atual · atribuição e conclusão','Datas das colunas V e U na carga atual. Esta reconstrução pode diferir das capturas preservadas usadas na linha do gráfico.',table(timelineTable,[...dateCols,{key:'assignedOnDate',label:'Atribuídas (V)'},{key:'completedOnDate',label:'Concluídas (U)'}]));
+    content+=panel('Reconstrução da carga atual · atribuição e conclusão','Datas das colunas V e U na carga atual. Esta reconstrução pode diferir das capturas históricas apresentadas abaixo.',table(timelineTable,[...dateCols,{key:'assignedOnDate',label:'Atribuídas (V)'},{key:'completedOnDate',label:'Concluídas (U)'}]));
     content+='<div class="notes"><strong>Leitura correta:</strong> Status Complete na coluna W é o estado atual, não a data do evento. A coluna V informa atribuição e a coluna U, conclusão. Há '+fmt(quality?.missingAssignedTime||0)+' ATs expedidas/concluídas sem horário de atribuição, portanto 0 registrado não prova ausência de atividade.</div>';
   }
   if(captured.length){
