@@ -1,11 +1,11 @@
 {
   "mode": "REAL_AGGREGATED",
   "schemaVersion": 1,
-  "generatedAt": "2026-11-12T14:16:50.683Z",
+  "generatedAt": "2026-11-12T14:21:19.359Z",
   "source": "Validação de Dados / Base de Produção / Resumo de Expedição",
   "coverage": {
-    "routes": 697,
-    "excludedDemolishedRoutes": 32,
+    "routes": 694,
+    "excludedDemolishedRoutes": 35,
     "assignmentDays": 3,
     "assignment": {
       "firstRecordedDate": "2026-11-10",
@@ -82,11 +82,11 @@
     {
       "date": "2026-11-10",
       "routesOut": 155,
-      "routesFloor": 76,
+      "routesFloor": 73,
       "packagesOut": 25366,
       "packagesFloor": 10891,
       "pendingPackagesOut": 0,
-      "pendingPackagesFloor": 3,
+      "pendingPackagesFloor": 0,
       "assigned": 79,
       "complete": 29,
       "assignedTotal": 108,
@@ -309,8 +309,8 @@
   ],
   "eventQuality": {
     "rowsScanned": 113584,
-    "matchedRows": 112721,
-    "uniqueRoutes": 686,
+    "matchedRows": 112718,
+    "uniqueRoutes": 683,
     "assignedRoutes": 579,
     "completedRoutes": 446,
     "missingAssignedTime": 1,
