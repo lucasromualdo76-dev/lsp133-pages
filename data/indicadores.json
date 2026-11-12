@@ -1,7 +1,7 @@
 {
   "mode": "REAL_AGGREGATED",
   "schemaVersion": 1,
-  "generatedAt": "2026-11-12T05:35:56.393Z",
+  "generatedAt": "2026-11-12T05:42:00.320Z",
   "source": "Validação de Dados / Base de Produção / Resumo de Expedição",
   "coverage": {
     "routes": 645,
