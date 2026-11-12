@@ -1,7 +1,7 @@
 {
   "mode": "REAL_AGGREGATED",
   "schemaVersion": 1,
-  "generatedAt": "2026-11-12T07:26:17.398Z",
+  "generatedAt": "2026-11-12T07:31:20.757Z",
   "source": "Validação de Dados / Base de Produção / Resumo de Expedição",
   "coverage": {
     "routes": 645,
@@ -83,10 +83,10 @@
       "date": "2026-11-10",
       "routesOut": 13,
       "routesFloor": 218,
-      "packagesOut": 1453,
-      "packagesFloor": 14593,
-      "pendingPackagesOut": 4,
-      "pendingPackagesFloor": 128,
+      "packagesOut": 1902,
+      "packagesFloor": 28089,
+      "pendingPackagesOut": 1,
+      "pendingPackagesFloor": 35,
       "assigned": 79,
       "complete": 29,
       "assignedTotal": 108,
@@ -273,7 +273,7 @@
     "preservedCompletedOutsideCurrentLoad": 28
   },
   "insucessos": {
-    "uniqueReturns": 5796,
+    "uniqueReturns": 5797,
     "flying": 71,
     "other": 0,
     "flyingRate": "1,15%",
@@ -316,7 +316,7 @@
       },
       {
         "date": "2026-11-12",
-        "returns": 107
+        "returns": 109
       }
     ]
   },
