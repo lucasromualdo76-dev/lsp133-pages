@@ -16,7 +16,7 @@ Dashboard web com quatro páginas, baseada na interface original do Apps Script.
 
 O site prioriza `data/indicadores.json` (dados reais agregados) e usa `data/indicadores-demo.json` só antes da primeira sincronização real. O Pages **não faz login no Google**; ele recebe dados via Apps Script, que grava o JSON usando a API do GitHub. O workflow publica os arquivos estáticos após o commit.
 
-O código de integração para copiar ao **projeto Apps Script original** está em `integracao/AppsScript_Sync_LSP133.gs`. Não é executado diretamente pelo GitHub Actions.
+O código de integração para copiar ao **projeto Apps Script original** está em `integracao/AppsScript_Sync_LSP133.gs`. Não é executado diretamente pelo GitHub Actions. Atualizar esse arquivo no GitHub não instala a versão nova no Google: substitua o conteúdo de `Sync_GitHub.gs` no Apps Script, salve e execute `syncLsp133ToGitHub`.
 
 ### Propriedades necessárias (Apps Script → Configurações do projeto → Propriedades do script)
 
@@ -28,7 +28,7 @@ O código de integração para copiar ao **projeto Apps Script original** está 
 | `INSUCESSOS_SPREADSHEET_ID` | **Opcional**: ID da planilha com abas Dashboard e informações de insucessos |
 | `ERROS_SPREADSHEET_ID` | **Opcional**: ID da planilha com aba Base Erros Consolidada |
 
-Depois de atualizar o arquivo `Sync_GitHub.gs`, salve e execute `syncLsp133ToGitHub` uma vez. Verifique os quatro KPIs com `Folha 1!G2:J2`. Só após validação configure `installLsp133SyncTrigger` para a execução periódica. Se o gatilho já existe, **não é necessário recriá-lo** ao mudar o código.
+Depois de atualizar o arquivo `Sync_GitHub.gs`, salve e execute `syncLsp133ToGitHub` uma vez. Verifique os quatro KPIs com a `Base de Produção`. O sincronizador confere cada AT com a Folha 1, excluindo as marcadas como `Desmanchada` em `Controle ATs Desmanchadas`. Os cards G2:J2 da Folha 1 podem incluir essas ATs e deixam de ser a referência de validação. Só após validação configure `installLsp133SyncTrigger` para a execução periódica. Se o gatilho já existe, **não é necessário recriá-lo** ao mudar o código.
 
 ### Regra auditada: rotas concluídas e atribuições
 
@@ -40,7 +40,7 @@ A auditoria de 11/11/2026 confirmou a leitura correta dos campos da aba `Atribui
 - **V** — Driver Assigned Time: data/hora em que a rota foi atribuída ao motorista.
 - **W** — Status atual: `Complete` significa concluída agora; por si só não identifica em que dia ocorreu a conclusão.
 
-O `Resumo de Expedição` original baseia-se no `Histórico de Expedição`, que possui capturas registradas a partir de 10/11. Para mostrar dias anteriores, o sincronizador reconstrói eventos pelas colunas U e V diretamente da origem, contando ATs únicas existentes em `Folha 1`. Os dados reconstruídos **podem diferir das capturas históricas** de 10 e 11/11, pois as janelas e os critérios são diferentes.
+O `Resumo de Expedição` original baseia-se no `Histórico de Expedição`, que possui capturas registradas a partir de 10/11. Para mostrar dias anteriores, o sincronizador reconstrói eventos pelas colunas U e V diretamente da origem, contando ATs únicas presentes na `Base de Produção`, após excluir as desmanchadas. Os dados reconstruídos **podem diferir das capturas históricas** de 10 e 11/11, pois as janelas e os critérios são diferentes.
 
 **Conferência de referência (fotografia da base em 11/11):** 981 ATs, 592 com status `Complete`, 426 conclusões com data U antes de 10/11, 415 atribuições V antes de 10/11 e 10 ATs expedidas/concluídas sem horário V. Não assuma que esses valores são constantes ao longo do tempo.
 
@@ -48,7 +48,10 @@ O `Resumo de Expedição` original baseia-se no `Histórico de Expedição`, que
 
 ### Regras e limites atuais
 
-- Os quatro indicadores principais são calculados pela aba `Folha 1`, reproduzindo os status da coluna F e os pacotes conhecidos da coluna D. A função valida a igualdade exata com `Folha 1!G2:J2` e bloqueia divergências.
+- Os quatro indicadores principais usam `Base de Produção`, que exclui as ATs marcadas como `Desmanchada` em `Controle ATs Desmanchadas`. O sincronizador confere cabeçalhos, ATs, datas, status e quantidades contra a Folha 1 descontando as desmanchadas. Base incompleta ou divergente bloqueia a publicação.
+- Pacotes usam a quantidade auditada, conforme `getProductionData` do aplicativo original, inclusive para piso. A exclusão de ATs desmanchadas não equivale a excluir dias inteiros; o sincronizador não aplica as exclusões integrais de datas configuradas na aba Dashboard da planilha.
+- Concluídas ausentes da carga atual só são aceitas se confirmadas como `Completa` em `ATs Preservadas`. Elas permanecem nos totais de produção, sem datas de conclusão inventadas. `eventQuality` informa a quantidade preservada fora da carga atual.
+- A leitura do Resumo de Expedição preserva as capturas históricas; a correção do piso não reescreve esses registros. A exclusão das desmanchadas se aplica à produção atual; capturas antigas de produção não são recalculadas.
 - `SPR = pacotes expedidos / rotas expedidas` no período filtrado. É apresentado como **indisponível** quando há quantidades pendentes.
 - Histórico usa **a captura mais recente por data operacional**, sem alterar os KPIs atuais. A disponibilidade das capturas depende do fluxo original.
 - Insucessos: os KPIs da aba Dashboard são valores globais da fonte; o filtro de datas atua no gráfico e tabela de devoluções. Não interpretar os KPIs globais como dados filtrados.
