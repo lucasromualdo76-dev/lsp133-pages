@@ -1,10 +1,10 @@
 {
   "mode": "REAL_AGGREGATED",
   "schemaVersion": 1,
-  "generatedAt": "2026-11-12T00:00:35.828Z",
-  "source": "Validação de Dados / Base de Produção / Resumo de Expedição",
+  "generatedAt": "2026-11-12T00:10:23.534Z",
+  "source": "Validação de Dados / Folha 1 / Resumo de Expedição",
   "coverage": {
-    "routes": 966,
+    "routes": 981,
     "assignmentDays": 2
   },
   "days": [
@@ -47,11 +47,11 @@
     {
       "date": "2026-11-03",
       "routesOut": 64,
-      "routesFloor": 0,
+      "routesFloor": 6,
       "packagesOut": 0,
       "packagesFloor": 0,
       "pendingPackagesOut": 64,
-      "pendingPackagesFloor": 0,
+      "pendingPackagesFloor": 6,
       "assigned": 0,
       "complete": 0,
       "assignedTotal": 0
@@ -59,9 +59,9 @@
     {
       "date": "2026-11-04",
       "routesOut": 77,
-      "routesFloor": 0,
+      "routesFloor": 9,
       "packagesOut": 12264,
-      "packagesFloor": 0,
+      "packagesFloor": 1312,
       "pendingPackagesOut": 0,
       "pendingPackagesFloor": 0,
       "assigned": 0,
@@ -73,7 +73,7 @@
       "routesOut": 108,
       "routesFloor": 12,
       "packagesOut": 19124,
-      "packagesFloor": 1770,
+      "packagesFloor": 1746,
       "pendingPackagesOut": 0,
       "pendingPackagesFloor": 0,
       "assigned": 0,
@@ -85,9 +85,9 @@
       "routesOut": 123,
       "routesFloor": 22,
       "packagesOut": 21950,
-      "packagesFloor": 3372,
+      "packagesFloor": 2956,
       "pendingPackagesOut": 0,
-      "pendingPackagesFloor": 0,
+      "pendingPackagesFloor": 2,
       "assigned": 0,
       "complete": 0,
       "assignedTotal": 0
@@ -97,7 +97,7 @@
       "routesOut": 109,
       "routesFloor": 21,
       "packagesOut": 21662,
-      "packagesFloor": 3698,
+      "packagesFloor": 3613,
       "pendingPackagesOut": 0,
       "pendingPackagesFloor": 0,
       "assigned": 0,
@@ -109,9 +109,9 @@
       "routesOut": 3,
       "routesFloor": 228,
       "packagesOut": 472,
-      "packagesFloor": 37175,
+      "packagesFloor": 15574,
       "pendingPackagesOut": 0,
-      "pendingPackagesFloor": 0,
+      "pendingPackagesFloor": 132,
       "assigned": 79,
       "complete": 29,
       "assignedTotal": 108
