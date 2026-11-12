@@ -10,6 +10,9 @@
  *   INSUCESSOS_SPREADSHEET_ID = ID opcional da planilha de insucessos
  *   ERROS_SPREADSHEET_ID = ID opcional da planilha de erros
  *
+ * FIFO: a taxa de aderencia nao e calculada sem linha temporal de rotas
+ * elegiveis/pendentes a cada atribuicao. assignmentOrigins e so contexto.
+ *
  * Execute syncLsp133ToGitHub para testar.
  * Depois execute installLsp133SyncTrigger para atualizar a cada 15 minutos.
  */
@@ -55,6 +58,7 @@ function syncLsp133ToGitHub() {
     if (atSet.has(at)) throw new Error('AT duplicada na Folha 1: interrompido.');
     atSet.add(at);
     const x=make(date),st=String(r[5]||'').trim().toLowerCase();
+    x.routesObserved=true;
     if (st==='expedida' || st==='completa') {
       x.routesOut++;
       if (lspPublicNumber_(r[3])) x.packagesOut+=Number(r[3]);
@@ -75,8 +79,42 @@ function syncLsp133ToGitHub() {
     const a=Number(r[1]),c=Number(r[2]),t=Number(r[3]);
     if (![a,c,t].every(n=>Number.isInteger(n)&&n>=0)||a+c!==t) throw new Error('Totais de atribuição inconsistentes em '+date);
     if (dateSet.has(date)) throw new Error('Data repetida no resumo de atribuições: '+date);
-    dateSet.add(date);const x=make(date);x.assigned=a;x.complete=c;x.assignedTotal=t;
+    dateSet.add(date);const x=make(date);x.assigned=a;x.complete=c;x.assignedTotal=t;x.assignmentRecorded=true;
   }
+  // Detalhamento por data de atribuicao x data operacional (Resumo G:K).
+  // Historico existe apenas a partir das capturas disponiveis; ausencia NAO significa zero.
+  const assignmentOrigins=[];
+  const breakdown=e.getLastRow()>3?e.getRange(4,7,e.getLastRow()-3,5).getValues():[];
+  const totalsByAssignment=new Map();
+  const originKeys=new Set();
+  for(const r of breakdown){
+    const assignmentDate=lspPublicDate_(r[0]),operationalDate=lspPublicDate_(r[1]);
+    if(!assignmentDate&&!operationalDate)continue;
+    if(!assignmentDate||!operationalDate)throw new Error('Data ausente no detalhamento G:K de atribuicoes.');
+    const assigned=Number(r[2]),complete=Number(r[3]),total=Number(r[4]);
+    if(![assigned,complete,total].every(n=>Number.isInteger(n)&&n>=0)||assigned+complete!==total){
+      throw new Error('Detalhamento G:K inconsistente: '+assignmentDate+' / '+operationalDate);
+    }
+    const key=assignmentDate+'|'+operationalDate;
+    if(originKeys.has(key))throw new Error('Origem duplicada no resumo de atribuicoes: '+key);
+    originKeys.add(key);
+    assignmentOrigins.push({assignmentDate,operationalDate,assigned,complete,total});
+    totalsByAssignment.set(assignmentDate,(totalsByAssignment.get(assignmentDate)||0)+total);
+  }
+  for(const [date,total] of totalsByAssignment){
+    const expected=map.get(date);
+    if(!expected||!expected.assignmentRecorded||Number(expected.assignedTotal)!==total){
+      throw new Error('Detalhamento G:K diverge do resumo A:D em '+date+': detalhamento='+total+', resumo='+(expected?expected.assignedTotal:'ausente'));
+    }
+  }
+  // Uma data operacional pode nao ter qualquer captura de atribuicao: sinalizamos o
+  // limite do historico em vez de afirmar que nao houve expedicao.
+  const recordedDates=[...dateSet].sort();
+  const assignmentCoverage={
+    firstRecordedDate:recordedDates.length?recordedDates[0]:null,
+    lastRecordedDate:recordedDates.length?recordedDates[recordedDates.length-1]:null,
+    recordedDays:recordedDates.length
+  };
   // Bloqueia publicacao se os KPIs nao baterem exatamente com o painel original.
   const actual=p.getRange('G2:J2').getValues()[0].map(Number);
   const days=[...map.values()].sort((a,b)=>a.date.localeCompare(b.date));
@@ -139,7 +177,7 @@ function syncLsp133ToGitHub() {
   }
   const body={mode:'REAL_AGGREGATED',schemaVersion:1,generatedAt:new Date().toISOString(),
     source:'Validação de Dados / Folha 1 / Resumo de Expedição',
-    coverage:{routes:atSet.size,assignmentDays:dateSet.size},days,history,...extras};
+    coverage:{routes:atSet.size,assignmentDays:dateSet.size,assignment:assignmentCoverage},days,history,assignmentOrigins,...extras};
   const url='https://api.github.com/repos/'+LSP133_PUBLIC.repo+'/contents/'+LSP133_PUBLIC.path;
   const headers={'Authorization':'Bearer '+token,'Accept':'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28'};
   const prior=UrlFetchApp.fetch(url,{headers,muteHttpExceptions:true});
