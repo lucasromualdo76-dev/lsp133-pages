@@ -1,7 +1,7 @@
 {
   "mode": "REAL_AGGREGATED",
   "schemaVersion": 1,
-  "generatedAt": "2026-11-12T13:06:02.841Z",
+  "generatedAt": "2026-11-12T13:12:45.202Z",
   "source": "Validação de Dados / Base de Produção / Resumo de Expedição",
   "coverage": {
     "routes": 645,
@@ -44,9 +44,9 @@
       "date": "2026-11-05",
       "routesOut": 108,
       "routesFloor": 0,
-      "packagesOut": 0,
+      "packagesOut": 19124,
       "packagesFloor": 0,
-      "pendingPackagesOut": 108,
+      "pendingPackagesOut": 0,
       "pendingPackagesFloor": 0,
       "assigned": 0,
       "complete": 0,
@@ -301,8 +301,8 @@
     }
   ],
   "eventQuality": {
-    "rowsScanned": 102151,
-    "matchedRows": 101427,
+    "rowsScanned": 121015,
+    "matchedRows": 119566,
     "uniqueRoutes": 614,
     "assignedRoutes": 498,
     "completedRoutes": 346,
