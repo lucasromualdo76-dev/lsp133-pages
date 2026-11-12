@@ -7,6 +7,8 @@
  *   SOURCE_SPREADSHEET_ID = ID da planilha de origem (nunca registrar no GitHub)
  *   GITHUB_TOKEN = token fine-grained com Contents: Read and write somente em lsp133-pages
  *   PUBLICATION_APPROVED = YES (depois da aprovação para divulgação pública)
+ *   INSUCESSOS_SPREADSHEET_ID = ID opcional da planilha de insucessos
+ *   ERROS_SPREADSHEET_ID = ID opcional da planilha de erros
  *
  * Execute syncLsp133ToGitHub para testar.
  * Depois execute installLsp133SyncTrigger para atualizar a cada 15 minutos.
@@ -82,9 +84,62 @@ function syncLsp133ToGitHub() {
   if (!actual.every((v,i)=>Number.isFinite(v)&&v===measured[i])) {
     throw new Error('Divergencia entre sincronizador e Folha 1 G2:J2: planilha='+JSON.stringify(actual)+'; sync='+JSON.stringify(measured));
   }
+  // Historico original: ultima captura por data operacional, sem expor ATs.
+  const hist=ss.getSheetByName('Histórico Diário');
+  const latest=new Map();
+  if(hist&&hist.getLastRow()>1){
+    const h=hist.getRange(2,1,hist.getLastRow()-1,12).getValues();
+    for(const row of h){
+      const date=lspPublicDate_(row[1]);
+      if(!date)continue;
+      const stamp=row[10] instanceof Date ? row[10].toISOString() : String(row[10]||'');
+      const prev=latest.get(date);
+      if(prev&&prev.stamp>stamp)continue;
+      latest.set(date,{stamp,date,
+        routesOut:Number(row[2])||0,routesFloor:Number(row[3])||0,
+        packagesOut:Number(row[4])||0,packagesFloor:Number(row[5])||0,
+        pendingPackagesOut:Number(row[7])||0,pendingPackagesFloor:Number(row[8])||0,
+        snapshotType:String(row[9]||''),snapshotAt:stamp});
+    }
+  }
+  const history=[...latest.values()].sort((a,b)=>a.date.localeCompare(b.date));
+  // As outras fontes sao opcionais; somente totais diarios, sem BR, AT ou dados pessoais.
+  const extras={};
+  const insId=cfg.getProperty('INSUCESSOS_SPREADSHEET_ID');
+  if(insId){
+    const insSS=SpreadsheetApp.openById(insId),dashboard=insSS.getSheetByName('Dashboard');
+    if(!dashboard)throw new Error('A planilha Insucessos nao possui aba Dashboard.');
+    const metrics=dashboard.getRange('A5:J5').getDisplayValues()[0];
+    const details=dashboard.getRange(9,1,Math.max(1,dashboard.getLastRow()-8),2).getDisplayValues();
+    const insDays=details.map(r=>({date:lspPublicDate_(r[0]),returns:Number(String(r[1]).replace(/[^0-9]/g,''))||0}))
+      .filter(r=>r.date&&r.returns>=0);
+    extras.insucessos={uniqueReturns:Number(String(metrics[3]).replace(/[^0-9]/g,''))||0,
+      flying:Number(String(metrics[6]).replace(/[^0-9]/g,''))||0,
+      other:Number(String(metrics[9]).replace(/[^0-9]/g,''))||0,
+      flyingRate:String(metrics[0]||'—'),daily:insDays};
+  }
+  const errosId=cfg.getProperty('ERROS_SPREADSHEET_ID');
+  if(errosId){
+    const errorsSS=SpreadsheetApp.openById(errosId),base=errorsSS.getSheetByName('Base Erros Consolidada');
+    if(!base)throw new Error('A planilha de erros nao possui aba Base Erros Consolidada.');
+    const erows=base.getLastRow()>1 ? base.getRange(2,1,base.getLastRow()-1,3).getDisplayValues() : [];
+    const dailyErrors=new Map(),occurrences=new Set();
+    let labelErrors=0,otherErrors=0;
+    for(const r of erows){
+      const date=lspPublicDate_(r[0]),br=String(r[1]||'').trim(),type=String(r[2]||'').trim();
+      if(!date||!br||!type)continue;
+      const key=date+'|'+br+'|'+type;if(occurrences.has(key))continue;occurrences.add(key);
+      if(!dailyErrors.has(date))dailyErrors.set(date,{date,labelErrors:0,otherErrors:0});
+      const row=dailyErrors.get(date);
+      if(type.toLowerCase().includes('etiqueta')){labelErrors++;row.labelErrors++;}
+      else {otherErrors++;row.otherErrors++;}
+    }
+    extras.erros={labelErrors,otherErrors,total:labelErrors+otherErrors,
+      daily:[...dailyErrors.values()].sort((a,b)=>a.date.localeCompare(b.date))};
+  }
   const body={mode:'REAL_AGGREGATED',schemaVersion:1,generatedAt:new Date().toISOString(),
     source:'Validação de Dados / Folha 1 / Resumo de Expedição',
-    coverage:{routes:atSet.size,assignmentDays:dateSet.size},days};
+    coverage:{routes:atSet.size,assignmentDays:dateSet.size},days,history,...extras};
   const url='https://api.github.com/repos/'+LSP133_PUBLIC.repo+'/contents/'+LSP133_PUBLIC.path;
   const headers={'Authorization':'Bearer '+token,'Accept':'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28'};
   const prior=UrlFetchApp.fetch(url,{headers,muteHttpExceptions:true});
