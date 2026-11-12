@@ -6,11 +6,11 @@ Dashboard web com quatro páginas, baseada na interface original do Apps Script.
 
 - Identidade visual Shopee no cabeçalho, com símbolo vetorial inspirado no cabeçalho da dashboard original.
 - **Controle de Produção:** rotas expedidas, rotas no piso, pacotes expedidos, pacotes no piso e SPR (quando todas as quantidades das rotas expedidas são conhecidas); barras diárias de expedidas, no piso e total, e pacotes por dia.
-- **Expedição de Rotas:** Assigned, Complete, atribuições por data, evolução e tabela.
+- **Expedição de Rotas:** gráfico combinado com **colunas do total de rotas por data operacional** e **linha do total atribuído por data de atribuição**; cards Assigned, Complete, total, variação e histórico tabular. Os dois indicadores têm referências de data distintas e não devem ser confundidos.
 - **Histórico da Produção:** a última captura de cada data operacional, quando disponibilizada pelo sincronizador.
 - **Insucessos:** indicadores agregados, taxa VOANDO e devoluções diárias, quando a fonte opcional for conectada.
 - **Erros de Expedição:** erros de etiquetagem, outros erros e evolução diária, quando a fonte opcional for conectada.
-- Data inicial e final, modo relatório, impressão/PDF e atualização no navegador a cada minuto.
+- Rótulos numéricos sobre as colunas em todas as páginas, e sobre os pontos da linha de atribuição. Gráficos amplos oferecem rolagem horizontal para evitar valores sobrepostos.\n- Data inicial e final, modo relatório, impressão/PDF e atualização no navegador a cada minuto.
 
 ## Origem dos dados
 
