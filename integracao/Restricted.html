@@ -5,28 +5,39 @@
 </style></head><body>
 <header><b>Shopee</b> / Central Operacional · LSP 133 <span class="muted"> · Área restrita</span></header>
 <main><section class="panel" id="login-panel"><h1>Acesso restrito</h1><p>Use sua conta corporativa e a senha de acesso para consultar Insucessos e Erros de Expedição.</p><form id="login"><label for="password">Senha de acesso</label><input id="password" type="password" autocomplete="current-password" required maxlength="256"><p><button id="enter">Entrar</button></p><div id="login-error" class="error" role="alert"></div></form></section>
-<section id="private-panel" hidden><div class="row"><h1 id="title">Indicadores</h1><button id="logout">Sair</button></div><div class="panel row"><div><label for="section">Área</label><select id="section"><option value="insucessos">Insucessos</option><option value="erros">Erros de Expedição</option></select></div><div><label for="from">Data inicial</label><input id="from" type="date"></div><div><label for="to">Data final</label><input id="to" type="date"></div><button id="reload">Atualizar</button></div><p id="status" class="muted" role="status"></p><div id="error" class="error" role="alert"></div><div id="cards" class="cards"></div><section class="panel"><h2 id="chart-title">Evolução diária</h2><div id="chart" class="scroll"></div></section><section class="panel"><h2>Resumo por data</h2><div id="table" class="scroll"></div></section></section></main>
+<section id="private-panel" hidden><div class="row"><h1 id="title">Indicadores</h1><button id="logout">Sair</button></div><div class="panel row"><div><label for="section">Área</label><select id="section"><option value="insucessos">Insucessos</option><option value="erros">Erros de Expedição</option></select></div><div><label for="from">Data inicial</label><input id="from" type="date"></div><div><label for="to">Data final</label><input id="to" type="date"></div><button id="reload">Atualizar</button></div><p id="status" class="muted" role="status"></p><div id="error" class="error" role="alert"></div><div id="cards" class="cards"></div><section class="panel"><h2 id="chart-title">Evolução diária</h2><div id="chart" class="scroll"></div></section><section class="panel"><h2>Resumo por data</h2><div id="table" class="scroll"></div></section><section id="flying-panel" class="panel" hidden><h2>VOANDO por dia</h2><p id="flying-note" class="muted"></p><div id="flying-chart" class="scroll"></div><h2>VOANDO por data</h2><div id="flying-table" class="scroll"></div></section></section></main>
 <script>
 const $=id=>document.getElementById(id);let session=null,requestId=0,expiryTimer=null;
 const fmt=v=>v===null||v===undefined?'—':Number(v).toLocaleString('pt-BR');
 const esc=v=>String(v==null?'':v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const date=v=>v.slice(8,10)+'/'+v.slice(5,7)+'/'+v.slice(0,4);
-function clearPrivate(){requestId++;session=null;clearTimeout(expiryTimer);$('private-panel').hidden=true;$('login-panel').hidden=false;for(const id of ['cards','chart','table','status','error'])$(id).textContent='';$('password').value='';}
+function clearPrivate(){requestId++;session=null;clearTimeout(expiryTimer);$('private-panel').hidden=true;$('login-panel').hidden=false;for(const id of ['cards','chart','table','status','error','flying-chart','flying-table','flying-note'])$(id).textContent='';$('password').value='';}
 function signOut(){const token=session?.token;clearPrivate();if(token)google.script.run.withFailureHandler(()=>{}).restrictedLogout(token);}
 function card(label,value){return '<div class="card"><span>'+esc(label)+'</span><strong>'+esc(value)+'</strong></div>';}
+function dailyTable(rows,series){return '<table><thead><tr><th>Data</th>'+series.map(s=>'<th>'+esc(s[1])+'</th>').join('')+'</tr></thead><tbody>'+rows.map(r=>'<tr><td>'+esc(date(r.date))+'</td>'+series.map(s=>'<td>'+fmt(r[s[0]])+'</td>').join('')+'</tr>').join('')+'</tbody></table>';}
+function dailyChart(rows,series){
+ if(!rows.length)return '<p>Sem registros no período.</p>';
+ const w=Math.max(600,rows.length*85),h=290,max=Math.max(1,...rows.flatMap(r=>series.map(s=>Number(r[s[0]])||0))),slot=(w-60)/rows.length;
+ let svg='<svg viewBox="0 0 '+w+' '+h+'" role="img" aria-label="Indicadores por data">';
+ rows.forEach((r,i)=>{series.forEach((s,j)=>{const v=Number(r[s[0]])||0,bh=v/max*205,x=40+i*slot+j*slot/(series.length+1),y=240-bh;svg+='<rect x="'+x+'" y="'+y+'" width="'+Math.max(4,slot/(series.length+1)-8)+'" height="'+bh+'" fill="'+s[2]+'"><title>'+esc(date(r.date)+' · '+s[1]+': '+fmt(v))+'</title></rect><text x="'+x+'" y="'+(y-7)+'" font-size="11">'+fmt(v)+'</text>';});svg+='<text x="'+(40+i*slot)+'" y="265" font-size="11">'+esc(date(r.date))+'</text>';});return svg+'</svg>';
+}
 function render(data){
  const ins=data.section==='insucessos';$('title').textContent=ins?'Insucessos':'Erros de Expedição';
  $('cards').innerHTML=ins?card('BRs únicos devolvidos · fonte',fmt(data.uniqueReturns))+card('Pacotes VOANDO · fonte',fmt(data.flying))+card('VOANDO / insucessos · fonte',data.flyingRate)+card('Outros insucessos · fonte',fmt(data.other)):card('Erros de etiquetagem',fmt(data.labelErrors))+card('Outros erros',fmt(data.otherErrors))+card('Total no período',fmt(data.labelErrors+data.otherErrors));
- $('status').textContent='Atualizado em '+data.updatedAt+(ins?' · Os cards são globais da fonte; as datas filtram o gráfico e a tabela.':' · Indicadores do período selecionado.');
+ $('status').textContent='Atualizado em '+data.updatedAt+(ins?' · Os cards são globais da fonte; as datas filtram os gráficos e as tabelas.':' · Indicadores do período selecionado.');
  const rows=data.daily||[],series=ins?[['returns','Devoluções','#07825d']]:[['labelErrors','Etiquetagem','#ee4d2d'],['otherErrors','Outros','#172338']];
  $('chart-title').textContent=ins?'Devoluções por dia':'Erros por dia';
- $('table').innerHTML='<table><thead><tr><th>Data</th>'+series.map(s=>'<th>'+s[1]+'</th>').join('')+'</tr></thead><tbody>'+rows.map(r=>'<tr><td>'+esc(date(r.date))+'</td>'+series.map(s=>'<td>'+fmt(r[s[0]])+'</td>').join('')+'</tr>').join('')+'</tbody></table>';
- if(!rows.length){$('chart').textContent='Sem registros no período.';return;}
- const w=Math.max(600,rows.length*85),h=290,max=Math.max(1,...rows.flatMap(r=>series.map(s=>Number(r[s[0]])||0))),slot=(w-60)/rows.length;
- let svg='<svg viewBox="0 0 '+w+' '+h+'" role="img" aria-label="Indicadores por data">';
- rows.forEach((r,i)=>{series.forEach((s,j)=>{const v=Number(r[s[0]])||0,bh=v/max*205,x=40+i*slot+j*slot/(series.length+1),y=240-bh;svg+='<rect x="'+x+'" y="'+y+'" width="'+Math.max(4,slot/(series.length+1)-8)+'" height="'+bh+'" fill="'+s[2]+'"><title>'+esc(date(r.date)+' · '+s[1]+': '+fmt(v))+'</title></rect><text x="'+x+'" y="'+(y-7)+'" font-size="11">'+fmt(v)+'</text>';});svg+='<text x="'+(40+i*slot)+'" y="265" font-size="11">'+esc(date(r.date))+'</text>';});$('chart').innerHTML=svg+'</svg>';
+ $('table').innerHTML=dailyTable(rows,series);$('chart').innerHTML=dailyChart(rows,series);
+ $('flying-panel').hidden=!ins;
+ if(ins){
+   const flyingRows=data.flyingDaily||[],flyingSeries=[['flying','Pacotes VOANDO','#ee4d2d']];
+   $('flying-chart').innerHTML=dailyChart(flyingRows,flyingSeries);
+   $('flying-table').innerHTML=dailyTable(flyingRows,flyingSeries);
+   const missing=Number(data.flyingMissingDate)||0,total=flyingRows.reduce((n,r)=>n+(Number(r.flying)||0),0);
+   $('flying-note').textContent=fmt(total)+' registros no período pela data da aba Informações.'+(missing?' Há também '+fmt(missing)+' registros VOANDO sem data na fonte, fora do gráfico e do filtro de datas.':'');
+ }else{for(const id of ['flying-chart','flying-table','flying-note'])$(id).textContent='';}
 }
-function load(){if(!session)return;const id=++requestId,token=session.token;$('reload').disabled=true;$('error').textContent='';$('status').textContent='Atualizando…';$('cards').textContent='';$('chart').textContent='';$('table').textContent='';
+function load(){if(!session)return;const id=++requestId,token=session.token;$('reload').disabled=true;$('error').textContent='';$('status').textContent='Atualizando…';$('cards').textContent='';$('chart').textContent='';$('table').textContent='';$('flying-panel').hidden=true;for(const key of ['flying-chart','flying-table','flying-note'])$(key).textContent='';
  google.script.run.withSuccessHandler(data=>{if(id!==requestId||!session)return;$('reload').disabled=false;render(data);}).withFailureHandler(error=>{if(id!==requestId)return;$('reload').disabled=false;const message=error.message||'Não foi possível atualizar.';if(/sessão|senha|Acesso restrito/i.test(message)){clearPrivate();$('login-error').textContent=message;}else{$('error').textContent=message;$('status').textContent='';}}).restrictedGetData(token,$('section').value,{from:$('from').value,to:$('to').value});
 }
 $('login').addEventListener('submit',event=>{event.preventDefault();const password=$('password').value;$('password').value='';$('enter').disabled=true;$('login-error').textContent='';google.script.run.withSuccessHandler(result=>{$('enter').disabled=false;session=result;$('login-panel').hidden=true;$('private-panel').hidden=false;expiryTimer=setTimeout(signOut,Math.max(0,result.expiresAt-Date.now()));load();}).withFailureHandler(error=>{$('enter').disabled=false;$('login-error').textContent=error.message||'Não foi possível entrar.';}).restrictedLogin(password);});
