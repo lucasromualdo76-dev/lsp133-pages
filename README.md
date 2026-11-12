@@ -6,7 +6,7 @@ Dashboard web com quatro páginas, baseada na interface original do Apps Script.
 
 - Identidade visual Shopee no cabeçalho, com símbolo vetorial inspirado no cabeçalho da dashboard original.
 - **Controle de Produção:** rotas expedidas, rotas no piso, pacotes expedidos, pacotes no piso e SPR (quando todas as quantidades das rotas expedidas são conhecidas); barras diárias de expedidas, no piso e total, e pacotes por dia.
-- **Expedição de Rotas:** gráfico combinado com **colunas do total de rotas por data operacional** e **linha do total atribuído por data de atribuição**; cards Assigned, Complete, total, variação e histórico tabular. Os dois indicadores têm referências de data distintas e não devem ser confundidos.
+- **Expedição de Rotas:** gráfico combinado com **colunas do total de rotas por data operacional** e **linha de atribuições pelo horário V (Driver Assigned Time)**, além de gráfico e tabela de **conclusões pelo horário U (Complete time)**. A captura histórica do sistema permanece em quadro separado. Dias sem carimbo V podem exibir zero registros, mas isso não comprova ausência de atribuição.
 - **Histórico da Produção:** a última captura de cada data operacional, quando disponibilizada pelo sincronizador.
 - **Insucessos:** indicadores agregados, taxa VOANDO e devoluções diárias, quando a fonte opcional for conectada.
 - **Erros de Expedição:** erros de etiquetagem, outros erros e evolução diária, quando a fonte opcional for conectada.
@@ -29,6 +29,22 @@ O código de integração para copiar ao **projeto Apps Script original** está 
 | `ERROS_SPREADSHEET_ID` | **Opcional**: ID da planilha com aba Base Erros Consolidada |
 
 Depois de atualizar o arquivo `Sync_GitHub.gs`, salve e execute `syncLsp133ToGitHub` uma vez. Verifique os quatro KPIs com `Folha 1!G2:J2`. Só após validação configure `installLsp133SyncTrigger` para a execução periódica. Se o gatilho já existe, **não é necessário recriá-lo** ao mudar o código.
+
+### Regra auditada: rotas concluídas e atribuições
+
+A auditoria de 11/11/2026 confirmou a leitura correta dos campos da aba `Atribuição de Entrega`:
+
+- **A** — Task ID (AT); agrupar por AT única, pois os pacotes repetem a rota em muitas linhas.
+- **N** — Delivery Date: data operacional da rota, **não** o dia em que ela foi concluída.
+- **U** — Complete time: data/hora de conclusão, contada se o status atual **W = Complete**.
+- **V** — Driver Assigned Time: data/hora em que a rota foi atribuída ao motorista.
+- **W** — Status atual: `Complete` significa concluída agora; por si só não identifica em que dia ocorreu a conclusão.
+
+O `Resumo de Expedição` original baseia-se no `Histórico de Expedição`, que possui capturas registradas a partir de 10/11. Para mostrar dias anteriores, o sincronizador reconstrói eventos pelas colunas U e V diretamente da origem, contando ATs únicas existentes em `Folha 1`. Os dados reconstruídos **podem diferir das capturas históricas** de 10 e 11/11, pois as janelas e os critérios são diferentes.
+
+**Conferência de referência (fotografia da base em 11/11):** 981 ATs, 592 com status `Complete`, 426 conclusões com data U antes de 10/11, 415 atribuições V antes de 10/11 e 10 ATs expedidas/concluídas sem horário V. Não assuma que esses valores são constantes ao longo do tempo.
+
+**FIFO**: não reportar percentual de aderência sem observar quais rotas estavam elegíveis no momento de cada atribuição. A distribuição das datas operacionais por dia de atribuição é útil para investigação, mas não comprova adesão por si só.
 
 ### Regras e limites atuais
 
