@@ -98,3 +98,9 @@ Abra o endereço atual terminado em `/exec?area=insucessos` e depois `/exec?area
 - O JSON público novo não deve conter os campos `insucessos` ou `erros`.
 
 Os cards de Insucessos continuam globais da fonte; o filtro de datas atua no gráfico e tabela. Erros mantém a contagem por BR único por data e tipo. Nenhuma senha é enviada ao GitHub.
+
+## VOANDO por dia
+
+A área restrita de Insucessos inclui gráfico e tabela de VOANDO por dia, filtrados pelo período escolhido. A data vem do texto exibido em Informações (coluna F), o BR da coluna G e o status VOANDO da coluna I. A leitura percorre todas as linhas existentes e não usa a tabela intermediária com datas invertidas. A contagem é de registros com BR preenchido, preservando ocorrências da fonte; não deduplica BRs.
+
+Registros VOANDO sem data ficam sinalizados separadamente e não recebem uma data inventada. Os cards globais permanecem separados do total do período. Para instalar esta atualização, substitua os dois arquivos Restricted.gs e Restricted.html e publique uma nova versão da implantação existente. Não é necessário trocar a senha nem recriar gatilhos.
