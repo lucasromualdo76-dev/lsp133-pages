@@ -6,8 +6,8 @@
  * SOURCE_SPREADSHEET_ID
  * GITHUB_TOKEN
  * PUBLICATION_APPROVED = YES
- * INSUCESSOS_SPREADSHEET_ID (opcional)
- * ERROS_SPREADSHEET_ID (opcional)
+ * INSUCESSOS_SPREADSHEET_ID e ERROS_SPREADSHEET_ID:
+ * usados apenas pela área restrita; não publicados por este sincronizador.
  *
  * Testar: syncLsp133ToGitHub
  * Ativar rotina: installLsp133SyncTrigger
@@ -650,120 +650,7 @@ function syncLsp133ToGitHub() {
     (a, b) => a.date.localeCompare(b.date)
   );
 
-  const extras = {};
-
-  // Fonte opcional de insucessos.
-  const insId = cfg.getProperty(
-    'INSUCESSOS_SPREADSHEET_ID'
-  );
-
-  if (insId) {
-    const insSS = SpreadsheetApp.openById(insId);
-    const dashboard = insSS.getSheetByName('Dashboard');
-
-    if (!dashboard) {
-      throw new Error(
-        'A planilha Insucessos não possui aba Dashboard.'
-      );
-    }
-
-    const metrics = dashboard.getRange('A5:J5')
-      .getDisplayValues()[0];
-
-    const details = dashboard.getRange(
-      9, 1, Math.max(1, dashboard.getLastRow() - 8), 2
-    ).getDisplayValues();
-
-    const insDays = details.map(r => ({
-      date: lspPublicDate_(r[0]),
-      returns: Number(
-        String(r[1]).replace(/[^0-9]/g, '')
-      ) || 0
-    })).filter(r => r.date && r.returns >= 0);
-
-    extras.insucessos = {
-      uniqueReturns: Number(
-        String(metrics[3]).replace(/[^0-9]/g, '')
-      ) || 0,
-      flying: Number(
-        String(metrics[6]).replace(/[^0-9]/g, '')
-      ) || 0,
-      other: Number(
-        String(metrics[9]).replace(/[^0-9]/g, '')
-      ) || 0,
-      flyingRate: String(metrics[0] || '—'),
-      daily: insDays
-    };
-  }
-
-  // Fonte opcional de erros.
-  const errosId = cfg.getProperty('ERROS_SPREADSHEET_ID');
-
-  if (errosId) {
-    const errorsSS = SpreadsheetApp.openById(errosId);
-
-    const base = errorsSS.getSheetByName(
-      'Base Erros Consolidada'
-    );
-
-    if (!base) {
-      throw new Error(
-        'A planilha de erros não possui aba Base Erros Consolidada.'
-      );
-    }
-
-    const erows = base.getLastRow() > 1
-      ? base.getRange(
-          2, 1, base.getLastRow() - 1, 3
-        ).getDisplayValues()
-      : [];
-
-    const dailyErrors = new Map();
-    const occurrences = new Set();
-
-    let labelErrors = 0;
-    let otherErrors = 0;
-
-    for (const r of erows) {
-      const date = lspPublicDate_(r[0]);
-      const br = String(r[1] || '').trim();
-      const type = String(r[2] || '').trim();
-
-      if (!date || !br || !type) continue;
-
-      const key = date + '|' + br + '|' + type;
-      if (occurrences.has(key)) continue;
-
-      occurrences.add(key);
-
-      if (!dailyErrors.has(date)) {
-        dailyErrors.set(date, {
-          date,
-          labelErrors: 0,
-          otherErrors: 0
-        });
-      }
-
-      const row = dailyErrors.get(date);
-
-      if (type.toLowerCase().includes('etiqueta')) {
-        labelErrors++;
-        row.labelErrors++;
-      } else {
-        otherErrors++;
-        row.otherErrors++;
-      }
-    }
-
-    extras.erros = {
-      labelErrors,
-      otherErrors,
-      total: labelErrors + otherErrors,
-      daily: [...dailyErrors.values()].sort(
-        (a, b) => a.date.localeCompare(b.date)
-      )
-    };
-  }
+  // Insucessos e Erros são consultados exclusivamente na área restrita.
 
   const eventData = lspRouteEvents_(ss, atSet);
 
@@ -785,8 +672,7 @@ function syncLsp133ToGitHub() {
     history,
     assignmentOrigins,
     assignmentTimeline: eventData.days,
-    eventQuality: eventData.quality,
-    ...extras
+    eventQuality: eventData.quality
   };
 
   const url =
