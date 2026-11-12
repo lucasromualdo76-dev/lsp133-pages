@@ -10,6 +10,8 @@
  *   INSUCESSOS_SPREADSHEET_ID = ID opcional da planilha de insucessos
  *   ERROS_SPREADSHEET_ID = ID opcional da planilha de erros
  *
+ * Eventos antigos sao reconstruidos pelas colunas U, V e W.
+ * O status W e atual, e nao um historico de estados.
  * FIFO: a taxa de aderencia nao e calculada sem linha temporal de rotas
  * elegiveis/pendentes a cada atribuicao. assignmentOrigins e so contexto.
  *
@@ -25,6 +27,75 @@ function lspPublicDate_(x) {
   const m = String(x || '').match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
   return m ? m[3]+'-'+m[2]+'-'+m[1] : null;
 }
+/**
+ * U = Complete time, V = Driver Assigned Time, W = status atual.
+ * A = identificador da AT; pacotes duplicados nao duplicam rotas.
+ */
+function lspEventDate_(v) {
+  if(v instanceof Date && !isNaN(v))return Utilities.formatDate(v,'America/Sao_Paulo','yyyy-MM-dd');
+  const s=String(v==null?'':v).trim();
+  if(!s)return null;
+  let m=s.match(/^(\d{2})[-\/](\d{2})[-\/](\d{4})(?:\s|$)/);
+  if(m){
+    const day=Number(m[1]),month=Number(m[2]),year=Number(m[3]);
+    const d=new Date(Date.UTC(year,month-1,day));
+    if(d.getUTCDate()===day&&d.getUTCMonth()===month-1)return m[3]+'-'+m[2]+'-'+m[1];
+  }
+  m=s.match(/^(\d{4})-(\d{2})-(\d{2})(?:[ T]|$)/);
+  return m?m[1]+'-'+m[2]+'-'+m[3]:null;
+}
+function lspRouteEvents_(ss,knownIds) {
+  const sheet=ss.getSheetByName('Atribuição de Entrega');
+  if(!sheet)throw new Error('Aba Atribuição de Entrega não localizada.');
+  const events=new Map(),last=sheet.getLastRow(),block=15000;
+  let differing=0,rawRows=0;
+  for(let begin=2;begin<=last;begin+=block){
+    const length=Math.min(block,last-begin+1);
+    const ids=sheet.getRange(begin,1,length,1).getDisplayValues();
+    const vals=sheet.getRange(begin,21,length,3).getDisplayValues();
+    for(let i=0;i<length;i++){
+      const at=String(ids[i][0]||'').trim();
+      if(!knownIds.has(at))continue;
+      rawRows++;
+      const u=lspEventDate_(vals[i][0]),v=lspEventDate_(vals[i][1]);
+      const status=String(vals[i][2]||'').trim().toLowerCase();
+      if(!events.has(at)){events.set(at,{assignedDate:v,completedDate:u,status});continue;}
+      const prior=events.get(at);
+      for(const [key,value] of [['assignedDate',v],['completedDate',u],['status',status]]){
+        if(!value)continue;
+        if(prior[key]&&prior[key]!==value){differing++;continue;}
+        if(!prior[key])prior[key]=value;
+      }
+    }
+  }
+  if(differing)throw new Error('Conflito em linhas duplicadas da Atribuição de Entrega: '+differing);
+  const byDate=new Map();
+  const add=date=>{
+    if(!byDate.has(date))byDate.set(date,{date,assigned:0,completed:0,assignedCurrent:0,completedCurrent:0});
+    return byDate.get(date);
+  };
+  let missingAssignedTime=0,missingCompleteTime=0,completedRoutes=0,assignedRoutes=0;
+  for(const [at,rec] of events){
+    if(rec.status==='assigned'||rec.status==='complete'){
+      assignedRoutes++;
+      if(rec.assignedDate){
+        const day=add(rec.assignedDate);day.assigned++;
+        if(rec.status==='assigned')day.assignedCurrent++;
+        else day.completedCurrent++;
+      }else missingAssignedTime++;
+    }
+    if(rec.status==='complete'){
+      completedRoutes++;
+      if(rec.completedDate)add(rec.completedDate).completed++;
+      else missingCompleteTime++;
+    }
+  }
+  const days=[...byDate.values()].sort((a,b)=>a.date.localeCompare(b.date));
+  return {days,quality:{rowsScanned:last-1,matchedRows:rawRows,uniqueRoutes:events.size,
+    assignedRoutes,completedRoutes,missingAssignedTime,missingCompleteTime,
+    firstEventDate:days[0]?days[0].date:null,lastEventDate:days.length?days[days.length-1].date:null}};
+}
+
 function lspPublicNumber_(v) { return v !== '' && v != null && Number.isFinite(Number(v)) && Number(v) >= 0; }
 function syncLsp133ToGitHub() {
   const cfg = PropertiesService.getScriptProperties();
@@ -175,9 +246,12 @@ function syncLsp133ToGitHub() {
     extras.erros={labelErrors,otherErrors,total:labelErrors+otherErrors,
       daily:[...dailyErrors.values()].sort((a,b)=>a.date.localeCompare(b.date))};
   }
+  const eventData=lspRouteEvents_(ss,atSet);
+  const completeSourceCount=pr.filter(r=>String(r[5]||'').trim().toLowerCase()==='completa').length;
+  if(eventData.quality.completedRoutes!==completeSourceCount)throw new Error('Rotas Complete no histórico bruto divergem de Folha 1: '+eventData.quality.completedRoutes+' / '+completeSourceCount);
   const body={mode:'REAL_AGGREGATED',schemaVersion:1,generatedAt:new Date().toISOString(),
     source:'Validação de Dados / Folha 1 / Resumo de Expedição',
-    coverage:{routes:atSet.size,assignmentDays:dateSet.size,assignment:assignmentCoverage},days,history,assignmentOrigins,...extras};
+    coverage:{routes:atSet.size,assignmentDays:dateSet.size,assignment:assignmentCoverage},days,history,assignmentOrigins,assignmentTimeline:eventData.days,eventQuality:eventData.quality,...extras};
   const url='https://api.github.com/repos/'+LSP133_PUBLIC.repo+'/contents/'+LSP133_PUBLIC.path;
   const headers={'Authorization':'Bearer '+token,'Accept':'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28'};
   const prior=UrlFetchApp.fetch(url,{headers,muteHttpExceptions:true});
