@@ -31,9 +31,9 @@ function syncLsp133ToGitHub() {
   const spreadsheetId = cfg.getProperty('SOURCE_SPREADSHEET_ID');
   if (!spreadsheetId) throw new Error('Configure SOURCE_SPREADSHEET_ID nas Propriedades do script.');
   const ss = SpreadsheetApp.openById(spreadsheetId);
-  const p = ss.getSheetByName('Base de Produção');
+  const p = ss.getSheetByName('Folha 1');
   const e = ss.getSheetByName('Resumo de Expedição');
-  if (!p || !e) throw new Error('Não encontrei Base de Produção ou Resumo de Expedição.');
+  if (!p || !e) throw new Error('Não encontrei Folha 1 ou Resumo de Expedição.');
   const map = new Map(), atSet = new Set();
   const make = date => {
     if (!map.has(date)) map.set(date,{
@@ -42,25 +42,27 @@ function syncLsp133ToGitHub() {
     });
     return map.get(date);
   };
-  const pr = p.getLastRow()>1 ? p.getRange(2,1,p.getLastRow()-1,6).getValues() : [];
+  // Fonte dos quatro KPIs: Folha 1!A:F. Repete as formulas da Folha 1!G2:J2:\n  // Status em F; pacotes efetivamente bipados/expedidos em D.\n  // ATs desmanchadas permanecem contadas conforme a dashboard original.\n  const pr = p.getLastRow()>1 ? p.getRange(2,1,p.getLastRow()-1,6).getValues() : [];
   for (const r of pr) {
     const at=String(r[1]||'').trim();if (!at) continue;
     const date=lspPublicDate_(r[0]);
-    if (!date) throw new Error('Data ausente na Base de Produção: interrompido.');
-    if (atSet.has(at)) throw new Error('AT duplicada na Base: interrompido.');
+    if (!date) throw new Error('Data ausente na Folha 1: interrompido.');
+    if (atSet.has(at)) throw new Error('AT duplicada na Folha 1: interrompido.');
     atSet.add(at);
-    const x=make(date),st=String(r[2]||'').trim().toLowerCase();
+    const x=make(date),st=String(r[5]||'').trim().toLowerCase();
     if (st==='expedida' || st==='completa') {
       x.routesOut++;
-      if (lspPublicNumber_(r[4])) x.packagesOut+=Number(r[4]);
+      if (lspPublicNumber_(r[3])) x.packagesOut+=Number(r[3]);
       else x.pendingPackagesOut++;
     } else if (st==='audit completo' || st==='pendente de audit') {
       x.routesFloor++;
       if (lspPublicNumber_(r[3])) x.packagesFloor+=Number(r[3]);
       else x.pendingPackagesFloor++;
+    } else {
+      throw new Error('Status inesperado na Folha 1: '+st);
     }
   }
-  if (atSet.size===0) throw new Error('Base vazia; publicação interrompida.');
+  if (atSet.size===0) throw new Error('Folha 1 vazia; publicação interrompida.');
   const er=e.getLastRow()>3?e.getRange(4,1,e.getLastRow()-3,4).getValues():[];
   const dateSet=new Set();
   for (const r of er) {
@@ -70,9 +72,9 @@ function syncLsp133ToGitHub() {
     if (dateSet.has(date)) throw new Error('Data repetida no resumo de atribuições: '+date);
     dateSet.add(date);const x=make(date);x.assigned=a;x.complete=c;x.assignedTotal=t;
   }
-  const days=[...map.values()].sort((a,b)=>a.date.localeCompare(b.date));
+  // Bloqueia publicacao se os KPIs nao baterem exatamente com o painel original.\n  const actual=p.getRange('G2:J2').getValues()[0].map(Number);\n  const days=[...map.values()].sort((a,b)=>a.date.localeCompare(b.date));\n  const measured=['routesOut','packagesOut','routesFloor','packagesFloor'].map(k=>days.reduce((n,d)=>n+d[k],0));\n  if (!actual.every((v,i)=>Number.isFinite(v)&&v===measured[i])) {\n    throw new Error('Divergencia entre sincronizador e Folha 1 G2:J2: planilha='+JSON.stringify(actual)+'; sync='+JSON.stringify(measured));\n  }
   const body={mode:'REAL_AGGREGATED',schemaVersion:1,generatedAt:new Date().toISOString(),
-    source:'Validação de Dados / Base de Produção / Resumo de Expedição',
+    source:'Validação de Dados / Folha 1 / Resumo de Expedição',
     coverage:{routes:atSet.size,assignmentDays:dateSet.size},days};
   const url='https://api.github.com/repos/'+LSP133_PUBLIC.repo+'/contents/'+LSP133_PUBLIC.path;
   const headers={'Authorization':'Bearer '+token,'Accept':'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28'};
