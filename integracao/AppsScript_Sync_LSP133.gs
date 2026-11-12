@@ -42,7 +42,10 @@ function syncLsp133ToGitHub() {
     });
     return map.get(date);
   };
-  // Fonte dos quatro KPIs: Folha 1!A:F. Repete as formulas da Folha 1!G2:J2:\n  // Status em F; pacotes efetivamente bipados/expedidos em D.\n  // ATs desmanchadas permanecem contadas conforme a dashboard original.\n  const pr = p.getLastRow()>1 ? p.getRange(2,1,p.getLastRow()-1,6).getValues() : [];
+  // Fonte dos quatro KPIs: Folha 1!A:F. Repete as formulas da Folha 1!G2:J2:
+  // Status em F; pacotes efetivamente bipados/expedidos em D.
+  // ATs desmanchadas permanecem contadas conforme a dashboard original.
+  const pr = p.getLastRow()>1 ? p.getRange(2,1,p.getLastRow()-1,6).getValues() : [];
   for (const r of pr) {
     const at=String(r[1]||'').trim();if (!at) continue;
     const date=lspPublicDate_(r[0]);
@@ -72,7 +75,13 @@ function syncLsp133ToGitHub() {
     if (dateSet.has(date)) throw new Error('Data repetida no resumo de atribuições: '+date);
     dateSet.add(date);const x=make(date);x.assigned=a;x.complete=c;x.assignedTotal=t;
   }
-  // Bloqueia publicacao se os KPIs nao baterem exatamente com o painel original.\n  const actual=p.getRange('G2:J2').getValues()[0].map(Number);\n  const days=[...map.values()].sort((a,b)=>a.date.localeCompare(b.date));\n  const measured=['routesOut','packagesOut','routesFloor','packagesFloor'].map(k=>days.reduce((n,d)=>n+d[k],0));\n  if (!actual.every((v,i)=>Number.isFinite(v)&&v===measured[i])) {\n    throw new Error('Divergencia entre sincronizador e Folha 1 G2:J2: planilha='+JSON.stringify(actual)+'; sync='+JSON.stringify(measured));\n  }
+  // Bloqueia publicacao se os KPIs nao baterem exatamente com o painel original.
+  const actual=p.getRange('G2:J2').getValues()[0].map(Number);
+  const days=[...map.values()].sort((a,b)=>a.date.localeCompare(b.date));
+  const measured=['routesOut','packagesOut','routesFloor','packagesFloor'].map(k=>days.reduce((n,d)=>n+d[k],0));
+  if (!actual.every((v,i)=>Number.isFinite(v)&&v===measured[i])) {
+    throw new Error('Divergencia entre sincronizador e Folha 1 G2:J2: planilha='+JSON.stringify(actual)+'; sync='+JSON.stringify(measured));
+  }
   const body={mode:'REAL_AGGREGATED',schemaVersion:1,generatedAt:new Date().toISOString(),
     source:'Validação de Dados / Folha 1 / Resumo de Expedição',
     coverage:{routes:atSet.size,assignmentDays:dateSet.size},days};
@@ -88,7 +97,7 @@ function syncLsp133ToGitHub() {
   const updated=UrlFetchApp.fetch(url,{method:'put',headers:{...headers,'Content-Type':'application/json'},
     payload:JSON.stringify(payload),muteHttpExceptions:true});
   if (![200,201].includes(updated.getResponseCode())) throw new Error('GitHub escrita: HTTP '+updated.getResponseCode()+' '+updated.getContentText().slice(0,250));
-  console.log('Publicado JSON agregado: '+days.length+' datas; '+atSet.size+' rotas na base');
+  console.log('Publicado JSON agregado: '+days.length+' datas; '+atSet.size+' rotas na Folha 1');
 }
 function installLsp133SyncTrigger() {
   ScriptApp.getProjectTriggers().filter(x=>x.getHandlerFunction()==='syncLsp133ToGitHub').forEach(ScriptApp.deleteTrigger);
