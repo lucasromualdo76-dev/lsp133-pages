@@ -1,16 +1,16 @@
 {
   "mode": "REAL_AGGREGATED",
   "schemaVersion": 1,
-  "generatedAt": "2026-11-12T11:41:13.083Z",
+  "generatedAt": "2026-11-12T11:45:55.753Z",
   "source": "Validação de Dados / Base de Produção / Resumo de Expedição",
   "coverage": {
     "routes": 644,
     "excludedDemolishedRoutes": 28,
-    "assignmentDays": 2,
+    "assignmentDays": 3,
     "assignment": {
       "firstRecordedDate": "2026-11-10",
-      "lastRecordedDate": "2026-11-11",
-      "recordedDays": 2
+      "lastRecordedDate": "2026-12-11",
+      "recordedDays": 3
     }
   },
   "days": [
@@ -104,6 +104,19 @@
       "assigned": 49,
       "complete": 79,
       "assignedTotal": 128,
+      "assignmentRecorded": true
+    },
+    {
+      "date": "2026-12-11",
+      "routesOut": 0,
+      "routesFloor": 0,
+      "packagesOut": 0,
+      "packagesFloor": 0,
+      "pendingPackagesOut": 0,
+      "pendingPackagesFloor": 0,
+      "assigned": 133,
+      "complete": 7,
+      "assignedTotal": 140,
       "assignmentRecorded": true
     }
   ],
@@ -213,6 +226,27 @@
       "assigned": 10,
       "complete": 3,
       "total": 13
+    },
+    {
+      "assignmentDate": "2026-12-11",
+      "operationalDate": "2026-11-06",
+      "assigned": 2,
+      "complete": 0,
+      "total": 2
+    },
+    {
+      "assignmentDate": "2026-12-11",
+      "operationalDate": "2026-11-07",
+      "assigned": 5,
+      "complete": 0,
+      "total": 5
+    },
+    {
+      "assignmentDate": "2026-12-11",
+      "operationalDate": "2026-11-10",
+      "assigned": 126,
+      "complete": 7,
+      "total": 133
     }
   ],
   "assignmentTimeline": [
