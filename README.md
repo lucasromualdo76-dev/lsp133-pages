@@ -12,6 +12,12 @@ Dashboard web com quatro páginas, baseada na interface original do Apps Script.
 - **Erros de Expedição:** erros de etiquetagem, outros erros e evolução diária, quando a fonte opcional for conectada.
 - Rótulos numéricos sobre as colunas em todas as páginas, e sobre os pontos da linha de atribuição. Gráficos amplos oferecem rolagem horizontal para evitar valores sobrepostos.\n- Data inicial e final, modo relatório, impressão/PDF e atualização no navegador a cada minuto.
 
+## Áreas restritas
+
+Insucessos e Erros de Expedição agora são acessados por links para o Apps Script corporativo. A instalação da senha no Google ainda precisa ser concluída seguindo [o guia da área restrita](integracao/AREA_RESTRITA.md). O sincronizador atualizado não publica esses indicadores. É necessário instalar essa versão no Google para impedir que uma versão anterior continue exportando-os. Os arquivos atuais foram limpos; o histórico público e cópias antigas não foram reescritos.
+
+A validação da senha ocorre no servidor, com sessão vinculada ao usuário Google, expiração e limitação de tentativas. A implantação deve continuar restrita ao domínio e executada como usuário acessando. Nenhuma senha deve ser inserida no repositório.
+
 ## Origem dos dados
 
 O site prioriza `data/indicadores.json` (dados reais agregados) e usa `data/indicadores-demo.json` só antes da primeira sincronização real. O Pages **não faz login no Google**; ele recebe dados via Apps Script, que grava o JSON usando a API do GitHub. O workflow publica os arquivos estáticos após o commit.
