@@ -1,7 +1,7 @@
 {
   "mode": "REAL_AGGREGATED",
   "schemaVersion": 1,
-  "generatedAt": "2026-11-12T15:41:18.611Z",
+  "generatedAt": "2026-11-12T15:46:33.594Z",
   "source": "Validação de Dados / Base de Produção / Resumo de Expedição",
   "coverage": {
     "routes": 694,
@@ -321,7 +321,7 @@
     "preservedCompletedOutsideCurrentLoad": 11
   },
   "insucessos": {
-    "uniqueReturns": 6166,
+    "uniqueReturns": 6192,
     "flying": 106,
     "other": 0,
     "flyingRate": "1,61%",
@@ -364,7 +364,7 @@
       },
       {
         "date": "2026-11-12",
-        "returns": 495
+        "returns": 521
       }
     ]
   },
