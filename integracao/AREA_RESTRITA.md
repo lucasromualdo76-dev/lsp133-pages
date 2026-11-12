@@ -2,6 +2,10 @@
 
 Status: os arquivos estão preparados, mas a senha só passa a ser exigida após instalar e republicar a versão do Google Apps Script. Atualizar arquivos no GitHub não instala código no Google.
 
+## Antes de começar: impedir novas exportações públicas
+
+Instale primeiro a versão atual de `integracao/AppsScript_Sync_LSP133.gs` no arquivo `Sync_GitHub.gs` do Google, salve e execute `syncLsp133ToGitHub`. Isso impede que o gatilho antigo volte a enviar os indicadores restritos ao JSON público. Não precisa alterar o gatilho. Depois continue com a área autenticada abaixo.
+
 ## 1. Adicionar os dois arquivos
 
 No projeto Apps Script atual, adicione:
