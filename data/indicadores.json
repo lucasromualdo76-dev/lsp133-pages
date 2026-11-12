@@ -1,10 +1,10 @@
 {
   "mode": "REAL_AGGREGATED",
   "schemaVersion": 1,
-  "generatedAt": "2026-11-12T13:51:15.719Z",
+  "generatedAt": "2026-11-12T14:01:25.787Z",
   "source": "Validação de Dados / Base de Produção / Resumo de Expedição",
   "coverage": {
-    "routes": 645,
+    "routes": 701,
     "excludedDemolishedRoutes": 28,
     "assignmentDays": 3,
     "assignment": {
@@ -29,11 +29,11 @@
     },
     {
       "date": "2026-11-04",
-      "routesOut": 20,
+      "routesOut": 76,
       "routesFloor": 0,
-      "packagesOut": 0,
+      "packagesOut": 12144,
       "packagesFloor": 0,
-      "pendingPackagesOut": 20,
+      "pendingPackagesOut": 0,
       "pendingPackagesFloor": 0,
       "assigned": 0,
       "complete": 0,
@@ -81,10 +81,10 @@
     },
     {
       "date": "2026-11-10",
-      "routesOut": 150,
-      "routesFloor": 81,
-      "packagesOut": 24541,
-      "packagesFloor": 11716,
+      "routesOut": 155,
+      "routesFloor": 76,
+      "packagesOut": 25366,
+      "packagesFloor": 10891,
       "pendingPackagesOut": 0,
       "pendingPackagesFloor": 3,
       "assigned": 79,
@@ -251,18 +251,25 @@
   ],
   "assignmentTimeline": [
     {
-      "date": "2026-11-06",
-      "assigned": 64,
-      "completed": 41,
+      "date": "2026-11-05",
+      "assigned": 56,
+      "completed": 45,
       "assignedCurrent": 0,
-      "completedCurrent": 64
+      "completedCurrent": 56
+    },
+    {
+      "date": "2026-11-06",
+      "assigned": 74,
+      "completed": 54,
+      "assignedCurrent": 0,
+      "completedCurrent": 74
     },
     {
       "date": "2026-11-07",
-      "assigned": 57,
-      "completed": 58,
+      "assigned": 64,
+      "completed": 67,
       "assignedCurrent": 0,
-      "completedCurrent": 57
+      "completedCurrent": 64
     },
     {
       "date": "2026-11-08",
@@ -274,50 +281,50 @@
     {
       "date": "2026-11-09",
       "assigned": 0,
-      "completed": 16,
+      "completed": 17,
       "assignedCurrent": 0,
       "completedCurrent": 0
     },
     {
       "date": "2026-11-10",
-      "assigned": 104,
-      "completed": 93,
-      "assignedCurrent": 2,
-      "completedCurrent": 102
+      "assigned": 107,
+      "completed": 99,
+      "assignedCurrent": 3,
+      "completedCurrent": 104
     },
     {
       "date": "2026-11-11",
       "assigned": 200,
-      "completed": 100,
-      "assignedCurrent": 85,
-      "completedCurrent": 115
+      "completed": 101,
+      "assignedCurrent": 70,
+      "completedCurrent": 130
     },
     {
       "date": "2026-11-12",
-      "assigned": 72,
-      "completed": 37,
-      "assignedCurrent": 65,
-      "completedCurrent": 7
+      "assigned": 77,
+      "completed": 62,
+      "assignedCurrent": 60,
+      "completedCurrent": 17
     }
   ],
   "eventQuality": {
-    "rowsScanned": 121015,
-    "matchedRows": 119566,
-    "uniqueRoutes": 614,
-    "assignedRoutes": 498,
-    "completedRoutes": 346,
+    "rowsScanned": 113584,
+    "matchedRows": 112725,
+    "uniqueRoutes": 690,
+    "assignedRoutes": 579,
+    "completedRoutes": 446,
     "missingAssignedTime": 1,
     "missingCompleteTime": 0,
-    "firstEventDate": "2026-11-06",
+    "firstEventDate": "2026-11-05",
     "lastEventDate": "2026-11-12",
-    "completedRoutesInFolha": 374,
-    "preservedCompletedOutsideCurrentLoad": 28
+    "completedRoutesInFolha": 457,
+    "preservedCompletedOutsideCurrentLoad": 11
   },
   "insucessos": {
-    "uniqueReturns": 6027,
-    "flying": 104,
+    "uniqueReturns": 6036,
+    "flying": 105,
     "other": 0,
-    "flyingRate": "1,62%",
+    "flyingRate": "1,63%",
     "daily": [
       {
         "date": "2026-10-31",
@@ -357,7 +364,7 @@
       },
       {
         "date": "2026-11-12",
-        "returns": 348
+        "returns": 358
       }
     ]
   },
