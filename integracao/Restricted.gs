@@ -108,7 +108,21 @@ function restrictedGetData(token, section, filters) {
       return Number(String(v).replace(/[^0-9]/g,''));
     };
     const rows = dashboard.getLastRow() > 8 ? dashboard.getRange(9,1,dashboard.getLastRow()-8,2).getDisplayValues() : [];
-    result = {section,uniqueReturns:number(metrics[3]),flying:number(metrics[6]),other:number(metrics[9]),flyingRate:metrics[0],
+    // Usa a data exibida na origem: evita a inversão de dia/mês da tabela intermediária.
+    const info = SpreadsheetApp.openById(id).getSheets().find(s => s.getName().trim() === 'Informações');
+    if (!info) throw new Error('Aba Informações não localizada.');
+    const sourceRows = info.getLastRow() > 1 ? info.getRange(2,6,info.getLastRow()-1,4).getDisplayValues() : [];
+    const flyingByDate = new Map();
+    let flyingMissingDate = 0;
+    for (const r of sourceRows) {
+      if (String(r[3] || '').trim().toUpperCase() !== 'VOANDO' || !String(r[1] || '').trim()) continue;
+      const date = restrictedDate_(r[0]);
+      if (!date) { flyingMissingDate++; continue; }
+      if (!within(date)) continue;
+      flyingByDate.set(date,(flyingByDate.get(date) || 0) + 1);
+    }
+    const flyingDaily = [...flyingByDate].map(([date,flying])=>({date,flying})).sort((a,b)=>a.date.localeCompare(b.date));
+    result = {section,flyingDaily,flyingMissingDate,uniqueReturns:number(metrics[3]),flying:number(metrics[6]),other:number(metrics[9]),flyingRate:metrics[0],
       daily:rows.map(r=>({date:restrictedDate_(r[0]),returns:number(r[1])})).filter(r=>r.date && r.returns !== null && within(r.date))};
   } else {
     const id = props.getProperty('ERROS_SPREADSHEET_ID');
