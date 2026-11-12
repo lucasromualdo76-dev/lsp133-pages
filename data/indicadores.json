@@ -1,10 +1,10 @@
 {
   "mode": "REAL_AGGREGATED",
   "schemaVersion": 1,
-  "generatedAt": "2026-11-12T12:50:56.220Z",
+  "generatedAt": "2026-11-12T13:02:24.101Z",
   "source": "Validação de Dados / Base de Produção / Resumo de Expedição",
   "coverage": {
-    "routes": 644,
+    "routes": 645,
     "excludedDemolishedRoutes": 28,
     "assignmentDays": 3,
     "assignment": {
@@ -42,12 +42,12 @@
     },
     {
       "date": "2026-11-05",
-      "routesOut": 104,
-      "routesFloor": 3,
+      "routesOut": 108,
+      "routesFloor": 0,
       "packagesOut": 0,
       "packagesFloor": 0,
-      "pendingPackagesOut": 104,
-      "pendingPackagesFloor": 3,
+      "pendingPackagesOut": 108,
+      "pendingPackagesFloor": 0,
       "assigned": 0,
       "complete": 0,
       "assignedTotal": 0,
@@ -55,10 +55,10 @@
     },
     {
       "date": "2026-11-06",
-      "routesOut": 124,
-      "routesFloor": 21,
-      "packagesOut": 22105,
-      "packagesFloor": 2801,
+      "routesOut": 125,
+      "routesFloor": 20,
+      "packagesOut": 22220,
+      "packagesFloor": 2686,
       "pendingPackagesOut": 0,
       "pendingPackagesFloor": 2,
       "assigned": 0,
@@ -68,10 +68,10 @@
     },
     {
       "date": "2026-11-07",
-      "routesOut": 114,
-      "routesFloor": 16,
-      "packagesOut": 22702,
-      "packagesFloor": 2573,
+      "routesOut": 115,
+      "routesFloor": 15,
+      "packagesOut": 22916,
+      "packagesFloor": 2359,
       "pendingPackagesOut": 0,
       "pendingPackagesFloor": 0,
       "assigned": 0,
@@ -81,10 +81,10 @@
     },
     {
       "date": "2026-11-10",
-      "routesOut": 136,
-      "routesFloor": 95,
-      "packagesOut": 22351,
-      "packagesFloor": 13906,
+      "routesOut": 150,
+      "routesFloor": 81,
+      "packagesOut": 24541,
+      "packagesFloor": 11716,
       "pendingPackagesOut": 0,
       "pendingPackagesFloor": 3,
       "assigned": 79,
@@ -251,59 +251,73 @@
   ],
   "assignmentTimeline": [
     {
-      "date": "2026-11-07",
-      "assigned": 18,
-      "completed": 14,
+      "date": "2026-11-06",
+      "assigned": 64,
+      "completed": 41,
       "assignedCurrent": 0,
-      "completedCurrent": 18
+      "completedCurrent": 64
+    },
+    {
+      "date": "2026-11-07",
+      "assigned": 57,
+      "completed": 58,
+      "assignedCurrent": 0,
+      "completedCurrent": 57
+    },
+    {
+      "date": "2026-11-08",
+      "assigned": 0,
+      "completed": 1,
+      "assignedCurrent": 0,
+      "completedCurrent": 0
     },
     {
       "date": "2026-11-09",
       "assigned": 0,
-      "completed": 5,
+      "completed": 16,
       "assignedCurrent": 0,
       "completedCurrent": 0
     },
     {
       "date": "2026-11-10",
-      "assigned": 102,
-      "completed": 87,
+      "assigned": 104,
+      "completed": 93,
       "assignedCurrent": 2,
-      "completedCurrent": 100
+      "completedCurrent": 102
     },
     {
       "date": "2026-11-11",
-      "assigned": 197,
-      "completed": 95,
-      "assignedCurrent": 98,
-      "completedCurrent": 99
+      "assigned": 200,
+      "completed": 100,
+      "assignedCurrent": 85,
+      "completedCurrent": 115
     },
     {
       "date": "2026-11-12",
-      "assigned": 56,
-      "completed": 18,
-      "assignedCurrent": 55,
-      "completedCurrent": 1
+      "assigned": 72,
+      "completed": 37,
+      "assignedCurrent": 65,
+      "completedCurrent": 7
     }
   ],
   "eventQuality": {
-    "rowsScanned": 83606,
-    "matchedRows": 83606,
-    "uniqueRoutes": 506,
-    "assignedRoutes": 374,
-    "completedRoutes": 219,
+    "rowsScanned": 102151,
+    "matchedRows": 101427,
+    "uniqueRoutes": 614,
+    "assignedRoutes": 498,
+    "completedRoutes": 346,
     "missingAssignedTime": 1,
     "missingCompleteTime": 0,
-    "firstEventDate": "2026-11-07",
+    "firstEventDate": "2026-11-06",
     "lastEventDate": "2026-11-12",
-    "completedRoutesInFolha": 344,
-    "preservedCompletedOutsideCurrentLoad": 125
+    "completedRoutesInFolha": 374,
+    "preservedCompletedOutsideCurrentLoad": 28
   },
   "insucessos": {
-    "uniqueReturns": 5980,
+    "uniqueReturns": 6026,
     "flying": 104,
     "other": 0,
-    "flyingRate": "1,63%",
+    "flyingRate": "1,62%",
     "daily": [
       {
         "date": "2026-10-31",
@@ -343,7 +357,7 @@
       },
       {
         "date": "2026-11-12",
-        "returns": 293
+        "returns": 345
       }
     ]
   },
