@@ -1,7 +1,7 @@
 {
   "mode": "REAL_AGGREGATED",
   "schemaVersion": 1,
-  "generatedAt": "2026-11-12T14:42:54.370Z",
+  "generatedAt": "2026-11-12T14:46:58.547Z",
   "source": "Validação de Dados / Base de Produção / Resumo de Expedição",
   "coverage": {
     "routes": 694,
@@ -114,9 +114,9 @@
       "packagesFloor": 0,
       "pendingPackagesOut": 0,
       "pendingPackagesFloor": 0,
-      "assigned": 130,
-      "complete": 26,
-      "assignedTotal": 156,
+      "assigned": 112,
+      "complete": 49,
+      "assignedTotal": 161,
       "assignmentRecorded": true
     }
   ],
@@ -244,9 +244,9 @@
     {
       "assignmentDate": "2026-12-11",
       "operationalDate": "2026-11-10",
-      "assigned": 121,
-      "complete": 26,
-      "total": 147
+      "assigned": 103,
+      "complete": 49,
+      "total": 152
     }
   ],
   "assignmentTimeline": [
