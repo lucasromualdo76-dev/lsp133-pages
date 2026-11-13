@@ -736,7 +736,7 @@ function installLsp133SyncTrigger() {
     .filter(x =>
       x.getHandlerFunction() === 'syncLsp133ToGitHub'
     )
-    .forEach(ScriptApp.deleteTrigger);
+    .forEach(trigger => ScriptApp.deleteTrigger(trigger));
 
   ScriptApp.newTrigger('syncLsp133ToGitHub')
     .timeBased()
@@ -749,7 +749,7 @@ function stopLsp133SyncTrigger() {
     .filter(x =>
       x.getHandlerFunction() === 'syncLsp133ToGitHub'
     )
-    .forEach(ScriptApp.deleteTrigger);
+    .forEach(trigger => ScriptApp.deleteTrigger(trigger));
 }
 /** Base de Produção já exclui as ATs marcadas como Desmanchada.
  * Confere a base por AT contra a Folha 1 menos o controle de desmanche.
