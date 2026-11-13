@@ -665,7 +665,8 @@ function syncLsp133ToGitHub() {
     history,
     assignmentOrigins,
     assignmentTimeline: eventData.days,
-    eventQuality: eventData.quality
+    eventQuality: eventData.quality,
+    expeditionTurn: expeditionPublicSummary_(ss, new Date())
   };
 
   const url =
