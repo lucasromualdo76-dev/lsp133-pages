@@ -1,7 +1,7 @@
 {
   "mode": "REAL_AGGREGATED",
   "schemaVersion": 1,
-  "generatedAt": "2026-11-13T13:27:56.190Z",
+  "generatedAt": "2026-11-13T13:42:20.817Z",
   "source": "Validação de Dados - Fonte Dashboard - Lucas / Base de Produção / Resumo de Expedição",
   "coverage": {
     "routes": 973,
@@ -57,10 +57,10 @@
       "date": "2026-11-06",
       "routesOut": 137,
       "routesFloor": 8,
-      "packagesOut": 23929,
-      "packagesFloor": 977,
-      "pendingPackagesOut": 0,
-      "pendingPackagesFloor": 2,
+      "packagesOut": 0,
+      "packagesFloor": 0,
+      "pendingPackagesOut": 137,
+      "pendingPackagesFloor": 8,
       "assigned": 0,
       "complete": 0,
       "assignedTotal": 0,
