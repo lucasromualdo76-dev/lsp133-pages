@@ -3,7 +3,8 @@
  * Publica somente indicadores agregados.
  *
  * Propriedades do Script:
- * SOURCE_SPREADSHEET_ID
+ * Fonte_Dados_Central.gs deve estar instalado no mesmo projeto.
+ * SOURCE_SPREADSHEET_ID (configurado por configurarFonteCentralDashboards)
  * GITHUB_TOKEN
  * PUBLICATION_APPROVED = YES
  * INSUCESSOS_SPREADSHEET_ID e ERROS_SPREADSHEET_ID:
@@ -350,15 +351,7 @@ function syncLsp133ToGitHub() {
     );
   }
 
-  const spreadsheetId = cfg.getProperty(
-    'SOURCE_SPREADSHEET_ID'
-  );
-
-  if (!spreadsheetId) {
-    throw new Error(
-      'Configure SOURCE_SPREADSHEET_ID nas Propriedades do script.'
-    );
-  }
+  const spreadsheetId = lspSourceCentralId_();
 
   const ss = SpreadsheetApp.openById(spreadsheetId);
   const p = ss.getSheetByName('Folha 1');
@@ -661,7 +654,7 @@ function syncLsp133ToGitHub() {
     mode: 'REAL_AGGREGATED',
     schemaVersion: 1,
     generatedAt: new Date().toISOString(),
-    source: 'Validação de Dados / Base de Produção / Resumo de Expedição',
+    source: 'Validação de Dados - Fonte Dashboard - Lucas / Base de Produção / Resumo de Expedição',
     coverage: {
       routes: atSet.size,
       excludedDemolishedRoutes: production.excludedRoutes,
@@ -831,3 +824,4 @@ function lspReadProduction_(ss) {
   console.log('Produção: ' + rows.length + ' ATs; desmanchadas excluídas: ' + excludedRoutes);
   return {rows,expected,excludedRoutes};
 }
+

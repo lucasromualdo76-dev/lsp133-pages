@@ -18,6 +18,12 @@ Insucessos e Erros de Expedição agora são acessados por links para o Apps Scr
 
 A validação da senha ocorre no servidor, com sessão vinculada ao usuário Google, expiração e limitação de tentativas. A implantação deve continuar restrita ao domínio e executada como usuário acessando. Nenhuma senha deve ser inserida no repositório.
 
+## Fonte central das dashboards
+
+Todas as leituras de indicadores foram preparadas para a planilha **Validação de Dados - Fonte Dashboard - Lucas**. Veja o [passo a passo de instalação no Apps Script](integracao/FONTE_CENTRAL.md). A migração requer instalar `Fonte_Dados_Central.gs`, atualizar `Sync_GitHub.gs` e `Restricted.gs`, ajustar as referências do `Código.gs` existente e republicar a mesma implantação Google. Alterar o GitHub não instala esses arquivos no Google.
+
+Produção e Expedição continuam públicas apenas com seus agregados. Os botões de Insucessos e Erros abrem a área corporativa existente, que passa a calcular os indicadores diretamente das abas `Fonte Insucessos` e `Fonte Erros Expedição` da central. A migração não cria ou modifica importações, senhas, tokens ou gatilhos.
+
 ## Origem dos dados
 
 O site prioriza `data/indicadores.json` (dados reais agregados) e usa `data/indicadores-demo.json` só antes da primeira sincronização real. O Pages **não faz login no Google**; ele recebe dados via Apps Script, que grava o JSON usando a API do GitHub. O workflow publica os arquivos estáticos após o commit.
@@ -28,11 +34,11 @@ O código de integração para copiar ao **projeto Apps Script original** está 
 
 | Nome | Valor |
 | --- | --- |
-| `SOURCE_SPREADSHEET_ID` | ID da planilha Validação de Dados |
+| `SOURCE_SPREADSHEET_ID` | ID da central, definido privadamente antes de executar `configurarFonteCentralDashboards` |
 | `GITHUB_TOKEN` | Token fine-grained restrito ao repositório, permissão Contents: Read and write |
 | `PUBLICATION_APPROVED` | `YES`, apenas após autorização para publicação pública |
-| `INSUCESSOS_SPREADSHEET_ID` | **Opcional**: ID da planilha com abas Dashboard e informações de insucessos |
-| `ERROS_SPREADSHEET_ID` | **Opcional**: ID da planilha com aba Base Erros Consolidada |
+| `INSUCESSOS_SPREADSHEET_ID` | Configurado para a mesma central; a leitura usa `Fonte Insucessos` |
+| `ERROS_SPREADSHEET_ID` | Configurado para a mesma central; a leitura usa `Fonte Erros Expedição` |
 
 Depois de atualizar o arquivo `Sync_GitHub.gs`, salve e execute `syncLsp133ToGitHub` uma vez. Verifique os quatro KPIs com a `Base de Produção`. O sincronizador confere cada AT com a Folha 1, excluindo as marcadas como `Desmanchada` em `Controle ATs Desmanchadas`. Os cards G2:J2 da Folha 1 podem incluir essas ATs e deixam de ser a referência de validação. Só após validação configure `installLsp133SyncTrigger` para a execução periódica. Se o gatilho já existe, **não é necessário recriá-lo** ao mudar o código.
 
@@ -60,7 +66,7 @@ O `Resumo de Expedição` original baseia-se no `Histórico de Expedição`, que
 - A leitura do Resumo de Expedição preserva as capturas históricas; a correção do piso não reescreve esses registros. A exclusão das desmanchadas se aplica à produção atual; capturas antigas de produção não são recalculadas.
 - `SPR = pacotes expedidos / rotas expedidas` no período filtrado. É apresentado como **indisponível** quando há quantidades pendentes.
 - Histórico usa **a captura mais recente por data operacional**, sem alterar os KPIs atuais. A disponibilidade das capturas depende do fluxo original.
-- Insucessos: os KPIs da aba Dashboard são valores globais da fonte; o filtro de datas atua no gráfico e tabela de devoluções. Não interpretar os KPIs globais como dados filtrados.
+- Insucessos: os cards globais são calculados diretamente de Fonte Insucessos; o filtro de datas atua nas séries de devoluções e VOANDO. Não interpretar os cards globais como dados filtrados.
 - Erros: o consolidado considera códigos BR **únicos por data e tipo**, e não o número bruto de linhas. Essa métrica pode diferir dos cards existentes na planilha, caso preservem duplicidades; validar antes de usar gerencialmente.
 - Atribuição de rotas usa **data de atribuição**, enquanto produção usa **data operacional**. Não são métricas intercambiáveis.
 - O site é **público**. O JSON contém apenas indicadores consolidados, sem nome, AT, BR, operadores nem tokens. A autorização interna deve contemplar a divulgação pública.
@@ -78,3 +84,4 @@ python -m http.server 8000
 ```
 
 Abra http://localhost:8000. Para interromper a rotina Apps Script: execute `stopLsp133SyncTrigger` no projeto original.
+

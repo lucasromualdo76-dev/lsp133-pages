@@ -95,54 +95,10 @@ function restrictedGetData(token, section, filters) {
   const f = normalizeFilters_(filters || {});
   if (f.from && f.to && f.from > f.to) throw new Error('Período inválido.');
   const within = date => (!f.from || date >= f.from) && (!f.to || date <= f.to);
-  const props = PropertiesService.getScriptProperties();
-  let result;
-  if (section === 'insucessos') {
-    const id = props.getProperty('INSUCESSOS_SPREADSHEET_ID');
-    if (!id) throw new Error('Fonte de insucessos não configurada.');
-    const dashboard = SpreadsheetApp.openById(id).getSheetByName('Dashboard');
-    if (!dashboard) throw new Error('Aba Dashboard não localizada.');
-    const metrics = dashboard.getRange('A5:J5').getDisplayValues()[0];
-    const number = v => {
-      if (!/^\s*[\d.,]+\s*$/.test(String(v))) return null;
-      return Number(String(v).replace(/[^0-9]/g,''));
-    };
-    const rows = dashboard.getLastRow() > 8 ? dashboard.getRange(9,1,dashboard.getLastRow()-8,2).getDisplayValues() : [];
-    // Usa a data exibida na origem: evita a inversão de dia/mês da tabela intermediária.
-    const info = SpreadsheetApp.openById(id).getSheets().find(s => s.getName().trim() === 'Informações');
-    if (!info) throw new Error('Aba Informações não localizada.');
-    const sourceRows = info.getLastRow() > 1 ? info.getRange(2,6,info.getLastRow()-1,4).getDisplayValues() : [];
-    const flyingByDate = new Map();
-    let flyingMissingDate = 0;
-    for (const r of sourceRows) {
-      if (String(r[3] || '').trim().toUpperCase() !== 'VOANDO' || !String(r[1] || '').trim()) continue;
-      const date = restrictedDate_(r[0]);
-      if (!date) { flyingMissingDate++; continue; }
-      if (!within(date)) continue;
-      flyingByDate.set(date,(flyingByDate.get(date) || 0) + 1);
-    }
-    const flyingDaily = [...flyingByDate].map(([date,flying])=>({date,flying})).sort((a,b)=>a.date.localeCompare(b.date));
-    result = {section,flyingDaily,flyingMissingDate,uniqueReturns:number(metrics[3]),flying:number(metrics[6]),other:number(metrics[9]),flyingRate:metrics[0],
-      daily:rows.map(r=>({date:restrictedDate_(r[0]),returns:number(r[1])})).filter(r=>r.date && r.returns !== null && within(r.date))};
-  } else {
-    const id = props.getProperty('ERROS_SPREADSHEET_ID');
-    if (!id) throw new Error('Fonte de erros não configurada.');
-    const sheet = SpreadsheetApp.openById(id).getSheetByName('Base Erros Consolidada');
-    if (!sheet) throw new Error('Aba Base Erros Consolidada não localizada.');
-    const rows = sheet.getLastRow() > 1 ? sheet.getRange(2,1,sheet.getLastRow()-1,3).getDisplayValues() : [];
-    const seen = new Set(), days = new Map();
-    for (const r of rows) {
-      const date=restrictedDate_(r[0]),br=String(r[1]||'').trim(),type=String(r[2]||'').trim();
-      if (!date || !br || !type || !within(date)) continue;
-      const key=date+'|'+br+'|'+type;
-      if (seen.has(key)) continue;
-      seen.add(key);
-      if (!days.has(date)) days.set(date,{date,labelErrors:0,otherErrors:0});
-      days.get(date)[type.toLowerCase().includes('etiqueta')?'labelErrors':'otherErrors']++;
-    }
-    const daily=[...days.values()].sort((a,b)=>a.date.localeCompare(b.date));
-    result={section,daily,labelErrors:daily.reduce((n,r)=>n+r.labelErrors,0),otherErrors:daily.reduce((n,r)=>n+r.otherErrors,0)};
-  }
-  result.updatedAt=Utilities.formatDate(new Date(),'America/Sao_Paulo','dd/MM/yyyy HH:mm:ss');
+  const result = section === 'insucessos'
+    ? lspCentralInsucessos_(f)
+    : lspCentralErros_(f);
+  result.section = section;
+  result.updatedAt = Utilities.formatDate(new Date(), 'America/Sao_Paulo', 'dd/MM/yyyy HH:mm:ss');
   return result;
 }

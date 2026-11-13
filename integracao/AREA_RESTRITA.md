@@ -2,6 +2,10 @@
 
 Status: os arquivos estão preparados, mas a senha só passa a ser exigida após instalar e republicar a versão do Google Apps Script. Atualizar arquivos no GitHub não instala código no Google.
 
+## Fonte central atual
+
+Siga primeiro [FONTE_CENTRAL.md](FONTE_CENTRAL.md) para instalar `Fonte_Dados_Central.gs`, usado pelo sincronizador e pela área restrita. As fontes antigas `Dashboard`, `Informações` e `Base Erros Consolidada` não são mais lidas por `Restricted.gs`: ele usa `Fonte Insucessos` e `Fonte Erros Expedição` na planilha central. Não é necessário trocar uma senha que já esteja configurada.
+
 ## Antes de começar: impedir novas exportações públicas
 
 Instale primeiro a versão atual de `integracao/AppsScript_Sync_LSP133.gs` no arquivo `Sync_GitHub.gs` do Google, salve e execute `syncLsp133ToGitHub`. Isso impede que o gatilho antigo volte a enviar os indicadores restritos ao JSON público. Não precisa alterar o gatilho. Depois continue com a área autenticada abaixo.
@@ -64,7 +68,7 @@ Mantenha o restante de `changeTab`. Produção e Expedição continuam usando a 
 
 Em Configurações do projeto → Propriedades do script:
 
-- Confirme `INSUCESSOS_SPREADSHEET_ID` e `ERROS_SPREADSHEET_ID`, já utilizados no sincronizador anterior.
+- Execute `configurarFonteCentralDashboards` após instalar os arquivos: as três propriedades de fonte apontarão para a central.
 - Adicione `RESTRICTED_PASSWORD` com uma senha compartilhada forte de 12 a 256 caracteres. Não coloque a senha em código, GitHub, links ou nesta documentação.
 
 Salve os arquivos e execute `configurarSenhaRestrita_` uma vez no editor. Essa função substitui a senha temporária por hash com salt e apaga a propriedade `RESTRICTED_PASSWORD`. Não remova `RESTRICTED_PASSWORD_HASH` nem `RESTRICTED_PASSWORD_SALT`.
@@ -101,6 +105,7 @@ Os cards de Insucessos continuam globais da fonte; o filtro de datas atua no gr�
 
 ## VOANDO por dia
 
-A área restrita de Insucessos inclui gráfico e tabela de VOANDO por dia, filtrados pelo período escolhido. A data vem do texto exibido em Informações (coluna F), o BR da coluna G e o status VOANDO da coluna I. A leitura percorre todas as linhas existentes e não usa a tabela intermediária com datas invertidas. A contagem é de registros com BR preenchido, preservando ocorrências da fonte; não deduplica BRs.
+A área restrita de Insucessos inclui gráfico e tabela de VOANDO por dia, filtrados pelo período escolhido. A data vem do texto exibido em Fonte Insucessos (coluna F), o BR da coluna G e o status VOANDO da coluna I. A leitura percorre todas as linhas existentes e não usa a tabela intermediária com datas invertidas. A contagem é de registros com BR preenchido, preservando ocorrências da fonte; não deduplica BRs.
 
 Registros VOANDO sem data ficam sinalizados separadamente e não recebem uma data inventada. Os cards globais permanecem separados do total do período. Para instalar esta atualização, substitua os dois arquivos Restricted.gs e Restricted.html e publique uma nova versão da implantação existente. Não é necessário trocar a senha nem recriar gatilhos.
+
