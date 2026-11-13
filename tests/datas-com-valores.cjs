@@ -1,0 +1,16 @@
+const assert=require('node:assert/strict'),fs=require('fs'),vm=require('vm');
+const html=fs.readFileSync(__dirname+'/../index.html','utf8');
+const helper=html.slice(html.indexOf('  function rowsWithDisplayedValues_'),html.indexOf('  function productionSvgChart'));
+const ctx={};vm.createContext(ctx);vm.runInContext(helper,ctx);
+const series=keys=>keys.map(k=>({value:r=>r[k]}));
+const rows=[{date:'01',routes:0,packages:0},{date:'02',routes:4,packages:0},{date:'03',routes:0,packages:8},{date:'04',routes:null,packages:''},{date:'05',routes:'0',packages:undefined},{date:'06',routes:NaN,packages:0}];
+const copy=JSON.stringify(rows);
+assert.equal(JSON.stringify(ctx.rowsWithDisplayedValues_(rows,series(['routes'])).map(r=>r.date)),JSON.stringify(['02']));
+assert.equal(JSON.stringify(ctx.rowsWithDisplayedValues_(rows,series(['packages'])).map(r=>r.date)),JSON.stringify(['03']));
+assert.equal(ctx.rowsWithDisplayedValues_(rows,series(['routes','packages'])).length,2);
+assert.equal(ctx.rowsWithDisplayedValues_(null,series(['routes'])).length,0);
+assert.equal(ctx.rowsWithDisplayedValues_([{routes:-1},{routes:Infinity}],series(['routes'])).length,0);
+const windowRows=[{date:'com-valor',routes:5},...Array.from({length:20},(_,i)=>({date:String(i),routes:0}))];
+assert.equal(ctx.rowsWithDisplayedValues_(windowRows,series(['routes'])).slice(-14)[0].date,'com-valor');
+assert.equal(JSON.stringify(rows),copy,'Não altera dados nem contagens originais');
+console.log('PASS: datas zeradas/vazias/invalidas ocultas por série; datas com valores preservadas; filtro anterior ao limite de 14 dias; dados originais intactos.');

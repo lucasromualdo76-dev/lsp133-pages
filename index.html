@@ -361,7 +361,7 @@ body.report-mode #prod .prod-report-actions .report-primary{background:var(--ora
   function el(tag,cls,text){const x=document.createElement(tag);if(cls)x.className=cls;if(text!==undefined)x.textContent=String(text);return x;}
   function appendKpis(id,items){const root=$(id);root.replaceChildren();items.forEach(([name,value,desc])=>{const c=el('div','card');c.append(el('div','key',name),el('div','value',value));if(desc)c.append(el('div','sub',desc));root.append(c);});}
   function noData(root){root.append(el('div','empty','Sem registros no filtro selecionado.'));}
-  function drawDaily(id,items){const root=$(id);root.replaceChildren();if(!items.length){noData(root);return;}
+  function drawDaily(id,items){items=rowsWithDisplayedValues_(items,[{value:r=>r.value}]);const root=$(id);root.replaceChildren();if(!items.length){noData(root);return;}
     const chart=el('div','daily');const tail=items.slice(-14),max=Math.max(1,...tail.map(x=>x.value));tail.forEach(row=>{const col=el('div','column');const top=el('div','value',number(row.value));const stem=el('div','stem');stem.style.height=Math.max(2,row.value/max*205)+'px';stem.title=shortDate(row.date)+': '+number(row.value);col.append(top,stem,el('div','date',shortDate(row.date)));chart.append(col);});root.append(chart);
   }
   function drawRank(id,items){const root=$(id);root.replaceChildren();if(!items.length){noData(root);return;}const max=Math.max(1,...items.map(x=>x.value));items.forEach(row=>{const r=el('div','bar-row'),lab=el('div','bar-label',row.name),track=el('div','track'),fill=el('div','fill'),num=el('div','bar-value',number(row.value));lab.title=row.name;fill.style.width=(row.value/max*100)+'%';track.append(fill);r.append(lab,track,num);root.append(r);});}
@@ -385,10 +385,17 @@ body.report-mode #prod .prod-report-actions .report-primary{background:var(--ora
   function saveProductionSnapshot(){const button=$('prod-snapshot'),label=$('prod-snapshot-status');if(button.disabled)return;button.disabled=true;productionClientId=productionClientId||crypto.randomUUID();label.textContent='Registrando captura…';google.script.run.withSuccessHandler(r=>{productionClientId=null;button.disabled=false;label.textContent=r.message;loadData();}).withFailureHandler(e=>{button.disabled=false;label.textContent=e.message||'Não foi possível registrar.';}).recordProductionSnapshot(productionClientId);}
   // Gráficos executivos SVG: agrupados, com eixo e escala consistentes.
   // Os dados são exatamente os recebidos do Apps Script; não alteramos os cálculos.
+  // Oculta a data somente quando nenhuma série exibida possui valor positivo.
+  function rowsWithDisplayedValues_(rows,series){
+    return (rows||[]).filter(row=>row&&series.some(item=>{
+      const value=Number(item.value(row));return Number.isFinite(value)&&value>0;
+    }));
+  }
   function productionSvgChart(root, rows, series, footnote) {
     root.replaceChildren();
-    if (!rows || !rows.length) { noData(root); return; }
-    const tail = rows.slice(-14);
+    const visibleRows=rowsWithDisplayedValues_(rows,series);
+    if (!visibleRows.length) { noData(root); return; }
+    const tail = visibleRows.slice(-14);
     const clean = v => Math.max(0, Number(v) || 0);
     const maxValue = Math.max(1, ...tail.flatMap(r => series.map(s => clean(s.value(r)))));
     const magnitude = Math.pow(10, Math.floor(Math.log10(maxValue / 5)));
@@ -519,7 +526,7 @@ body.report-mode #prod .prod-report-actions .report-primary{background:var(--ora
  appendKpis('prod-kpis',[['Rotas expedidas',number(k.routesOut)],['Rotas No-Show',number(k.routesFloor)],['Pacotes expedidos',number(k.packagesOut)],['Pacotes No-Show',number(k.packagesFloor)],['SPR',k.spr!==null&&k.spr!==undefined?Number(k.spr).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2}):'—','Pacotes expedidos por rota']]);
  productionChart('prod-routes',d.daily,'routesOut','routesFloor');productionPackagesChart(d.packagesDaily || d.daily);renderProductionInsights(d);
  const root=$('prod-table');root.replaceChildren();if(!d.daily.length){noData(root);return;}
- const wrap=el('div','table-wrap'),table=el('table','table'),head=el('thead'),hr=el('tr');['Data','Rotas expedidas','Rotas No-Show','Pacotes expedidos','Pacotes No-Show','Situação','Observações'].forEach(t=>hr.append(el('th','',t)));head.append(hr);const body=el('tbody');d.daily.slice().reverse().forEach(r=>{const tr=el('tr');[shortDate(r.date),number(r.routesOut),number(r.routesFloor),number(r.packagesOut),number(r.packagesFloor),r.status,r.notes].forEach(t=>tr.append(el('td','',t)));body.append(tr);});table.append(head,body);wrap.append(table);root.append(wrap);
+ const wrap=el('div','table-wrap'),table=el('table','table'),head=el('thead'),hr=el('tr');['Data','Rotas expedidas','Rotas No-Show','Pacotes expedidos','Pacotes No-Show','Situação','Observações'].forEach(t=>hr.append(el('th','',t)));head.append(hr);const body=el('tbody');rowsWithDisplayedValues_(d.daily,['routesOut','routesFloor','packagesOut','packagesFloor'].map(k=>({value:r=>r[k]}))).slice().reverse().forEach(r=>{const tr=el('tr');[shortDate(r.date),number(r.routesOut),number(r.routesFloor),number(r.packagesOut),number(r.packagesFloor),r.status,r.notes].forEach(t=>tr.append(el('td','',t)));body.append(tr);});table.append(head,body);wrap.append(table);root.append(wrap);
  }
 
   // Expedição: todo conteúdo é inserido via textContent (nunca HTML arbitrário de planilha).
@@ -527,7 +534,7 @@ body.report-mode #prod .prod-report-actions .report-primary{background:var(--ora
   function expTrend(rows){
     const root=$('exp-daily'),summary=$('exp-trend-summary');
     root.replaceChildren();if(summary)summary.replaceChildren();
-    const clean=(rows||[]).filter(r=>/^\d{4}-\d{2}-\d{2}$/.test(String(r.date||'')))
+    const clean=rowsWithDisplayedValues_(rows,[{value:r=>r.total},{value:r=>r.assigned},{value:r=>r.complete}]).filter(r=>/^\d{4}-\d{2}-\d{2}$/.test(String(r.date||'')))
       .slice().sort((a,b)=>a.date.localeCompare(b.date)).slice(-14);
     if(!clean.length){noData(root);return;}
     const latest=clean[clean.length-1],prev=clean.length>1?clean[clean.length-2]:null;
@@ -613,7 +620,7 @@ body.report-mode #prod .prod-report-actions .report-primary{background:var(--ora
     daily.replaceChildren(el('h2','','Resumo diário · mesmos valores da planilha'));
     const table=el('table','table'),head=el('thead'),header=el('tr');
     ['Data do turno','Assigned','Complete','Total de rotas','Pacotes expedidos'].forEach(t=>header.append(el('th','',t)));head.append(header);
-    const body=el('tbody');(d.daily||[]).slice().reverse().forEach(r=>{const row=el('tr');[isoToDate(r.date),value(r.assigned),value(r.complete),value(r.total),value(r.packages)].forEach(v=>row.append(el('td','',v)));body.append(row);});table.append(head,body);
+    const body=el('tbody');rowsWithDisplayedValues_(d.daily,['assigned','complete','total','packages'].map(k=>({value:r=>r[k]}))).slice().reverse().forEach(r=>{const row=el('tr');[isoToDate(r.date),value(r.assigned),value(r.complete),value(r.total),value(r.packages)].forEach(v=>row.append(el('td','',v)));body.append(row);});table.append(head,body);
     const wrap=el('div','table-wrap');wrap.append(table);daily.append(wrap,el('p','exp-info','Cada linha guarda a última captura daquele turno. Dias anteriores sem captura confiável não são inventados.'));
     const q=$('exp-quality');q.replaceChildren();[['Fonte','Validação de Dados - Fonte Dashboard - Lucas'],['Critério','Desde ontem às 21h até a consulta'],['Última consulta',d.updatedAt],['Capturas diárias anteriores',String(d.historyDates)]].forEach(([a,b])=>{const line=el('div','exp-stat');line.append(el('span','',a),el('strong','',b));q.append(line);});q.append(el('p','exp-info',d.note||''));
   }
@@ -711,7 +718,7 @@ fold('exp-hours','Horários das atribuições');
 fold('exp-quality','Qualidade e atualização dos dados');
 fold('exp-table','Detalhamento por AT');
   window.expTrend=function(rows){
-    const clean=(rows||[]).filter(r=>/^\d{4}-\d{2}-\d{2}$/.test(String(r.date||''))).slice().sort((a,b)=>a.date.localeCompare(b.date));
+    const clean=rowsWithDisplayedValues_(rows,[{value:r=>r.total},{value:r=>r.assigned},{value:r=>r.complete}]).filter(r=>/^\d{4}-\d{2}-\d{2}$/.test(String(r.date||''))).slice().sort((a,b)=>a.date.localeCompare(b.date));
     const summary=$('exp-trend-summary');summary.replaceChildren();
     if(clean.length){const last=clean.at(-1);summary.append(el('span','exp-chart-context','Última captura: '+isoToDate(last.date)+' · '+number(last.total)+' rotas. Exibindo até 14 datas.'));}
     productionSvgChart($('exp-daily'),clean,[{name:'Total de rotas',color:'#192c49',value:r=>r.total!==undefined?r.total:Number(r.assigned||0)+Number(r.complete||0)}],
