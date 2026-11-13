@@ -1,11 +1,11 @@
 {
   "mode": "REAL_AGGREGATED",
   "schemaVersion": 1,
-  "generatedAt": "2026-11-13T13:12:02.083Z",
+  "generatedAt": "2026-11-13T13:27:56.190Z",
   "source": "Validação de Dados - Fonte Dashboard - Lucas / Base de Produção / Resumo de Expedição",
   "coverage": {
-    "routes": 1280,
-    "excludedDemolishedRoutes": 30,
+    "routes": 973,
+    "excludedDemolishedRoutes": 28,
     "assignmentDays": 3,
     "assignment": {
       "firstRecordedDate": "2026-11-10",
@@ -15,51 +15,12 @@
   },
   "days": [
     {
-      "date": "2026-10-29",
-      "routesOut": 8,
-      "routesFloor": 0,
-      "packagesOut": 0,
-      "packagesFloor": 0,
-      "pendingPackagesOut": 8,
-      "pendingPackagesFloor": 0,
-      "assigned": 0,
-      "complete": 0,
-      "assignedTotal": 0,
-      "routesObserved": true
-    },
-    {
-      "date": "2026-10-30",
-      "routesOut": 50,
-      "routesFloor": 0,
-      "packagesOut": 0,
-      "packagesFloor": 0,
-      "pendingPackagesOut": 50,
-      "pendingPackagesFloor": 0,
-      "assigned": 0,
-      "complete": 0,
-      "assignedTotal": 0,
-      "routesObserved": true
-    },
-    {
-      "date": "2026-11-02",
-      "routesOut": 139,
-      "routesFloor": 0,
-      "packagesOut": 0,
-      "packagesFloor": 0,
-      "pendingPackagesOut": 139,
-      "pendingPackagesFloor": 0,
-      "assigned": 0,
-      "complete": 0,
-      "assignedTotal": 0,
-      "routesObserved": true
-    },
-    {
       "date": "2026-11-03",
-      "routesOut": 64,
+      "routesOut": 11,
       "routesFloor": 0,
       "packagesOut": 0,
       "packagesFloor": 0,
-      "pendingPackagesOut": 64,
+      "pendingPackagesOut": 11,
       "pendingPackagesFloor": 0,
       "assigned": 0,
       "complete": 0,
@@ -68,11 +29,11 @@
     },
     {
       "date": "2026-11-04",
-      "routesOut": 76,
+      "routesOut": 20,
       "routesFloor": 0,
       "packagesOut": 0,
       "packagesFloor": 0,
-      "pendingPackagesOut": 76,
+      "pendingPackagesOut": 20,
       "pendingPackagesFloor": 0,
       "assigned": 0,
       "complete": 0,
@@ -81,10 +42,10 @@
     },
     {
       "date": "2026-11-05",
-      "routesOut": 108,
-      "routesFloor": 0,
-      "packagesOut": 19124,
-      "packagesFloor": 0,
+      "routesOut": 104,
+      "routesFloor": 3,
+      "packagesOut": 18330,
+      "packagesFloor": 493,
       "pendingPackagesOut": 0,
       "pendingPackagesFloor": 0,
       "assigned": 0,
@@ -94,10 +55,10 @@
     },
     {
       "date": "2026-11-06",
-      "routesOut": 131,
-      "routesFloor": 14,
-      "packagesOut": 23006,
-      "packagesFloor": 1900,
+      "routesOut": 137,
+      "routesFloor": 8,
+      "packagesOut": 23929,
+      "packagesFloor": 977,
       "pendingPackagesOut": 0,
       "pendingPackagesFloor": 2,
       "assigned": 0,
@@ -107,10 +68,10 @@
     },
     {
       "date": "2026-11-07",
-      "routesOut": 126,
-      "routesFloor": 4,
-      "packagesOut": 24664,
-      "packagesFloor": 611,
+      "routesOut": 128,
+      "routesFloor": 2,
+      "packagesOut": 24930,
+      "packagesFloor": 345,
       "pendingPackagesOut": 0,
       "pendingPackagesFloor": 0,
       "assigned": 0,
@@ -120,10 +81,10 @@
     },
     {
       "date": "2026-11-10",
-      "routesOut": 208,
-      "routesFloor": 23,
-      "packagesOut": 33341,
-      "packagesFloor": 2916,
+      "routesOut": 216,
+      "routesFloor": 15,
+      "packagesOut": 34511,
+      "packagesFloor": 1746,
       "pendingPackagesOut": 0,
       "pendingPackagesFloor": 3,
       "assigned": 79,
@@ -147,12 +108,12 @@
     },
     {
       "date": "2026-11-12",
-      "routesOut": 0,
-      "routesFloor": 329,
+      "routesOut": 1,
+      "routesFloor": 328,
       "packagesOut": 0,
       "packagesFloor": 0,
-      "pendingPackagesOut": 0,
-      "pendingPackagesFloor": 329,
+      "pendingPackagesOut": 1,
+      "pendingPackagesFloor": 328,
       "assigned": 0,
       "complete": 0,
       "assignedTotal": 0,
@@ -303,129 +264,59 @@
   ],
   "assignmentTimeline": [
     {
-      "date": "2026-10-29",
-      "assigned": 4,
-      "completed": 0,
-      "assignedCurrent": 0,
-      "completedCurrent": 4
-    },
-    {
-      "date": "2026-10-30",
-      "assigned": 15,
-      "completed": 3,
-      "assignedCurrent": 0,
-      "completedCurrent": 15
-    },
-    {
-      "date": "2026-10-31",
-      "assigned": 10,
-      "completed": 16,
-      "assignedCurrent": 0,
-      "completedCurrent": 10
-    },
-    {
-      "date": "2026-11-01",
-      "assigned": 0,
-      "completed": 3,
-      "assignedCurrent": 0,
-      "completedCurrent": 0
-    },
-    {
-      "date": "2026-11-02",
-      "assigned": 14,
-      "completed": 0,
-      "assignedCurrent": 0,
-      "completedCurrent": 14
-    },
-    {
-      "date": "2026-11-03",
-      "assigned": 86,
-      "completed": 77,
-      "assignedCurrent": 1,
-      "completedCurrent": 85
-    },
-    {
-      "date": "2026-11-04",
-      "assigned": 56,
-      "completed": 59,
-      "assignedCurrent": 1,
-      "completedCurrent": 55
-    },
-    {
-      "date": "2026-11-05",
-      "assigned": 81,
-      "completed": 82,
-      "assignedCurrent": 0,
-      "completedCurrent": 81
-    },
-    {
-      "date": "2026-11-06",
-      "assigned": 81,
-      "completed": 70,
-      "assignedCurrent": 0,
-      "completedCurrent": 81
-    },
-    {
       "date": "2026-11-07",
-      "assigned": 68,
-      "completed": 96,
+      "assigned": 18,
+      "completed": 14,
       "assignedCurrent": 0,
-      "completedCurrent": 68
-    },
-    {
-      "date": "2026-11-08",
-      "assigned": 0,
-      "completed": 1,
-      "assignedCurrent": 0,
-      "completedCurrent": 0
+      "completedCurrent": 18
     },
     {
       "date": "2026-11-09",
       "assigned": 0,
-      "completed": 19,
+      "completed": 5,
       "assignedCurrent": 0,
       "completedCurrent": 0
     },
     {
       "date": "2026-11-10",
-      "assigned": 107,
-      "completed": 114,
-      "assignedCurrent": 2,
-      "completedCurrent": 105
+      "assigned": 102,
+      "completed": 87,
+      "assignedCurrent": 1,
+      "completedCurrent": 101
     },
     {
       "date": "2026-11-11",
-      "assigned": 199,
-      "completed": 102,
+      "assigned": 196,
+      "completed": 95,
       "assignedCurrent": 5,
-      "completedCurrent": 194
+      "completedCurrent": 191
     },
     {
       "date": "2026-11-12",
       "assigned": 77,
-      "completed": 175,
+      "completed": 174,
       "assignedCurrent": 6,
       "completedCurrent": 71
     },
     {
       "date": "2026-11-13",
-      "assigned": 71,
-      "completed": 11,
-      "assignedCurrent": 67,
-      "completedCurrent": 4
+      "assigned": 87,
+      "completed": 19,
+      "assignedCurrent": 76,
+      "completedCurrent": 11
     }
   ],
   "eventQuality": {
-    "rowsScanned": 194090,
-    "matchedRows": 193913,
-    "uniqueRoutes": 1280,
-    "assignedRoutes": 910,
-    "completedRoutes": 828,
-    "missingAssignedTime": 41,
+    "rowsScanned": 136981,
+    "matchedRows": 136981,
+    "uniqueRoutes": 835,
+    "assignedRoutes": 482,
+    "completedRoutes": 394,
+    "missingAssignedTime": 2,
     "missingCompleteTime": 0,
-    "firstEventDate": "2026-10-29",
+    "firstEventDate": "2026-11-07",
     "lastEventDate": "2026-11-13",
-    "completedRoutesInFolha": 828,
-    "preservedCompletedOutsideCurrentLoad": 0
+    "completedRoutesInFolha": 519,
+    "preservedCompletedOutsideCurrentLoad": 125
   }
 }
