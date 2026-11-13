@@ -1,0 +1,55 @@
+<!-- Cole este complemento uma única vez, antes de </body>, no Index.html. -->
+<style>
+/* Layout simplificado — indicadores, gráfico principal, detalhes sob demanda. */
+main{max-width:1360px;padding:26px 24px 44px}.filters{padding:18px;gap:14px;box-shadow:none}header{box-shadow:none}.tabs{gap:8px;margin-bottom:24px;padding-bottom:12px}.tabs button{border-radius:9px;padding:12px 16px;border-bottom:0}.tabs button.active{background:#172338;color:white}.panel,.card{box-shadow:none}h1{font-size:26px}.section-heading{margin:8px 0 22px}.panel{padding:24px}.card{padding:24px}.card .value{font-size:38px}.card .key{font-size:12px}.subhead{line-height:1.7;max-width:850px}#exp-kpis{gap:16px;margin:20px 0 28px}#exp-kpis .card:first-child{background:#172338;border-color:#172338}#exp-kpis .card:first-child .key,#exp-kpis .card:first-child .sub{color:#d7dfed}#exp-kpis .card:first-child .value{color:white}#exp-kpis .card:nth-child(2) .value{color:#b74623}#exp-kpis .card:nth-child(3) .value{color:#07865c}#exp .charts{display:grid;grid-template-columns:minmax(0,1fr);gap:16px}#exp .exp-evolution-panel{padding:26px;border-radius:14px}#exp .exp-evolution-panel h2{font-size:18px;margin-bottom:8px}#exp .exp-evolution-subtitle{font-size:12px;line-height:1.7;color:#66758b;margin:0 0 12px}#exp-trend-summary{margin:12px 0;font-size:12px;color:#52617a}.exp-disclosure{background:#fff;border:1px solid #dfe6ee;border-radius:12px;overflow:hidden}.exp-disclosure>summary{padding:18px 22px;font-size:13px;font-weight:700;cursor:pointer}.exp-disclosure>summary:hover{background:#f8fafc}.exp-disclosure>.panel{border:0;border-radius:0;padding-top:8px}.exp-disclosure>summary:focus-visible{outline:3px solid #9db6da;outline-offset:-3px}#exp .executive-chart-wrap{width:100%;overflow-x:auto}#exp .executive-chart{width:100%;height:auto;min-width:620px;max-height:none}.exp-chart-context{display:block}#exp .exp-info{line-height:1.8}.trend-card{box-shadow:none}.prod-report-actions{box-shadow:none}@media(max-width:700px){main{padding:18px 14px}.tabs button{padding:11px 13px}.filters{padding:14px}.panel,#exp .exp-evolution-panel{padding:18px}#exp-kpis{grid-template-columns:1fr;gap:10px}#exp-kpis .card{padding:20px}.exp-disclosure>summary{padding:17px 18px}h1{font-size:23px}}@media print{.exp-disclosure>.panel{display:block!important}.exp-disclosure{break-inside:avoid}.exp-disclosure>summary{background:#f5f7fb}#exp-kpis .card:first-child{background:#fff}#exp-kpis .card:first-child .value,#exp-kpis .card:first-child .key,#exp-kpis .card:first-child .sub{color:#172338}}
+
+</style>
+<script>
+
+(function(){
+'use strict';
+const section=document.getElementById('exp');
+if(!section||typeof productionSvgChart!=='function')return;
+function fold(id,title){
+ const node=document.getElementById(id);if(!node)return;
+ const panel=node.closest('.panel');if(!panel||panel.parentElement.tagName==='DETAILS')return;
+ const details=document.createElement('details');details.className='exp-disclosure wide';
+ const summary=document.createElement('summary');summary.textContent=title;
+ panel.before(details);details.append(summary,panel);
+ const heading=panel.querySelector('h2');if(heading)heading.hidden=true;
+}
+const main=document.getElementById('exp-daily')?.closest('.panel');
+if(main){
+ const heading=main.querySelector('h2');if(heading)heading.textContent='Rotas por dia';
+ const caption=main.querySelector('.exp-evolution-subtitle');if(caption)caption.textContent='Uma barra por captura diária. Consulte os detalhes de status abaixo.';
+ if(!document.getElementById('exp-status-bars')){
+  const details=document.createElement('details');details.className='exp-disclosure wide';
+  const summary=document.createElement('summary');summary.textContent='Comparar Assigned e Complete por dia';
+  const panel=document.createElement('div');panel.className='panel';
+  const chart=document.createElement('div');chart.id='exp-status-bars';
+  panel.append(chart);details.append(summary,panel);main.after(details);
+ }
+}
+fold('exp-origins','Origem operacional das rotas');
+fold('exp-hours','Horários das atribuições');
+fold('exp-quality','Qualidade e atualização dos dados');
+fold('exp-table','Detalhamento por AT');
+  window.expTrend=function(rows){
+    const clean=(rows||[]).filter(r=>/^\d{4}-\d{2}-\d{2}$/.test(String(r.date||''))).slice().sort((a,b)=>a.date.localeCompare(b.date));
+    const summary=$('exp-trend-summary');summary.replaceChildren();
+    if(clean.length){const last=clean.at(-1);summary.append(el('span','exp-chart-context','Última captura: '+isoToDate(last.date)+' · '+number(last.total)+' rotas. Exibindo até 14 datas.'));}
+    productionSvgChart($('exp-daily'),clean,[{name:'Total de rotas',color:'#192c49',value:r=>r.total!==undefined?r.total:Number(r.assigned||0)+Number(r.complete||0)}],
+      'Uma barra por data de captura. Dias sem captura não são tratados como zero.');
+    productionSvgChart($('exp-status-bars'),clean,[{name:'Assigned',color:'#ee4d2d',value:r=>r.assigned},{name:'Complete',color:'#07865c',value:r=>r.complete}],
+      'Status registrados na mesma captura. Assigned + Complete = total de rotas.');
+  };
+const originalRender=window.renderExpedition;
+if(typeof originalRender==='function')window.renderExpedition=function(data){
+ originalRender(data);
+ const cards=document.querySelectorAll('#exp-kpis .card');
+ const labels=['Rotas no período atual','Assigned','Complete'];
+ cards.forEach((card,i)=>{const label=card.querySelector('.key');if(label)label.textContent=labels[i]||label.textContent;});
+ const sub=cards[0]?.querySelector('.sub');if(sub)sub.textContent='ATs únicas · Assigned + Complete';
+};
+})();
+</script>
