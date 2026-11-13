@@ -77,7 +77,8 @@ function expeditionReadHistory_(book){
 }
 function expeditionDailyState_(book,now){
  const current=expeditionReadCurrent_(book,now);
- const daily=expeditionReadHistory_(book).filter(r=>r.date<current.date).concat([{...current,details:undefined}]);
+ const {details,...summary}=current;
+ const daily=expeditionReadHistory_(book).filter(r=>r.date<current.date).concat([summary]);
  return {current,daily};
 }
 /** Exportação agregada para GitHub: nunca publica códigos de AT ou BR. */
