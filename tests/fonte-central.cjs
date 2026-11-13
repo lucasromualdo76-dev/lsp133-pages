@@ -70,7 +70,7 @@ new vm.Script(helper+'\n'+sync);
 const index = fs.readFileSync(path.join(root,'index.html'),'utf8');
 const scripts = [...index.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/g)];
 for (const [,script] of scripts) new vm.Script(script);
-assert(index.includes("RESTRICTED_APP_URL+'?area='+state.page"));
+assert(index.includes("corporate(document.getElementById('eti')"));
 const data = JSON.parse(fs.readFileSync(path.join(root,'data/indicadores.json'),'utf8'));
 assert(!('insucessos' in data));
 assert(!('erros' in data));

@@ -666,7 +666,8 @@ function syncLsp133ToGitHub() {
     assignmentOrigins,
     assignmentTimeline: eventData.days,
     eventQuality: eventData.quality,
-    expeditionTurn: expeditionPublicSummary_(ss, new Date())
+    expeditionTurn: expeditionPublicSummary_(ss, new Date()),
+    appViews: lspPublicAppViews_(production.rows, history)
   };
 
   const url =
@@ -826,3 +827,16 @@ function lspReadProduction_(ss) {
   return {rows,expected,excludedRoutes};
 }
 
+
+/** Publica as mesmas séries agregadas usadas pelo Index do Apps Script. */
+function lspPublicAppViews_(productionRows, history) {
+  const today=Utilities.formatDate(new Date(),'America/Sao_Paulo','yyyy-MM-dd');
+  const current=addHistoricalPackages_(productionAggregate_(productionRows,{},today),{},new Set(productionRows.map(r=>String(r[1]||'').trim()).filter(Boolean)));
+  const daily=history.map(r=>({date:r.date,routesOut:r.routesOut,routesFloor:r.routesFloor,packagesOut:r.packagesOut,packagesFloor:r.packagesFloor,missingOut:r.pendingPackagesOut,missingFloor:r.pendingPackagesFloor,missingPackages:r.pendingPackagesOut+r.pendingPackagesFloor,status:r.snapshotType,notes:'Captura: '+r.snapshotAt}));
+  const captured=addHistoricalPackages_({updatedAt:current.updatedAt,daily},{},new Set());
+  const clean=view=>({
+    daily:(view.daily||[]).map(r=>({date:r.date,routesOut:r.routesOut,routesFloor:r.routesFloor,packagesOut:r.packagesOut,packagesFloor:r.packagesFloor,missingOut:r.missingOut,missingFloor:r.missingFloor,missingPackages:r.missingPackages,status:r.status,notes:r.notes||''})),
+    packagesDaily:(view.packagesDaily||[]).map(r=>({date:r.date,packagesOut:r.packagesOut,packagesFloor:r.packagesFloor,packagesHistorical:r.packagesHistorical}))
+  });
+  return {production:clean(current),history:clean(captured)};
+}

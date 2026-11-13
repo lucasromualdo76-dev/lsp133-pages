@@ -1,200 +1,780 @@
-<!doctype html>
-<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f4511e"><title>Central Operacional | LSP 133</title><link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2048%2048%22%3E%0A%20%20%3Crect%20width%3D%2248%22%20height%3D%2248%22%20rx%3D%2211%22%20fill%3D%22%23ee4d2d%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M10%2016h28l3%2027H7l3-27Z%22%20fill%3D%22%23fff%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M17%2017v-4a7%207%200%200%201%2014%200v4%22%20fill%3D%22none%22%20stroke%3D%22%23fff%22%20stroke-width%3D%223%22%2F%3E%0A%20%20%3Ctext%20x%3D%2224%22%20y%3D%2236%22%20text-anchor%3D%22middle%22%20fill%3D%22%23ee4d2d%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2222%22%20font-weight%3D%22800%22%3ES%3C%2Ftext%3E%0A%3C%2Fsvg%3E%0A">
-<style>
-:root{color-scheme:light;--orange:#ee4d2d;--navy:#172338;--green:#07825d;--ink:#1d2939;--muted:#667085;--border:#e7eaf0;--bg:#f5f7fb;--white:#fff}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);font:14px/1.5 system-ui,-apple-system,Segoe UI,Arial,sans-serif;color:var(--ink)}
-header{background:var(--white);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:5}.top{max-width:1450px;margin:auto;display:flex;gap:16px;align-items:center;justify-content:space-between;padding:18px 24px}
-.brand{display:flex;align-items:center;gap:12px}.mark{background:var(--orange);color:white;border-radius:12px;font-size:19px;font-weight:900;width:42px;height:42px;display:grid;place-items:center}.brand b{font-size:17px}.sub{color:var(--muted);font-size:12px}.demo{color:#9a4a0a;background:#fff1df;border:1px solid #ffd49a;padding:6px 11px;border-radius:999px;font-size:12px;font-weight:750}
-main{max-width:1450px;margin:auto;padding:22px 24px 48px}.intro{display:flex;gap:14px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin-bottom:18px}.intro h1{margin:0;font-size:24px;letter-spacing:-.6px}.tabs{display:flex;gap:7px;overflow-x:auto;padding:3px 0 14px}.tab{border:1px solid var(--border);background:white;border-radius:10px;padding:11px 15px;white-space:nowrap;font-weight:700;color:#475467;cursor:pointer}.tab.active{background:var(--navy);color:white;border-color:var(--navy)}
-.toolbar{display:flex;gap:10px;align-items:end;flex-wrap:wrap;margin-bottom:18px}.field{display:flex;flex-direction:column;gap:5px;font-size:12px;color:var(--muted);font-weight:600}input,select{border:1px solid var(--border);border-radius:8px;padding:9px 10px;font:inherit;background:white;color:var(--ink)}button{font:inherit;cursor:pointer}.action{border:1px solid var(--border);border-radius:9px;background:white;padding:9px 13px;font-weight:700}.action:hover,.tab:hover{border-color:#9daec6}
-.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}.metric,.panel{background:var(--white);border:1px solid var(--border);border-radius:14px;box-shadow:0 4px 20px #1f355206}.metric{padding:19px}.metric .label{font-size:12px;color:var(--muted);font-weight:700}.metric .number{font-size:29px;font-weight:800;line-height:1.4;letter-spacing:-.8px}.metric .foot{font-size:12px;color:var(--muted)}.metric .trend{font-weight:800;color:var(--green)}
-.section{margin:24px 0 12px}.section h2{font-size:18px;margin:0}.section p{color:var(--muted);margin:2px 0;font-size:12px}.panel{padding:18px;margin-bottom:14px}.panel-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}.panel h3{font-size:16px;margin:0}.panel .desc{color:var(--muted);font-size:12px;margin:2px 0 12px}.chart{width:100%;overflow:hidden}.chart svg{width:100%;height:auto;display:block;max-height:365px}.chart-scroll{overflow-x:auto;overscroll-behavior-inline:contain;scrollbar-gutter:stable}.chart-scroll svg{max-height:none}.chart-scroll:focus-visible{outline:2px solid #9db6da;outline-offset:2px}.chart-note{font-size:12px;color:#667085;margin:11px 0 0}.legend{row-gap:8px}.legend{display:flex;flex-wrap:wrap;gap:14px;color:var(--muted);font-size:12px;margin:9px 0 0}.legend i{width:9px;height:9px;display:inline-block;border-radius:3px;margin-right:5px}.data-table{width:100%;border-collapse:collapse;min-width:600px}.data-table th,.data-table td{border-bottom:1px solid var(--border);padding:12px 10px;text-align:right;font-variant-numeric:tabular-nums}.data-table th:first-child,.data-table td:first-child{text-align:left}.data-table th{background:#f8fafc;color:#475467;font-size:12px}.data-table tr:hover td{background:#fafcff}.scroll{overflow:auto}.notes{border-left:3px solid var(--orange);background:#fff8f3;border-radius:9px;padding:12px 16px;font-size:13px}.empty{padding:32px;text-align:center;color:var(--muted)}.history-toolbar{display:flex;align-items:end;gap:18px;flex-wrap:wrap;border:1px solid var(--border);border-radius:12px;padding:13px 16px;background:#fff;margin-bottom:14px}.history-toolbar select{min-width:230px}.report-mode .metric .number{color:var(--orange)}.report-mode .panel h3{background:#192c49;color:#fff;margin:-18px -18px 16px;padding:12px 16px;border-radius:13px 13px 0 0}.brand .mark{box-shadow:0 5px 16px #ee4d2d30}.footer{margin-top:22px;color:var(--muted);font-size:12px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
-@media(max-width:900px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.top,main{padding-left:14px;padding-right:14px}}
-@media(max-width:520px){.grid{grid-template-columns:1fr}.metric .number{font-size:26px}.intro h1{font-size:20px}.demo{font-size:10px}}
-@media print{header,.tabs,.toolbar,.action,.history-toolbar{display:none!important}main{padding:0}.panel,.metric{break-inside:avoid}.notes{break-inside:avoid}body{background:white}@page{size:A3 landscape;margin:10mm}}
-.restricted-link{display:inline-block;background:#172338;color:white;padding:12px 18px;border-radius:8px;text-decoration:none;font-weight:700}.restricted-link:focus-visible{outline:3px solid #ee4d2d;outline-offset:3px}.indicator-guide{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:14px}.indicator-guide article{padding:15px;background:#f8fafc;border:1px solid var(--border);border-top:3px solid var(--orange);border-radius:9px}.indicator-guide h4{margin:0 0 8px;font-size:15px;color:var(--navy)}.indicator-guide p{margin:0;font-size:13px;line-height:1.65}.indicator-guide .indicator-formula{margin-top:10px;padding-top:9px;border-top:1px solid var(--border);font-size:12px;color:#475467}.spx-public-link{display:inline-flex;align-items:center;text-decoration:none;background:var(--orange);border-color:var(--orange);color:white}.spx-public-link:focus-visible{outline:3px solid var(--navy);outline-offset:3px}@media print{.spx-public-link{display:none}}
-/* Organização visual: indicadores primeiro, detalhes sob demanda. */
-:root{--bg:#f3f5f9;--border:#e3e8ef}.top,main{max-width:1280px}.top{padding-top:14px;padding-bottom:14px}.demo{font-size:10px;background:#f0f8f4;color:#23634f;border-color:#d3e8de}.intro{margin-bottom:24px}.intro h1{font-size:28px}.tabs{border-bottom:1px solid var(--border);margin-bottom:20px;padding-bottom:12px;gap:8px}.tab{border-color:transparent;background:transparent}.tab.active{background:#172338;box-shadow:0 3px 8px #17233812}.toolbar{background:white;border:1px solid var(--border);border-radius:14px;padding:16px;gap:12px}.toolbar .field{min-width:145px}.toolbar #count{margin-left:auto}.metric{padding:22px;border-radius:14px;box-shadow:none}.metric .number{font-size:36px;line-height:1.35;margin:5px 0;font-variant-numeric:tabular-nums}.metric .label{font-size:12px;letter-spacing:.1px}.panel{padding:24px;box-shadow:none;margin-bottom:20px}.panel h3{font-size:17px}.panel .desc{line-height:1.6;max-width:800px;margin:5px 0 20px}.exp-kpis{grid-template-columns:repeat(3,minmax(0,1fr));margin:18px 0 24px}.exp-kpis .metric:first-child{background:#172338;color:white;border-color:#172338}.exp-kpis .metric:first-child .label,.exp-kpis .metric:first-child .foot{color:#d7dfed}.exp-kpis .metric:nth-child(2) .number{color:#b74623}.exp-kpis .metric:nth-child(3) .number{color:#07825d}.exp-context{display:flex;align-items:center;justify-content:space-between;gap:12px;background:#edf2f8;border:1px solid #dde5ee;border-radius:12px;padding:12px 18px;font-size:12px;color:#475467}.exp-context strong{color:#172338}.exp-columns{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(260px,1fr);gap:20px;align-items:start}.exp-columns .panel{height:100%;min-width:0} .exp-columns .chart-scroll svg{min-width:620px!important} .exp-columns .chart-scroll{max-width:100%}.disclosure{background:white;border:1px solid var(--border);border-radius:14px;margin:0 0 16px;overflow:hidden}.disclosure>summary{padding:18px 22px;font-weight:700;color:#344054;cursor:pointer}.disclosure>summary:hover{background:#f8fafc}.disclosure>div{padding:0 22px 20px}.disclosure .panel{padding:0;border:0;border-radius:0;margin:16px 0}.day-highlight{display:flex;align-items:baseline;gap:8px;margin:18px 0}.day-highlight strong{font-size:40px;letter-spacing:-1px;color:#172338}.day-highlight span{font-size:12px;color:#667085}.daily-route-bars{display:grid;gap:18px;padding:14px 0}.daily-route-row{display:grid;grid-template-columns:50px minmax(0,1fr) 44px;align-items:center;gap:14px;font-size:12px;font-variant-numeric:tabular-nums}.daily-route-row>span{color:#667085}.daily-route-row>strong{text-align:right;color:#172338}.daily-route-track{height:22px;border-radius:5px;background:#f1f4f8;overflow:hidden}.daily-route-track>div{height:100%;background:#172338;border-radius:5px;min-width:0}.exp-caption{font-size:12px;color:#667085;margin-top:16px;line-height:1.7}.status-row{display:flex;justify-content:space-between;align-items:center;padding:13px 0;border-bottom:1px solid var(--border);font-size:13px}.status-row b{font-size:18px}.status-row:last-child{border-bottom:0}.exp-empty{font-size:13px;color:#667085;line-height:1.7;padding:20px 0}.section{margin:28px 0 14px}.chart svg{max-height:330px}.notes{font-size:12px;background:#fafbfc;border-left-color:#cbd5e1;color:#667085}.history-toolbar{background:transparent;border:0;padding:0 0 10px}.metric .foot{line-height:1.6}.report-mode .panel h3{margin:-24px -24px 20px;padding:14px 24px}.report-mode .disclosure>div{display:block}.report-mode .disclosure:not([open])>div{display:block}.report-mode .disclosure>summary{background:#edf2f8}
-@media(max-width:800px){.exp-columns{grid-template-columns:1fr}.toolbar #count{margin-left:0}.exp-context{align-items:flex-start;flex-direction:column}.exp-kpis{gap:10px}.exp-kpis .metric{padding:16px}.exp-kpis .metric .number{font-size:29px}}
-@media(max-width:520px){.exp-kpis{grid-template-columns:1fr}.panel{padding:18px}.intro h1{font-size:24px}.brand b{font-size:14px}.demo{display:none}.toolbar .field{min-width:0;flex:1 1 130px}.toolbar input{width:100%}.top{gap:8px}.exp-context{font-size:11px}}
-@media print{.disclosure>div{display:block!important}.exp-context{break-inside:avoid}.exp-kpis .metric:first-child{background:white;color:#172338}.exp-kpis .metric:first-child .label,.exp-kpis .metric:first-child .foot{color:#667085}}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <base target="_top">
+  <meta charset="UTF-8">
+  <style>
+:root{--orange:#ee4d2d;--dark:#172338;--muted:#68768a;--bg:#f4f6f9;--border:#e7ebf0;--good:#087f5b}
+*{box-sizing:border-box}body{margin:0;font:14px Arial,Helvetica,sans-serif;color:var(--dark);background:var(--bg)}
+header{background:#fff;border-bottom:1px solid var(--border);padding:20px max(24px,calc((100vw - 1392px)/2));display:flex;justify-content:space-between;align-items:center;gap:20px}
+.brand{font-size:21px;font-weight:800;letter-spacing:-.5px}.brand small{display:block;font-size:12px;font-weight:400;letter-spacing:0;color:var(--muted);margin-top:6px}.status{font-size:11px;color:var(--muted);text-align:right;line-height:1.7}.dot{display:inline-block;width:7px;height:7px;margin-right:6px;border-radius:50%;background:var(--good)}
+main{max-width:1440px;margin:auto;padding:24px}.tabs{display:flex;gap:4px;margin-bottom:20px;border-bottom:1px solid var(--border)}button{font:600 13px Arial,sans-serif;border:1px solid var(--border);border-radius:8px;background:white;color:var(--dark);padding:11px 16px;cursor:pointer}button:hover{filter:brightness(.97)}button:focus-visible,input:focus-visible{outline:3px solid #9db6da;outline-offset:2px}button:disabled{opacity:.55;cursor:default}.tabs button{border:0;border-radius:0;padding:13px 18px;background:transparent;color:var(--muted);border-bottom:3px solid transparent}.tabs button.active{color:var(--orange);border-bottom-color:var(--orange)}
+.filters{background:white;border:1px solid var(--border);border-radius:12px;padding:16px;display:flex;gap:12px;align-items:end;flex-wrap:wrap;margin-bottom:14px}label{display:grid;gap:7px;font-size:11px;font-weight:600;color:var(--muted)}input{height:39px;border:1px solid #d7dee8;border-radius:7px;padding:9px 11px;color:var(--dark);font-size:13px;width:170px;max-width:100%}input[type=search]{width:245px}.btn-refresh{background:var(--dark);border-color:var(--dark);color:white}#loading{font-size:11px;color:var(--muted)}
+.spx-collection{display:flex;justify-content:flex-end;align-items:center;gap:12px;flex-wrap:wrap;margin:0 0 24px}#spx-collect{background:white;border-color:#f5b3a5;color:#c7361c}#spx-collect-status{font-size:11px;color:var(--muted)}
+.section-heading{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin:8px 0 20px}h1{font-size:22px;letter-spacing:-.5px;margin:0}h2{font-size:14px;margin:0 0 20px}.subhead{font-size:12px;color:var(--muted);margin:6px 0 20px}.period-label{font-size:11px;color:var(--muted)}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-bottom:22px}#eti-kpis{grid-template-columns:repeat(3,minmax(0,1fr));border:1px solid #f3d9d1;border-radius:12px;overflow:hidden;gap:0;background:#fff9f6}.card{padding:23px 24px;background:white;border:1px solid var(--border);border-radius:12px}.card .key{font-size:12px;color:var(--muted);font-weight:600}.card .value{font-size:39px;line-height:1.2;font-weight:800;letter-spacing:-1px;margin-top:12px;color:var(--orange);font-variant-numeric:tabular-nums}.card .sub{font-size:11px;color:var(--muted);margin-top:8px;line-height:1.5}#eti-kpis .card{background:transparent;border:0;border-right:1px solid #f3d9d1;border-radius:0;text-align:center;padding:25px 18px}#eti-kpis .card:last-child{border-right:0}#eti-kpis .key{color:#5d4c46}#eti-kpis .value{font-size:44px}
+.charts{display:grid;grid-template-columns:1fr 1fr;gap:18px}.panel{background:white;border:1px solid var(--border);border-radius:12px;padding:22px;min-width:0}.wide{grid-column:1/-1}.chart{min-height:270px}.bar-row{display:grid;grid-template-columns:minmax(95px,43%) 1fr 46px;gap:12px;align-items:center;margin:14px 0;min-height:22px}.bar-label{font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:left}.track{background:#f2f4f7;height:20px;border-radius:4px;overflow:hidden}.fill{background:var(--orange);height:100%;min-width:2px;border-radius:4px}.bar-value{text-align:right;font-size:12px;font-weight:700;font-variant-numeric:tabular-nums}.daily{display:flex;align-items:flex-end;justify-content:space-around;height:250px;gap:12px;padding:24px 3px 0;border-bottom:1px solid var(--border)}.daily .column{flex:1;min-width:0;height:100%;display:flex;align-items:center;flex-direction:column;justify-content:flex-end}.daily .value{font-size:12px;font-weight:700;margin-bottom:7px}.daily .stem{width:70%;min-height:3px;max-width:64px;border-radius:4px 4px 0 0;background:var(--orange)}.daily .date{font-size:10px;color:var(--muted);white-space:nowrap;margin:8px 0 -25px}
+.table-wrap{overflow-x:auto}.table{border-collapse:collapse;width:100%;font-size:12px}.table th{text-align:left;padding:12px;background:#f8f9fb;color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--border)}.table td{padding:13px 12px;border-bottom:1px solid #f0f2f5}.table tbody tr:last-child td{border-bottom:0}.table td:nth-child(2){font-family:ui-monospace,Consolas,monospace}.empty{padding:50px 12px;text-align:center;color:var(--muted);font-size:12px}.foot{padding:20px 0 4px;font-size:10px;color:var(--muted);line-height:1.6}.error{background:#fff2ee;color:#9a2d15;border:1px solid #f4b4a4;padding:14px;border-radius:8px;margin-bottom:16px}.hidden{display:none!important}
+@media(max-width:920px){.charts{grid-template-columns:1fr}.kpis{grid-template-columns:repeat(2,1fr)}main{padding:18px}header{padding:18px}.brand{font-size:18px}}
+@media(max-width:600px){header{align-items:flex-start;flex-direction:column;gap:10px}.status{text-align:left}.filters label{width:100%}.filters input{width:100%}.filters button{flex:1}.kpis{grid-template-columns:1fr}#eti-kpis{grid-template-columns:1fr}#eti-kpis .card{border-right:0;border-bottom:1px solid #f3d9d1;padding:18px}#eti-kpis .card:last-child{border-bottom:0}#eti-kpis .value{font-size:38px}.spx-collection{justify-content:flex-start}.section-heading{align-items:flex-start;flex-direction:column;gap:8px}.bar-row{grid-template-columns:minmax(80px,42%) 1fr 32px;gap:8px}.daily .date{font-size:9px}.panel{padding:17px}.tabs button{padding:12px}.brand{font-size:17px}}
+.tabs{overflow-x:auto}.tabs button{white-space:nowrap}.prod-scroll{overflow-x:auto}.prod-plot{display:flex;gap:12px;min-width:440px;height:240px;align-items:flex-end;padding:16px 0 30px;border-bottom:1px solid var(--border)}.prod-day{flex:1;min-width:28px;text-align:center}.prod-bars{height:180px;display:flex;align-items:flex-end;justify-content:center;gap:3px}.prod-bar{width:18px;border-radius:3px 3px 0 0}.prod-day small{display:block;font-size:10px;color:var(--muted);margin-top:8px}.prod-legend{display:flex;gap:16px;font-size:11px;margin-top:16px;color:var(--muted)}.prod-legend i{display:inline-block;width:9px;height:9px;margin-right:5px}.prod-note{font-size:11px;color:var(--muted);margin-top:12px}
+@media(min-width:1100px){#prod-kpis{grid-template-columns:repeat(5,minmax(0,1fr))}}
+select{height:39px;border:1px solid #d7dee8;border-radius:7px;padding:0 10px;background:#fff;color:var(--dark)}#prod-snapshot-status{font-size:11px;color:var(--muted)}
+.brand{display:flex;align-items:center;gap:13px;letter-spacing:0}.brand-mark{width:42px;height:42px;display:inline-flex;color:var(--orange);flex:none}.brand-mark svg{width:100%;height:100%}.brand-copy{display:flex;align-items:baseline;flex-wrap:wrap;gap:7px}.brand-copy strong{font-size:23px;color:var(--orange);letter-spacing:-.8px}.brand-divider{color:#c5ccd6;font-weight:400}.brand-title{font-size:17px;color:var(--dark);font-weight:700}.brand-copy small{display:block;flex-basis:100%;margin:0;color:var(--muted);font-size:11px}.date-control{display:flex;position:relative;align-items:center;width:170px;height:39px;border:1px solid #d7dee8;border-radius:7px;background:#fff}.date-control:focus-within{outline:3px solid #ffd2c8;outline-offset:2px;border-color:var(--orange)}.date-control input[type=text]{border:0;outline:0;width:100%;height:100%;padding:9px 36px 9px 11px;background:transparent;letter-spacing:.1px}.date-control input[type=text]:focus-visible{outline:0}.date-picker-button{position:absolute;right:2px;top:2px;height:33px;width:33px;border:0;background:transparent;padding:0;color:var(--muted);font-size:17px}.native-date{position:absolute;right:3px;top:3px;width:1px;height:1px;opacity:0;pointer-events:none}.prod-plot{min-width:max(520px,calc(var(--days, 4)*82px));height:260px;padding:18px 0 30px}.prod-bars{height:200px;gap:8px}.prod-day{min-width:82px}.prod-series{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;min-width:36px}.prod-value{font-size:10px;font-weight:700;line-height:1.2;color:var(--dark);margin-bottom:5px;font-variant-numeric:tabular-nums;white-space:nowrap}.prod-bar{width:20px;min-height:2px}.prod-day small{font-size:11px}.panel h2{font-size:15px}.card .value{color:var(--orange)}@media(max-width:600px){.brand-copy strong{font-size:20px}.brand-title{font-size:15px}.date-control{width:100%}.filters label{width:100%}}
+.prod-plot{min-width:max(560px,calc(var(--days, 4)*114px))}.prod-day{min-width:114px}.prod-bars{gap:5px}.prod-series{min-width:32px}.prod-legend{flex-wrap:wrap}.prod-note{line-height:1.5}
+.date-control{overflow:visible}.calendar-popover{position:absolute;top:calc(100% + 7px);left:0;z-index:50;width:290px;padding:14px;background:#fff;border:1px solid var(--border);border-radius:12px;box-shadow:0 16px 40px rgba(23,35,56,.18);color:var(--dark)}.calendar-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px;font-size:13px;text-transform:capitalize}.calendar-head button{width:32px;height:32px;padding:0;border:0;background:#f4f6f9;font-size:18px}.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;text-align:center}.calendar-weekday{font-size:10px;color:var(--muted);padding:7px 0}.calendar-grid .calendar-day{height:34px;padding:0;border:0;border-radius:7px;font-weight:500}.calendar-day:hover{background:#fff1ec}.calendar-grid .calendar-day.selected{background:var(--orange);color:#fff;font-weight:700}.calendar-today{margin-top:10px;width:100%;font-size:11px;padding:8px}.prod-view-help{flex-basis:100%;font-size:11px;color:var(--muted);line-height:1.4}
 
-.turn-kpis{grid-template-columns:repeat(4,minmax(0,1fr))}.turn-kpis .metric:nth-child(4) .number{color:#172338}@media(max-width:900px){.turn-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:520px){.turn-kpis{grid-template-columns:1fr}}
-</style></head><body>
-<header><div class="top"><div class="brand"><div class="mark" aria-label="Shopee"><svg viewBox="0 0 48 48" width="30" height="30" aria-hidden="true"><path d="M8 15h32l3 29H5l3-29Z" fill="white"/><path d="M17 17v-4a7 7 0 0 1 14 0v4" fill="none" stroke="white" stroke-width="3"/><text x="24" y="37" text-anchor="middle" fill="#ee4d2d" font-size="21" font-family="Arial" font-weight="800">S</text></svg></div><div><b><span style="color:#ee4d2d">Shopee</span> / Central Operacional · LSP 133</b><div class="sub">Produção e expedição | indicadores e relatórios</div></div></div><span class="demo">DADOS DEMONSTRATIVOS</span></div></header>
-<main><div class="intro"><div><h1 id="page-title">Controle de Produção</h1><div class="sub" id="page-sub">Indicadores operacionais por data</div></div><div class="sub" id="updated">Aguardando dados…</div></div>
-<nav class="tabs" id="tabs" aria-label="Páginas da dashboard"><button class="tab active" data-page="producao">Controle de Produção</button><button class="tab" data-page="atribuicao">Expedição de Rotas</button><button class="tab" data-page="insucessos">Insucessos</button><button class="tab" data-page="erros">Erros de Expedição</button></nav>
-<div class="toolbar"><label class="field">Data inicial<input type="date" id="start"></label><label class="field">Data final<input type="date" id="end"></label><button class="action" id="reload">↻ Atualizar</button><a class="action spx-public-link" id="spx-update-link" target="_blank" rel="noopener noreferrer" title="Abrir o controle corporativo de atualização">Atualizar SPX</a><button class="action" id="report" type="button">Ativar modo relatório</button><button class="action" onclick="window.print()">Imprimir / PDF</button><span class="sub" id="count"></span></div>
-<div id="historical-toolbar" class="history-toolbar"><label class="field">Dados exibidos<select id="view-mode"><option value="current">Dados atuais da planilha</option><option value="history">Histórico: última captura de cada data</option></select></label><span class="sub" id="historical-note">Histórico de capturas da planilha.</span></div><div id="root" aria-live="polite"><div class="empty">Carregando dados demonstrativos…</div></div>
-<footer class="footer"><span>Central Operacional LSP 133 · origem indicada no painel</span><span>GitHub Pages · última publicação no topo</span></footer>
-</main>
+/* Gráfico de pacotes: quatro séries dentro da MESMA data, sem invadir a coluna vizinha. */
+/* Pacotes: blocos independentes por data, sem sobreposição entre categorias. */
+.prod-packages-plot{display:flex;align-items:stretch;justify-content:flex-start;gap:18px;min-width:max(680px,calc(var(--days,4)*246px));height:318px;padding:8px 8px 12px;border-bottom:0}
+.prod-packages-plot .prod-day{flex:0 0 228px;min-width:228px;max-width:228px;height:100%;padding:12px 14px 16px;border:1px solid #e1e6ee;border-radius:10px;background:#f8fafc;display:flex;flex-direction:column;align-items:stretch;position:relative;overflow:visible}
+.prod-packages-plot .prod-day:nth-child(even){background:#fff}
+.prod-packages-plot .prod-day-date{font-size:13px;font-weight:800;color:#172338;text-align:center;line-height:20px;padding:1px 0 10px;border-bottom:1px solid #e1e6ee;white-space:nowrap}
+.prod-packages-plot .prod-bars{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px;flex:1;min-height:0;height:auto;align-items:end;justify-content:stretch;padding-top:20px;border-bottom:1px solid #cbd5e1;overflow:visible}
+.prod-packages-plot .prod-series{min-width:0;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;overflow:visible}
+.prod-packages-plot .prod-value{font-size:10px;line-height:1.2;font-weight:700;white-space:nowrap;margin-bottom:7px;position:relative;z-index:1;font-variant-numeric:tabular-nums}
+.prod-packages-plot .prod-bar{width:24px;max-width:100%;flex:0 0 auto;min-height:0}
+.prod-packages-plot .prod-day-label{font-size:10px;color:#68768a;text-align:center;padding-top:10px;font-weight:600}
+@media(max-width:600px){.prod-packages-plot{gap:12px}.prod-packages-plot .prod-day{flex-basis:218px;min-width:218px;max-width:218px}}
+
+/* Página nova: expedição de rotas */
+#exp .exp-stat{display:flex;align-items:baseline;justify-content:space-between;gap:8px;padding:10px 0;border-bottom:1px solid var(--border);font-size:12px}
+#exp .exp-stat strong{font-size:15px;font-variant-numeric:tabular-nums}
+#exp .exp-info{font-size:11px;color:var(--muted);line-height:1.6;margin:5px 0 18px}
+#exp .exp-hours{display:flex;gap:5px;align-items:flex-end;height:220px;border-bottom:1px solid var(--border);padding-top:22px}
+#exp .exp-hour{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;flex:1;min-width:0;gap:4px;height:100%}
+#exp .exp-hour .bars{display:flex;align-items:flex-end;gap:2px;height:165px}
+#exp .exp-hour .bar{width:12px;min-height:0;border-radius:3px 3px 0 0}
+#exp .exp-hour small{font-size:10px;color:var(--muted)}
+#exp .exp-hour .value{font-size:10px;font-weight:700}
+#exp .exp-origin-grid{display:grid;grid-template-columns:minmax(100px,1fr) 70px 70px 70px;gap:8px;padding:11px 6px;border-bottom:1px solid var(--border);align-items:center;font-size:12px}
+#exp .exp-origin-grid.header{background:#f8f9fb;color:var(--muted);font-weight:700;font-size:10px;text-transform:uppercase}
+#exp .exp-origin-grid>span:not(:first-child){text-align:right;font-variant-numeric:tabular-nums}
+#exp .exp-trend{display:flex;align-items:flex-end;height:235px;gap:12px;padding:20px 4px 28px;border-bottom:1px solid var(--border);min-width:max(460px,calc(var(--exp-days,7)*65px))}
+#exp .exp-day{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:5px;height:100%;min-width:48px}
+#exp .exp-day-bars{display:flex;align-items:flex-end;gap:3px;height:170px}
+#exp .exp-day-bars i{display:block;width:17px;border-radius:3px 3px 0 0}
+#exp .exp-day small{font-size:10px;color:var(--muted)}
+#exp .exp-day b{font-size:11px}
+#exp .exp-legend{display:flex;gap:15px;margin:12px 0 4px;flex-wrap:wrap;font-size:11px;color:var(--muted)}
+#exp .exp-legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px}
+#exp #exp-table .table td:nth-child(2){font-family:Arial,Helvetica,sans-serif}
+@media(max-width:700px){#exp .exp-origin-grid{grid-template-columns:minmax(75px,1fr) 56px 56px 56px}#exp .exp-hour .bar{width:8px}}
+
+
+/* ================================================================
+   LSP 133 | Identidade executiva + modo relatório
+   Intervenção visual: preserva todos os cálculos e leituras.
+   ================================================================ */
+:root{--orange:#ee4d2d;--dark:#14233d;--muted:#66758b;--bg:#f3f6fa;--border:#dfe6ee;--good:#05865c}
+body{background:var(--bg);color:var(--dark)}
+header{background:#fff;padding:16px max(24px,calc((100vw - 1640px)/2));box-shadow:0 1px 8px rgba(20,35,61,.06)}
+header .brand-mark{width:46px;height:46px}
+main{max-width:1680px;padding:24px 26px 38px}
+.tabs{border-bottom:1px solid #dbe3ed}.tabs button{font-weight:700}
+.tabs button.active{color:var(--orange)}
+.filters,.panel,.card{box-shadow:0 3px 17px rgba(26,45,73,.045);border-color:var(--border)}
+.filters{border-radius:11px}
+#prod-kpis{gap:13px}
+#prod-kpis .card{border-radius:13px;min-height:126px;padding:20px 20px 17px;border-top:3px solid #f1f4f8}
+#prod-kpis .card .key{font-size:12px;color:#52617a;letter-spacing:.1px}
+#prod-kpis .card .value{font-size:clamp(29px,2.45vw,43px);font-weight:800;letter-spacing:-1px;margin-top:12px}
+#prod-kpis .card .sub{font-size:10px}
+#prod .charts{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+#prod .charts>.panel{min-width:0;overflow:hidden;padding:0 0 14px}
+#prod .charts>.panel>h2{background:#192c49;color:#fff;font-size:15px;padding:17px 20px;margin:0 0 12px;letter-spacing:-.15px}
+#prod .charts>.panel>div:not(.table-wrap){margin-left:16px;margin-right:16px}
+#prod .charts>.panel.wide{grid-column:1/-1}
+#prod .prod-scroll{overflow:visible!important;width:100%}
+#prod .prod-plot,#prod .prod-packages-plot{
+  --chartcols:7;display:grid!important;grid-template-columns:repeat(var(--chartcols),minmax(0,1fr));
+  min-width:0!important;width:100%;height:auto!important;gap:10px 6px;
+  padding:15px 2px 4px;border-bottom:0;align-items:stretch
+}
+#prod .prod-day,#prod .prod-packages-plot .prod-day{
+  min-width:0!important;max-width:none!important;width:auto!important;height:205px!important;
+  flex:initial!important;box-sizing:border-box;display:flex;flex-direction:column;align-items:stretch;
+  justify-content:flex-end;padding:8px 3px 4px;border:1px solid #edf0f4;
+  border-radius:8px;background:#fbfcfe;overflow:visible
+}
+#prod .prod-packages-plot .prod-day{height:212px!important;padding:8px 3px 4px}
+#prod .prod-packages-plot .prod-day:nth-child(even){background:#fbfcfe}
+#prod .prod-day-date{font-size:11px!important;padding:1px 0 7px!important;border-bottom:1px solid #e9edf3}
+#prod .prod-bars,#prod .prod-packages-plot .prod-bars{
+  display:flex;flex:1;height:auto!important;min-height:0!important;align-items:flex-end;
+  justify-content:space-evenly;gap:2px;padding:17px 0 0;
+  border-bottom:1px solid #d9e0e9
+}
+#prod .prod-series,#prod .prod-packages-plot .prod-series{
+  height:100%;min-width:0!important;width:auto;flex:1;align-items:center;
+  display:flex;flex-direction:column;justify-content:flex-end;position:relative
+}
+#prod .prod-bar,#prod .prod-packages-plot .prod-bar{
+  width:min(14px,82%)!important;max-width:100%;border-radius:3px 3px 0 0;
+  flex:0 0 auto;min-height:0!important
+}
+#prod .prod-value,#prod .prod-packages-plot .prod-value{
+  font-size:clamp(8px,.68vw,10px);line-height:1.1;letter-spacing:-.25px;
+  white-space:nowrap;margin-bottom:5px;position:relative;z-index:1;color:#1a2b43
+}
+#prod .prod-day small{font-size:11px;margin:8px 0 0;font-weight:700;color:#344662}
+#prod .prod-day-label{font-size:9px!important;padding-top:8px!important;color:#5e6f84!important}
+#prod .prod-legend{margin:10px 0 0;flex-wrap:wrap;gap:8px 16px;font-size:11px}
+#prod .prod-legend span{display:inline-flex;align-items:center}
+#prod .prod-legend i{flex:none;border-radius:2px}
+#prod .prod-note{font-size:10px;line-height:1.45;margin:10px 0 0}
+#prod-table .table{font-size:11px;table-layout:auto}
+#prod-table .table th{background:#192c49;color:#fff;font-size:10px;white-space:nowrap;padding:11px}
+#prod-table .table td{padding:10px 11px}
+#prod-table .table tbody tr:nth-child(even){background:#f7f9fc}
+#prod-table .table td:nth-child(2){font-family:Arial,Helvetica,sans-serif}
+#prod .section-heading h1{font-size:23px}
+.prod-report-actions{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;
+  border:1px solid var(--border);border-radius:11px;padding:12px 16px;background:#fff;margin:0 0 15px}
+.prod-report-actions .report-label{font-size:11px;color:var(--muted);line-height:1.5}
+.prod-report-buttons{display:flex;gap:8px;flex-wrap:wrap}
+.prod-report-buttons button{padding:9px 14px;font-size:12px}
+.prod-report-buttons .report-primary{background:#192c49;color:#fff;border-color:#192c49}
+body.report-mode #prod .prod-report-actions{border-color:#f2a995;background:#fff8f5}
+body.report-mode #prod .prod-report-actions .report-primary{background:var(--orange);border-color:var(--orange)}
+.prod-insights-panel{grid-column:1/-1}
+.prod-insights-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px}
+.prod-insight{background:#f7f9fc;border:1px solid #e9edf3;border-radius:9px;padding:16px;min-width:0}
+.prod-insight .name{font-size:11px;color:#63748b;line-height:1.4;min-height:30px}
+.prod-insight .metric{font-size:24px;font-weight:800;color:#192c49;letter-spacing:-.6px;margin-top:7px}
+.prod-insight .context{font-size:10px;color:#758398;margin-top:5px}
+#prod .report-caption{margin-top:10px;font-size:10px;color:#64748b;line-height:1.5}
+@media(min-width:1600px){#prod .prod-plot,#prod .prod-packages-plot{--chartcols:14}#prod .prod-day{height:225px!important}#prod .prod-packages-plot .prod-day{height:230px!important}}
+@media(max-width:1150px){#prod .charts{grid-template-columns:minmax(0,1fr)}#prod .prod-plot,#prod .prod-packages-plot{--chartcols:7}#prod .prod-value{font-size:10px}}
+@media(max-width:700px){#prod .prod-plot,#prod .prod-packages-plot{--chartcols:4}#prod .prod-insights-grid{grid-template-columns:repeat(2,minmax(0,1fr))}#prod-kpis{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(max-width:420px){#prod .prod-plot,#prod .prod-packages-plot{--chartcols:2}#prod-kpis{grid-template-columns:1fr!important}}
+@media print{
+  @page{size:A3 landscape;margin:10mm}
+  *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+  body{background:#fff!important;font-size:11px}header{padding:8px 0 12px;box-shadow:none}
+  main{max-width:none;padding:4px 0}.tabs,.filters,.spx-collection,.prod-report-actions,
+  #prod .filters,#prod #prod-snapshot-status,#loading{display:none!important}
+  #ins,#eti,#exp{display:none!important}#prod{display:block!important}
+  #prod .charts{grid-template-columns:1fr 1fr;gap:10px}
+  #prod .prod-plot,#prod .prod-packages-plot{--chartcols:7;gap:4px}
+  #prod .prod-day,#prod .prod-packages-plot .prod-day{height:128px!important;padding:4px 2px}
+  #prod .prod-bars,#prod .prod-packages-plot .prod-bars{padding-top:10px}
+  #prod .prod-value,#prod .prod-packages-plot .prod-value{font-size:7px!important}
+  #prod .prod-day-date,#prod .prod-day small{font-size:9px!important}
+  #prod .prod-day-label{display:none!important}
+  #prod .charts>.panel{break-inside:avoid;page-break-inside:avoid;padding-bottom:8px}
+  #prod .charts>.panel>h2{font-size:12px;padding:9px 12px;margin-bottom:4px}
+  #prod-kpis .card{padding:8px 12px;min-height:0}#prod-kpis .card .value{font-size:25px;margin-top:4px}
+  #prod-kpis .card .sub{display:none}#prod-kpis{margin-bottom:10px;grid-template-columns:repeat(5,minmax(0,1fr))!important}
+  #prod .section-heading{margin:0 0 8px}#prod .section-heading h1{font-size:18px}
+  #prod .prod-insights-grid{gap:7px}#prod .prod-insight{padding:8px}
+  #prod .prod-insight .metric{font-size:17px}#prod .prod-insight .name{min-height:0;font-size:9px}
+  #prod .prod-insight .context{font-size:8px}#prod .prod-note{font-size:8px}
+  #prod-table .table td,#prod-table .table th{padding:4px 7px;font-size:8px}
+}
+
+
+/* LSP 133: relatório executivo legível, gráficos SVG agrupados */
+#prod .charts{grid-template-columns:minmax(0,1fr)!important;gap:16px}
+#prod .charts>.panel{grid-column:1/-1!important;overflow:visible}
+#prod .charts>.panel>h2{margin-bottom:0!important}
+#prod .charts>.panel>#prod-routes,
+#prod .charts>.panel>#prod-packages{margin:0!important;padding:15px 23px 17px}
+.executive-chart-wrap{width:100%;max-width:100%;overflow:visible}
+.executive-chart{display:block;width:100%;height:auto;max-height:350px;overflow:visible}
+.executive-legend{display:flex;justify-content:center;align-items:center;gap:18px;flex-wrap:wrap;margin:7px 0 9px;font-size:12px;color:#41526b}
+.executive-legend-item{display:inline-flex;align-items:center;gap:7px;white-space:nowrap;font-weight:600}
+.executive-legend-item i{display:inline-block;width:11px;height:11px;border-radius:2px;flex:none}
+.executive-chart-note{font-size:11px;color:#6b7b91;line-height:1.55;text-align:center;border-top:1px solid #edf1f5;padding-top:9px}
+#prod .charts>.panel.prod-insights-panel{grid-column:1/-1!important}
+#prod .charts>.panel.wide{grid-column:1/-1!important}
+#prod .charts>.panel{box-shadow:0 3px 18px rgba(20,38,63,.04)}
+#prod .prod-insights-panel{padding-bottom:16px!important}
+#prod .prod-insights-panel #prod-insights{margin:14px 16px 0!important}
+#prod .prod-insights-panel #prod-insights-note{margin:11px 16px 0!important}
+#prod-table{margin:13px 15px 3px!important}
+#prod .section-heading{margin-bottom:15px}
+@media(max-width:800px){
+  #prod .charts>.panel>#prod-routes,#prod .charts>.panel>#prod-packages{padding:13px 10px 14px}
+  .executive-chart{min-width:0}
+  .executive-legend{gap:9px;font-size:10px}
+}
+@media print{
+  @page{size:A3 landscape;margin:9mm}
+  #prod .charts{display:grid!important;grid-template-columns:1fr!important}
+  #prod .charts>.panel{grid-column:1/-1!important;break-inside:avoid!important;box-shadow:none!important}
+  #prod .charts>.panel>#prod-routes,#prod .charts>.panel>#prod-packages{margin:0!important;padding:6px 12px 10px!important}
+  .executive-chart{max-height:265px!important}
+  .executive-legend{margin:3px 0 4px;font-size:9px}
+  .executive-chart-note{font-size:8px;padding-top:4px}
+}
+
+
+/* Ajustes de rotulos 11/11: todos os valores, area de leitura e 3 KPIs expedicao */
+#exp-kpis{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+#exp #exp-daily{padding:4px 0 6px;min-width:0}
+#exp #exp-daily .executive-chart{width:100%;height:auto;max-height:340px}
+#exp #exp-daily .executive-chart-note{text-align:center}
+#prod .executive-chart{max-height:390px}
+@media(max-width:700px){#exp-kpis{grid-template-columns:1fr}}
+@media print{#exp-kpis{grid-template-columns:repeat(3,minmax(0,1fr))!important}}
+
+
+/* Evolução da atribuição: 3 linhas, leitura executiva e variação entre capturas */
+#exp .charts{grid-template-columns:repeat(2,minmax(0,1fr));gap:17px}
+#exp .exp-evolution-panel{grid-column:1/-1;padding-bottom:17px}
+#exp .exp-evolution-panel h2{margin-bottom:8px}
+#exp .exp-evolution-subtitle{font-size:11px;color:#69798f;margin:0 0 13px;line-height:1.5}
+#exp #exp-daily{width:100%;min-width:0;padding:5px 6px}
+#exp .exp-evolution-svg{width:100%;height:auto;display:block;max-height:345px;overflow:visible}
+#exp .exp-evolution-legend{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;padding:6px 0 9px;font-size:12px;color:#41526b;font-weight:600}
+#exp .exp-evolution-legend .swatch{width:22px;height:3px;border-radius:3px;display:inline-block;margin-right:6px;vertical-align:middle}
+#exp .exp-evolution-foot{font-size:11px;color:#728197;text-align:center;line-height:1.5;margin-top:7px;border-top:1px solid #edf1f5;padding-top:10px}
+#exp .exp-evolution-summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:8px 0 13px}
+#exp .exp-evolution-summary .trend-card{padding:13px 15px;border:1px solid #e4eaf2;background:#f7f9fc;border-radius:10px;min-width:0}
+#exp .exp-evolution-summary .trend-label{font-size:11px;color:#65758c;font-weight:600}
+#exp .exp-evolution-summary .trend-number{font-size:23px;color:#1a2e4e;font-weight:800;margin-top:5px;font-variant-numeric:tabular-nums}
+#exp .exp-evolution-summary .trend-detail{font-size:10px;color:#718097;margin-top:4px;line-height:1.4}
+#exp .exp-evolution-summary .trend-number.up{color:#07865c}
+#exp .exp-evolution-summary .trend-number.down{color:#ca4a31}
+#exp .exp-evolution-summary .trend-number.flat{color:#455670}
+#exp .exp-evolution-summary .trend-number.na{color:#64748b}
+@media(max-width:850px){#exp .exp-evolution-summary{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:700px){#exp .charts{grid-template-columns:minmax(0,1fr)}#exp .exp-evolution-summary{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media print{#exp .exp-evolution-panel{break-inside:avoid}#exp .exp-evolution-svg{max-height:250px}}
+
+
+#exp-kpis{grid-template-columns:repeat(4,minmax(0,1fr))}#exp-kpis .card:nth-child(4) .value{color:#192c49}#exp-daily-values{margin-top:16px}#exp-daily-values .table th,#exp-origins .table th{white-space:nowrap}@media(max-width:900px){#exp-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:550px){#exp-kpis{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+  <header><div class="brand"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 48 48" focusable="false"><path d="M8 15h32l3 29H5l3-29Z" fill="currentColor"/><path d="M17 17v-4a7 7 0 0 1 14 0v4" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><text x="24" y="37" text-anchor="middle" fill="#fff" font-size="21" font-family="Arial,sans-serif" font-weight="700">S</text></svg></span><span class="brand-copy"><strong>Shopee</strong><span class="brand-divider">/</span><span class="brand-title">Central Operacional · LSP 133</span><small>Produção e expedição | indicadores e relatórios</small></span></div><div class="status"><span class="dot"></span><span id="status">Iniciando...</span><div id="time">Atualização: —</div></div></header>
+  <main>
+    <div class="tabs" role="tablist"><button id="tab-prod" class="active" type="button" onclick="changeTab('prod')">Controle de Produção</button><button id="tab-ins" type="button" onclick="changeTab('ins')">Insucessos</button><button id="tab-eti" type="button" onclick="changeTab('eti')">Erros de expedição</button><button id="tab-exp" type="button" onclick="changeTab('exp')">Expedição de Rotas</button></div>
+    <div class="filters">
+      <label>Data inicial <span class="date-control"><input id="from-display" type="text" inputmode="numeric" autocomplete="off" placeholder="dd/mm/aaaa" maxlength="10" aria-label="Data inicial, dia mês ano"><button class="date-picker-button" type="button" aria-label="Abrir calendário da data inicial" onclick="openDatePicker('from')">▦</button><input id="from" class="native-date" type="date" tabindex="-1" aria-hidden="true"></span></label><label>Data final <span class="date-control"><input id="to-display" type="text" inputmode="numeric" autocomplete="off" placeholder="dd/mm/aaaa" maxlength="10" aria-label="Data final, dia mês ano"><button class="date-picker-button" type="button" aria-label="Abrir calendário da data final" onclick="openDatePicker('to')">▦</button><input id="to" class="native-date" type="date" tabindex="-1" aria-hidden="true"></span></label>
+      <label id="search-label">Pesquisar BR ou pessoa <input id="search" type="search" placeholder="Código ou nome"></label>
+      <button class="btn-refresh" type="button" onclick="loadData()">Aplicar filtros</button>
+      <button type="button" onclick="clearFilters()">Limpar</button><span id="loading"></span>
+    </div>
+<!-- O controle Atualizar SPX é inserido pelo Botao_SPX.html. -->
+
+    <div id="error" class="error hidden" role="alert"></div>
+    <section id="ins" class="hidden"><h1>Insucessos</h1><div class="subhead">Visão consolidada dos registros de devolução, VOANDO e MISSORT</div>
+      <div class="kpis" id="ins-kpis"></div>
+      <div class="charts"><div class="panel"><h2>Devoluções por dia</h2><div id="ins-daily" class="chart"></div></div><div class="panel"><h2>Top 10 motoristas • devoluções</h2><div id="ins-rank" class="chart"></div></div><div class="panel"><h2>VOANDO por dia</h2><div id="ins-voando-daily" class="chart"></div></div><div class="panel"><h2>VOANDO por motorista</h2><div id="ins-voando-rank" class="chart"></div></div><div class="panel wide"><h2>Ocorrências recentes no período</h2><div id="ins-recent"></div></div></div>
+    </section>
+    <section id="eti" class="hidden"><div class="section-heading"><h1>Monitoramento de erros diários</h1><span class="period-label" id="eti-period">Todo o histórico</span></div>
+      <div class="kpis" id="eti-kpis"></div><div class="charts"><div class="panel"><h2>Evolução diária</h2><div id="eti-daily" class="chart"></div></div><div class="panel"><h2>Operadores associados</h2><div id="eti-rank" class="chart"></div></div><div class="panel wide"><h2>Ocorrências recentes</h2><div id="eti-recent"></div></div></div>
+    </section>
+
+<section id="prod"><div class="section-heading"><h1>Controle de Produção</h1><span class="period-label">Dados da planilha · atualização manual da base</span></div><div class="filters"><label>Dados exibidos <select id="prod-view" onchange="loadData()"><option value="current">Dados atuais da planilha</option><option value="history">Histórico: última captura de cada data</option></select></label><button id="prod-snapshot" type="button" onclick="saveProductionSnapshot()">Salvar captura no histórico</button><span id="prod-snapshot-status" role="status"></span><span class="prod-view-help">A captura guarda os números atuais por data na aba Histórico Diário. A visão de histórico mostra a captura mais recente de cada data.</span></div><div class="prod-report-actions"><div><strong>Visão executiva · LSP 133</strong><div class="report-label" id="prod-report-period">Dados operacionais conforme o período selecionado · até 14 datas nos gráficos</div></div><div class="prod-report-buttons"><button id="prod-report-toggle" type="button" class="report-primary" onclick="toggleProductionReport()">Ativar modo relatório</button><button type="button" onclick="printProductionReport()">Imprimir / salvar PDF</button></div></div><div id="prod-kpis" class="kpis"></div><div class="charts"><div class="panel"><h2>Rotas por dia</h2><div id="prod-routes"></div></div><div class="panel"><h2>Pacotes por dia</h2><div id="prod-packages"></div></div><div class="panel prod-insights-panel"><h2>Destaques do período</h2><div id="prod-insights" class="prod-insights-grid" aria-live="polite"></div><div id="prod-insights-note" class="report-caption"></div></div><div class="panel wide"><h2>Resumo diário</h2><div id="prod-table"></div></div></div></section>
+
+<section id="exp" class="hidden">
+  <div class="section-heading"><h1>Expedição de Rotas</h1><span class="period-label" id="exp-period">Atribuições por Driver Assigned Time</span></div>
+  <p class="exp-info">Atribuídas no dia: ATs únicas em <b>Assigned</b> ou <b>Complete</b>, com <b>Driver Assigned Time</b> na data analisada. Atribuição não comprova saída física. O histórico depende do gatilho de captura.</p>
+  <div id="exp-kpis" class="kpis"></div>
+  <div class="charts">
+    <div class="panel exp-evolution-panel"><h2>Evolução da atribuição de rotas</h2><p class="exp-evolution-subtitle">Comparação por data de atribuição: Total atribuído, Assigned e Complete. O gráfico utiliza apenas os dias disponíveis no histórico.</p><div id="exp-trend-summary" class="exp-evolution-summary" aria-live="polite"></div><div id="exp-daily"></div></div>
+    <div class="panel"><h2>Origem operacional das rotas</h2><div id="exp-origins"></div></div>
+    <div class="panel"><h2>Horários das atribuições</h2><div id="exp-hours"></div></div>
+    <div class="panel"><h2>Qualidade e atualização dos dados</h2><div id="exp-quality"></div></div>
+    <div class="panel wide"><h2>Detalhamento por AT</h2><div id="exp-table"></div></div>
+  </div>
+</section>
+  </main>
 <script>
-// Remove somente o parâmetro de origem adicionado ao link pelo ChatGPT.
-const cleanUrl = new URL(window.location.href);
-if (cleanUrl.searchParams.get('utm_source') === 'chatgpt.com') {
-  cleanUrl.searchParams.delete('utm_source');
-  window.history.replaceState(window.history.state, '', cleanUrl.pathname + cleanUrl.search + cleanUrl.hash);
-}
+/* Transporte do mesmo Index.html do Apps Script para GitHub Pages. Sem credenciais. */
+(function(){
+ 'use strict';
+ const APP='https://script.google.com/a/macros/shopeemobile-external.com/s/AKfycbyj5tAJaVY8V2A5qYyE47lNpnta_AwTII8iHdcfMnQmb-AkxJxUVHcDx-xCrK7-k2uCgA/exec';
+ const BR=new Intl.DateTimeFormat('pt-BR',{timeZone:'America/Sao_Paulo',dateStyle:'short',timeStyle:'medium'});
+ function inPeriod(r,f){return (!f.from||r.date>=f.from)&&(!f.to||r.date<=f.to);}
+ async function source(){
+  const response=await fetch('./data/indicadores.json?t='+Date.now(),{cache:'no-store'});
+  if(!response.ok)throw new Error('Não foi possível carregar a publicação de dados.');
+  const data=await response.json();if(data.mode!=='REAL_AGGREGATED'||!Array.isArray(data.days))throw new Error('A publicação não contém indicadores reais.');return data;
+ }
+ function production(data,f,history){
+  const view=history?data.appViews?.history:data.appViews?.production;
+  let rows=view?view.daily:(history?data.history||[]:data.days.filter(r=>r.routesObserved!==false));
+  const today=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Sao_Paulo',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
+  const daily=rows.filter(r=>inPeriod(r,f)).map(r=>{
+   const missingOut=Number(r.missingOut??r.pendingPackagesOut??0),missingFloor=Number(r.missingFloor??r.pendingPackagesFloor??0);
+   return {...r,missingOut,missingFloor,missingPackages:missingOut+missingFloor,status:r.status||(history?r.snapshotType||'CAPTURA':r.routesFloor?'D'+Math.floor((Date.parse(today+'T00:00:00Z')-Date.parse(r.date+'T00:00:00Z'))/86400000):'Piso zerado'),notes:r.notes||(missingOut+missingFloor?`${missingOut+missingFloor} rota(s) sem quantidade de pacotes na origem`:history?'Captura: '+(r.snapshotAt||''):'')};
+  }).sort((a,b)=>a.date.localeCompare(b.date));
+  const kpis={routesOut:0,routesFloor:0,packagesOut:0,packagesFloor:0};daily.forEach(r=>Object.keys(kpis).forEach(k=>kpis[k]+=Number(r[k])||0));
+  kpis.spr=daily.some(r=>r.missingOut)||!kpis.routesOut?null:kpis.packagesOut/kpis.routesOut;
+  const packagesDaily=view?.packagesDaily?view.packagesDaily.filter(r=>inPeriod(r,f)):daily.map(r=>({date:r.date,packagesOut:r.packagesOut,packagesFloor:r.packagesFloor,packagesHistorical:0}));
+  return {updatedAt:BR.format(new Date(data.generatedAt)),daily,kpis,missingPackages:daily.reduce((v,r)=>v+r.missingPackages,0),packagesDaily};
+ }
+ function expedition(data,f){
+  const turn=data.expeditionTurn;if(!turn?.current||!Array.isArray(turn.daily))throw new Error('Aguardando sincronização da aba Expedição Hoje. Execute syncLsp133ToGitHub na Central.');
+  const c=turn.current;if(c.assigned+c.complete!==c.total)throw new Error('Os totais de expedição não conferem.');
+  return {updatedAt:BR.format(new Date(c.capturedAt)),today:c.date,source:'Fonte central · Expedição Hoje',currentAvailable:true,kpis:{today:c},daily:turn.daily.filter(r=>inPeriod(r,f)),origins:c.origins||[],hours:[],details:[],detailCount:0,detailLimit:500,historyDates:turn.daily.filter(r=>r.date!==c.date).length,note:turn.criterion||'Desde ontem às 21h.'};
+ }
+ function corporate(area){window.location.assign(APP+(area?'?area='+area:''));}
+ async function invoke(method,args){
+  if(method==='requestSpxCloudUpdate'){corporate('spx');return {busy:false,canUpdate:true,label:'Abrindo controle autenticado…'};}
+  if(method==='recordProductionSnapshot'){corporate('');return {message:'Salve a captura na Central autenticada.'};}
+  if(method==='getSpxCloudStatus')return {busy:false,canUpdate:true,label:'A atualização é executada pela Central autenticada do Google.',updatedAt:null,records:0,runUrl:''};
+  if(method==='getDashboardData'){corporate(document.getElementById('eti')?.classList.contains('hidden')?'insucessos':'erros');return null;}
+  const data=await source(),f=args[0]||{};
+  if(method==='getProductionData')return production(data,f,false);
+  if(method==='getProductionHistory')return production(data,f,true);
+  if(method==='getExpeditionData')return expedition(data,f);
+  throw new Error('Ação disponível na Central autenticada.');
+ }
+ function runner(success,failure){return new Proxy({}, {get:(_,key)=>{
+  if(key==='withSuccessHandler')return cb=>runner(cb,failure);
+  if(key==='withFailureHandler')return cb=>runner(success,cb);
+  return (...args)=>{Promise.resolve().then(()=>invoke(key,args)).then(result=>{if(result!==null&&success)success(result);}).catch(error=>{if(failure)failure(error);});};}});}
+ window.google={script:{run:runner()}};
+ // Áreas com dados por AT e horários mantêm acesso autenticado; nada é inventado no JSON público.
+ window.lspCorporateURL=APP;
+ document.addEventListener('DOMContentLoaded',()=>{
+  const oldDetails=window.expDetails,oldHours=window.expHours;
+  function access(root){root.replaceChildren();const a=document.createElement('a');a.href=APP;a.target='_blank';a.rel='noopener noreferrer';a.textContent='Consultar na Central autenticada';a.style.cssText='display:inline-block;color:#172338;font-weight:700;padding:12px 0';root.append(a);}
+  if(oldDetails)window.expDetails=()=>access(document.getElementById('exp-table'));
+  if(oldHours)window.expHours=()=>access(document.getElementById('exp-hours'));
+ });
+})();
 
-'use strict';
-const $=s=>document.querySelector(s),fmt=n=>Number(n||0).toLocaleString('pt-BR'),pct=n=>(n>=0?'+':'')+n.toLocaleString('pt-BR',{maximumFractionDigits:1})+'%';
-const escapeHtml=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const RESTRICTED_APP_URL='https://script.google.com/a/macros/shopeemobile-external.com/s/AKfycbyj5tAJaVY8V2A5qYyE47lNpnta_AwTII8iHdcfMnQmb-AkxJxUVHcDx-xCrK7-k2uCgA/exec';
-document.getElementById('spx-update-link').href=RESTRICTED_APP_URL+'?area=spx';
-const COLORS=['#07825d','#ee4d2d','#172338'];let state={page:'producao',data:null,rows:[],history:false,report:false};
-const pages={producao:['Controle de Produção','Evolução diária de rotas e pacotes'],insucessos:['Insucessos','Indicadores de insucessos'],erros:['Erros de Expedição','Indicadores de erros de expedição'],atribuicao:['Expedição de Rotas','Evolução diária das atribuições de motoristas']};
-function metric(label,value,foot){return '<div class="metric"><div class="label">'+escapeHtml(label)+'</div><div class="number">'+escapeHtml(value)+'</div><div class="foot">'+escapeHtml(foot)+'</div></div>'}
-function sum(a,key){return a.reduce((n,r)=>n+Number(r[key]||0),0)}
-function formatDate(date){let [y,m,d]=date.split('-');return d+'/'+m+'/'+y}
-function fmtShort(date){let [y,m,d]=date.split('-');return d+'/'+m}
-function legend(items){return '<div class="legend">'+items.map((s,i)=>'<span><i style="background:'+COLORS[i%COLORS.length]+'"></i>'+escapeHtml(s.name)+'</span>').join('')+'</div>'}
-function lineChart(rows,items){if(!rows.length)return '<div class="empty">Sem dados no período.</div>';let W=1060,H=300,L=58,R=25,T=38,B=45,n=rows.length,max=Math.max(1,...rows.flatMap(r=>items.map(it=>Number(r[it.key]||0)))), ymax=Math.ceil(max/10)*10||10, innerW=W-L-R,innerH=H-T-B; const x=i=>L+(n===1?innerW/2:i*innerW/(n-1)),y=v=>T+(1-v/ymax)*innerH;let paths='';
-for(let k=0;k<=4;k++){let val=ymax*k/4,yp=y(val);paths+='<line x1="'+L+'" y1="'+yp+'" x2="'+(W-R)+'" y2="'+yp+'" stroke="#e8ecf2"/><text x="'+(L-10)+'" y="'+(yp+4)+'" text-anchor="end" fill="#738095" font-size="12">'+fmt(Math.round(val))+'</text>'}
-items.forEach((it,j)=>{let pts=rows.map((r,i)=>x(i)+','+y(Number(r[it.key]||0))).join(' ');paths+='<polyline fill="none" stroke="'+COLORS[j]+'" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round" points="'+pts+'"/>';rows.forEach((r,i)=>{let val=Number(r[it.key]||0);paths+='<circle cx="'+x(i)+'" cy="'+y(val)+'" r="4.5" fill="'+COLORS[j]+'" stroke="white" stroke-width="2"><title>'+fmtShort(r.date)+' · '+it.name+': '+fmt(val)+'</title></circle>';if((n<=9||i===0||i===n-1)&&j===0)paths+='<text x="'+x(i)+'" y="'+Math.max(15,y(val)-12)+'" text-anchor="middle" fill="#172338" font-size="12" font-weight="700">'+fmt(val)+'</text>'})});
-rows.forEach((r,i)=>{if(n>11&&i%2&&! (i===n-1))return;paths+='<text x="'+x(i)+'" y="'+(H-12)+'" text-anchor="middle" fill="#667085" font-size="12">'+fmtShort(r.date)+'</text>'});
-return '<div class="chart"><svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Evolução diária por data">'+paths+'</svg></div>'+legend(items)}
-// Cada coluna recebe seu valor; em períodos longos o gráfico permite rolagem horizontal.
-function bars(rows,items){
-  if(!rows.length)return '<div class="empty">Sem dados no período.</div>';
-  const n=rows.length,W=Math.max(1020,76+n*(items.length*65+25)),H=330,L=65,R=24,T=45,B=45;
-  const peak=Math.max(1,...rows.flatMap(r=>items.map(it=>Number(r[it.key])||0)));
-  const max=Math.max(5,Math.ceil((peak*1.18)/5)*5),innerW=W-L-R,innerH=H-T-B,group=innerW/n;
-  const bw=Math.min(37,Math.max(15,group/(items.length+1.7))),stride=Math.max(bw+17,group/(items.length+0.6));
-  const y=v=>T+innerH*(1-v/max),base=T+innerH;
-  let chart='';
-  for(let k=0;k<=4;k++){
-    const value=max*k/4,yp=y(value);
-    chart+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+yp+'" y2="'+yp+'" stroke="#e8ecf2"/>';
-    chart+='<text x="'+(L-10)+'" y="'+(yp+4)+'" text-anchor="end" font-size="12" fill="#738095">'+fmt(Math.round(value))+'</text>';
+</script>
+<script>
+  'use strict';
+  let tab='prod',busy=false;
+  const $=id=>document.getElementById(id);
+  function changeTab(next){tab=next;['ins','eti','prod','exp'].forEach(id=>{$(id).classList.toggle('hidden',next!==id);$('tab-'+id).classList.toggle('active',next===id);});$('search-label').classList.toggle('hidden',next==='prod');$('search').placeholder=next==='exp'?'Código da AT':'Código ou nome';document.querySelector('.spx-collection')?.classList.toggle('hidden',next==='prod'||next==='exp');loadData();}
+  function clearFilters(){$('from').value='';$('to').value='';$('from-display').value='';$('to-display').value='';$('search').value='';loadData();}
+  function dateToISO(text){const m=/^(\d{2})\/(\d{2})\/(\d{4})$/.exec(text.trim());if(!m)return null;const day=Number(m[1]),month=Number(m[2]),year=Number(m[3]);const d=new Date(year,month-1,day);return d.getFullYear()===year&&d.getMonth()===month-1&&d.getDate()===day?`${m[3]}-${m[2]}-${m[1]}`:null;}
+  function isoToDate(iso){return /^\d{4}-\d{2}-\d{2}$/.test(iso)?`${iso.slice(8,10)}/${iso.slice(5,7)}/${iso.slice(0,4)}`:'';}
+  const calendarView={};
+  function closeDatePickers(){document.querySelectorAll('.calendar-popover').forEach(x=>x.remove());document.querySelectorAll('.date-picker-button').forEach(x=>x.setAttribute('aria-expanded','false'));}
+  function renderCalendar(id){const control=$(id+'-display').closest('.date-control'),popup=el('div','calendar-popover'),view=calendarView[id],year=view.getFullYear(),month=view.getMonth();popup.setAttribute('role','dialog');popup.setAttribute('aria-label','Escolher '+(id==='from'?'data inicial':'data final'));const head=el('div','calendar-head'),prev=el('button','', '‹'),next=el('button','', '›');prev.type=next.type='button';prev.setAttribute('aria-label','Mês anterior');next.setAttribute('aria-label','Próximo mês');prev.onclick=()=>{calendarView[id]=new Date(year,month-1,1);renderCalendar(id);};next.onclick=()=>{calendarView[id]=new Date(year,month+1,1);renderCalendar(id);};head.append(prev,el('strong','',view.toLocaleDateString('pt-BR',{month:'long',year:'numeric'})),next);popup.append(head);const grid=el('div','calendar-grid');['Seg','Ter','Qua','Qui','Sex','Sáb','Dom'].forEach(w=>grid.append(el('span','calendar-weekday',w)));const offset=(new Date(year,month,1).getDay()+6)%7;for(let i=0;i<offset;i++)grid.append(el('span'));const selected=$(id).value;for(let day=1,last=new Date(year,month+1,0).getDate();day<=last;day++){const iso=year+'-'+String(month+1).padStart(2,'0')+'-'+String(day).padStart(2,'0'),btn=el('button','calendar-day',day);btn.type='button';btn.setAttribute('aria-label',new Date(year,month,day).toLocaleDateString('pt-BR',{day:'numeric',month:'long',year:'numeric'}));if(iso===selected)btn.classList.add('selected');btn.onclick=()=>{$(id).value=iso;$(id+'-display').value=isoToDate(iso);closeDatePickers();$(id+'-display').focus();};grid.append(btn);}popup.append(grid);const today=el('button','calendar-today','Hoje');today.type='button';today.onclick=()=>{const now=new Date(),iso=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0')+'-'+String(now.getDate()).padStart(2,'0');$(id).value=iso;$(id+'-display').value=isoToDate(iso);closeDatePickers();};popup.append(today);control.querySelector('.calendar-popover')?.remove();control.append(popup);control.querySelector('.date-picker-button').setAttribute('aria-expanded','true');}
+  function openDatePicker(id){const control=$(id+'-display').closest('.date-control'),wasOpen=!!control.querySelector('.calendar-popover');closeDatePickers();if(wasOpen)return;const iso=dateToISO($(id+'-display').value)||$(id).value;calendarView[id]=iso?new Date(Number(iso.slice(0,4)),Number(iso.slice(5,7))-1,1):new Date();renderCalendar(id);}
+  document.addEventListener('click',e=>{if(!e.target.closest('.date-control'))closeDatePickers();});document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDatePickers();});
+  ['from','to'].forEach(id=>{$(id).addEventListener('change',()=>{$(id+'-display').value=isoToDate($(id).value);});$(id+'-display').addEventListener('blur',()=>{const display=$(id+'-display');if(display.value.trim()){const iso=dateToISO(display.value);if(iso){display.value=isoToDate(iso);$(id).value=iso;}}else $(id).value='';});});
+  const number=x=>Number(x||0).toLocaleString('pt-BR');
+  const percent=x=>Number(x||0).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2})+'%';
+  const shortDate=s=>s&&/^\d{4}-\d{2}-\d{2}$/.test(s)?s.slice(8,10)+'/'+s.slice(5,7):s;
+  function el(tag,cls,text){const x=document.createElement(tag);if(cls)x.className=cls;if(text!==undefined)x.textContent=String(text);return x;}
+  function appendKpis(id,items){const root=$(id);root.replaceChildren();items.forEach(([name,value,desc])=>{const c=el('div','card');c.append(el('div','key',name),el('div','value',value));if(desc)c.append(el('div','sub',desc));root.append(c);});}
+  function noData(root){root.append(el('div','empty','Sem registros no filtro selecionado.'));}
+  function drawDaily(id,items){const root=$(id);root.replaceChildren();if(!items.length){noData(root);return;}
+    const chart=el('div','daily');const tail=items.slice(-14),max=Math.max(1,...tail.map(x=>x.value));tail.forEach(row=>{const col=el('div','column');const top=el('div','value',number(row.value));const stem=el('div','stem');stem.style.height=Math.max(2,row.value/max*205)+'px';stem.title=shortDate(row.date)+': '+number(row.value);col.append(top,stem,el('div','date',shortDate(row.date)));chart.append(col);});root.append(chart);
   }
-  rows.forEach((row,i)=>{
-    const center=L+group*(i+.5);
-    items.forEach((it,j)=>{
-      const v=Math.max(0,Number(row[it.key])||0),height=v/max*innerH;
-      const cx=center+(j-(items.length-1)/2)*stride,x=cx-bw/2,top=base-height;
-      chart+='<rect x="'+x+'" y="'+top+'" width="'+bw+'" height="'+Math.max(height,0.1)+'" rx="3" fill="'+COLORS[j%COLORS.length]+'"><title>'+fmtShort(row.date)+' · '+escapeHtml(it.name)+': '+fmt(v)+'</title></rect>';
-      // Rotulos em todas as colunas com valor positivo, inclusive mais de 8 dias.
-      if(v>0)chart+='<text x="'+cx+'" y="'+Math.max(19,top-8)+'" text-anchor="middle" font-size="11" font-weight="700" fill="#283b55" stroke="#fff" stroke-width="3" paint-order="stroke">'+fmt(v)+'</text>';
+  function drawRank(id,items){const root=$(id);root.replaceChildren();if(!items.length){noData(root);return;}const max=Math.max(1,...items.map(x=>x.value));items.forEach(row=>{const r=el('div','bar-row'),lab=el('div','bar-label',row.name),track=el('div','track'),fill=el('div','fill'),num=el('div','bar-value',number(row.value));lab.title=row.name;fill.style.width=(row.value/max*100)+'%';track.append(fill);r.append(lab,track,num);root.append(r);});}
+  function drawRecent(id,items){const root=$(id);root.replaceChildren();if(!items.length){noData(root);return;}const wrap=el('div','table-wrap'),table=el('table','table'),thead=el('thead'),tr=el('tr');['Data','BR','Motorista / operador','Ocorrência'].forEach(x=>tr.append(el('th','',x)));thead.append(tr);const tbody=el('tbody');items.forEach(row=>{const r=el('tr');[shortDate(row.date),row.br,row.name||'Não identificado',row.kind].forEach(v=>r.append(el('td','',v)));tbody.append(r);});table.append(thead,tbody);wrap.append(table);root.append(wrap);}
+  function render(d){$('status').textContent='Conectado às planilhas';$('time').textContent='Dados publicados: '+d.updatedAt;
+    const a=d.insucessos.kpis,b=d.etiquetas.kpis;
+    appendKpis('ins-kpis', [['BRs únicos devolvidos',number(a.brUnicos),'Códigos distintos na lista de devoluções'],['VOANDO / total insucessos',percent(a.percentualVoando),'VOANDO ÷ (devoluções + VOANDO + MISSORT)'],['Registros VOANDO',number(a.voando),'Entregas sem registro de saída'],['Registros MISSORT',number(a.missort),'Outros insucessos']]);
+    drawDaily('ins-daily',d.insucessos.porDia);drawRank('ins-rank',d.insucessos.motoristas);drawDaily('ins-voando-daily',d.insucessos.voandoPorDia);drawRank('ins-voando-rank',d.insucessos.voandoMotoristas);drawRecent('ins-recent',d.insucessos.recentes);
+    const media=b.mediaDiaria===null||b.mediaDiaria===undefined?'—':Number(b.mediaDiaria).toLocaleString('pt-BR',{minimumFractionDigits:1,maximumFractionDigits:1});
+    appendKpis('eti-kpis',[['Erros de etiquetagem',number(b.etiquetagem)],['Erros de duplicidade',number(b.duplicidade)],['Média diária',media]]);
+    $('eti-kpis').lastElementChild.title='Erros de etiquetagem com data divididos pelos dias corridos do intervalo. Sem filtro, considera da primeira à última ocorrência datada.';
+    const f=d.filter||{};$('eti-period').textContent=f.from&&f.to?shortDate(f.from)+' — '+shortDate(f.to):f.from?'Desde '+shortDate(f.from):f.to?'Até '+shortDate(f.to):'Todo o histórico';
+    drawDaily('eti-daily',d.etiquetas.porDia);drawRank('eti-rank',d.etiquetas.operadores);drawRecent('eti-recent',d.etiquetas.recentes);
+  }
+  function loadData(){if(busy)return;const fromText=$('from-display').value.trim(),toText=$('to-display').value.trim();const from=fromText?dateToISO(fromText):'',to=toText?dateToISO(toText):'';if((fromText&&!from)||(toText&&!to)){showError('Informe datas válidas no formato dd/mm/aaaa.');return;}if(from&&to&&from>to){showError('A data inicial deve ser anterior ou igual à data final.');return;}$('from').value=from;$('to').value=to;
+    busy=true;$('loading').textContent='Consultando...';$('error').classList.add('hidden');$('status').textContent='Atualizando...';
+    const filters={from,to,search:tab==='prod'?'':$('search').value.trim()};const requestedTab=tab;
+    google.script.run.withSuccessHandler(d=>{busy=false;$('loading').textContent='';if(tab===requestedTab){if(requestedTab==='prod')renderProduction(d);else if(requestedTab==='exp')renderExpedition(d);else render(d);}else loadData();}).withFailureHandler(e=>{busy=false;$('loading').textContent='';$('status').textContent='Erro de leitura';showError(e&&e.message?e.message:String(e));})[requestedTab==='exp'?'getExpeditionData':requestedTab==='prod'?($('prod-view').value==='history'?'getProductionHistory':'getProductionData'):'getDashboardData'](filters);
+  }
+  let productionClientId=null;
+  function saveProductionSnapshot(){const button=$('prod-snapshot'),label=$('prod-snapshot-status');if(button.disabled)return;button.disabled=true;productionClientId=productionClientId||crypto.randomUUID();label.textContent='Registrando captura…';google.script.run.withSuccessHandler(r=>{productionClientId=null;button.disabled=false;label.textContent=r.message;loadData();}).withFailureHandler(e=>{button.disabled=false;label.textContent=e.message||'Não foi possível registrar.';}).recordProductionSnapshot(productionClientId);}
+  // Gráficos executivos SVG: agrupados, com eixo e escala consistentes.
+  // Os dados são exatamente os recebidos do Apps Script; não alteramos os cálculos.
+  function productionSvgChart(root, rows, series, footnote) {
+    root.replaceChildren();
+    if (!rows || !rows.length) { noData(root); return; }
+    const tail = rows.slice(-14);
+    const clean = v => Math.max(0, Number(v) || 0);
+    const maxValue = Math.max(1, ...tail.flatMap(r => series.map(s => clean(s.value(r)))));
+    const magnitude = Math.pow(10, Math.floor(Math.log10(maxValue / 5)));
+    const target = maxValue / 5 / magnitude;
+    const unit = [1, 2, 2.5, 5, 10].find(n => n >= target) || 10;
+    const step = unit * magnitude;
+    const ceiling = Math.max(step, Math.ceil(maxValue / step) * step);
+    const NS = 'http://www.w3.org/2000/svg';
+    const svg = document.createElementNS(NS, 'svg');
+    const W = 1200, H = 360, left = 69, right = 20, top = 72, bottom = 45;
+    const plotW = W-left-right, plotH = H-top-bottom;
+    svg.setAttribute('viewBox', '0 0 '+W+' '+H);
+    svg.setAttribute('role', 'img');
+    svg.setAttribute('class', 'executive-chart');
+    svg.setAttribute('aria-label', series.map(s=>s.name).join(', ')+' por data');
+    const add = (tag, attrs, text) => {
+      const el = document.createElementNS(NS, tag);
+      Object.entries(attrs||{}).forEach(([k,v])=>el.setAttribute(k,String(v)));
+      if (text !== undefined) el.textContent = String(text);
+      svg.appendChild(el); return el;
+    };
+    const ticks = Math.round(ceiling/step);
+    for (let j=0;j<=ticks;j++) {
+      const value = j*step;
+      const y = top+plotH-value/ceiling*plotH;
+      add('line',{x1:left,y1:y,x2:W-right,y2:y,stroke:j===0?'#aab6c7':'#e8edf3','stroke-width':j===0?1.3:1});
+      add('text',{x:left-13,y:y+4,'text-anchor':'end',fill:'#69788d','font-size':12,'font-family':'Arial, sans-serif'},number(value));
+    }
+    const cellW = plotW/tail.length;
+    const groupW = Math.min(cellW-12, series.length===4?92:100);
+    const gap = Math.max(3, Math.min(7, groupW/18));
+    const barW = Math.min(22,Math.max(7,(groupW-(series.length-1)*gap)/series.length));
+    const barTotal = series.length*barW+(series.length-1)*gap;
+    const labelPositions = []; // impede que rótulos vizinhos fiquem sobrepostos
+    tail.forEach((r,i)=>{
+      const cx = left+cellW*(i+0.5);
+      const posY = top+plotH;
+      series.forEach((s,j)=>{
+        const val = clean(s.value(r));
+        if (!val) return;
+        const ht = Math.max(1.8,val/ceiling*plotH);
+        const x = cx-barTotal/2+j*(barW+gap);
+        const rect = add('rect',{x:x.toFixed(2),y:(posY-ht).toFixed(2),width:barW.toFixed(2),height:ht.toFixed(2),rx:2,fill:s.color});
+        const hint = document.createElementNS(NS,'title');
+        hint.textContent = shortDate(r.date)+' · '+s.name+': '+number(val);
+        rect.appendChild(hint);
+        // Rótulos numéricos para TODAS as séries com valores positivos.
+        const label = number(val);
+        const fontSize = tail.length>10 ? 9.3 : 10.5;
+        const labelX = x+barW/2;
+        let labelY = Math.max(14, posY-ht-7);
+        const width = Math.max(19, label.length*fontSize*0.57);
+        // Se dois rótulos ficarem próximos, desloca o mais recente verticalmente.
+        for (let attempt=0; attempt<8; attempt++) {
+          const collision = labelPositions.some(p =>
+            Math.abs(p.x-labelX) < (p.width+width)/2+3 && Math.abs(p.y-labelY)<fontSize+4);
+          if (!collision) break;
+          labelY = Math.max(12, labelY-13);
+        }
+        labelPositions.push({x:labelX,y:labelY,width});
+        add('text',{
+          x:labelX.toFixed(2),y:labelY.toFixed(2),'text-anchor':'middle',
+          fill:s.color,'font-size':fontSize,'font-weight':700,
+          'font-family':'Arial, sans-serif','paint-order':'stroke',
+          stroke:'#ffffff','stroke-width':'2.5','stroke-linejoin':'round'
+        },label);
+      });
+      add('text',{x:cx.toFixed(2),y:H-bottom+23,'text-anchor':'middle',fill:'#43536c','font-size':12,'font-weight':700,'font-family':'Arial, sans-serif'},shortDate(r.date));
     });
-    chart+='<text x="'+center+'" y="'+(H-12)+'" text-anchor="middle" font-size="12" fill="#667085">'+fmtShort(row.date)+'</text>';
-  });
-  return '<div class="chart chart-scroll" tabindex="0" aria-label="Gráfico com rolagem horizontal caso necessário"><svg viewBox="0 0 '+W+' '+H+'" style="min-width:'+W+'px" role="img" aria-label="Gráfico de colunas por data com rótulos de valores">'+chart+'</svg></div>'+legend(items);
-}
-// Mesma escala de rotas: colunas = data operacional; linha = data de atribuicao.
-// A ausencia de uma captura de atribuicao NAO e tratada como zero.
-function attributionComboChart(rows){
-  if(!rows.length)return '<div class="empty">Sem dados no período.</div>';
-  const n=rows.length,W=Math.max(1020,80+n*94),H=360,L=66,R=26,T=48,B=48;
-  const operational=r=>(+r.routesOut||0)+(+r.routesFloor||0);
-  const hasAssignment=r=>r.eventDataCovered===true||r.assignmentRecorded===true||Number(r.assignedTotal)>0;
-  const peak=Math.max(1,...rows.flatMap(r=>[operational(r),hasAssignment(r)?(+r.assignedTotal||0):0]));
-  const max=Math.max(5,Math.ceil(peak*1.18/5)*5),innerW=W-L-R,innerH=H-T-B,group=innerW/n;
-  const center=i=>L+group*(i+.5),y=v=>T+(1-v/max)*innerH,baseline=T+innerH;
-  const barWidth=Math.min(54,group*.55);
-  let chart='';
-  for(let k=0;k<=4;k++){
-    const v=max*k/4,yp=y(v);
-    chart+='<line x1="'+L+'" y1="'+yp+'" x2="'+(W-R)+'" y2="'+yp+'" stroke="#e8ecf2"/><text x="'+(L-10)+'" y="'+(yp+4)+'" text-anchor="end" font-size="12" fill="#738095">'+fmt(Math.round(v))+'</text>';
+    const container = el('div','executive-chart-wrap');
+    container.append(svg);root.append(container);
+    const legend = el('div','executive-legend');
+    series.forEach(s=>{const item=el('span','executive-legend-item'),dot=el('i');dot.style.backgroundColor=s.color;item.append(dot,document.createTextNode(s.name));legend.append(item);});
+    root.append(legend,el('div','executive-chart-note',footnote));
   }
-  // Barras apenas para as datas que fazem parte da base operacional.
-  rows.forEach((r,i)=>{
-    const cx=center(i),v=operational(r),h=v/max*innerH;
-    const hasOperational=r.routesObserved===true||(r.routesObserved!==false&&v>0);
-    if(hasOperational){
-      chart+='<rect x="'+(cx-barWidth/2)+'" y="'+(baseline-h)+'" width="'+barWidth+'" height="'+Math.max(.1,h)+'" rx="4" fill="#192c49"><title>'+fmtShort(r.date)+' · Total de rotas operacionais: '+fmt(v)+'</title></rect>';
-      chart+='<text x="'+cx+'" y="'+Math.max(19,baseline-h-8)+'" text-anchor="middle" font-size="12" font-weight="800" fill="#192c49" stroke="#fff" stroke-width="3" paint-order="stroke">'+fmt(v)+'</text>';
-    }
-    chart+='<text x="'+cx+'" y="'+(H-15)+'" text-anchor="middle" font-size="12" fill="#667085">'+fmtShort(r.date)+'</text>';
-  });
-  let segment=[];
-  const flush=()=>{if(segment.length>1)chart+='<polyline fill="none" stroke="#07865c" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round" points="'+segment.join(' ')+'"/>';segment=[];};
-  rows.forEach((r,i)=>{
-    if(!hasAssignment(r)){flush();return;}
-    if(segment.length){
-      const prev=rows[i-1];
-      const adjacent=prev&&hasAssignment(prev)&&Math.round((Date.parse(r.date+'T00:00:00Z')-Date.parse(prev.date+'T00:00:00Z'))/86400000)===1;
-      if(!adjacent)flush();
-    }
-    segment.push(center(i)+','+y(+r.assignedTotal||0));
-  });flush();
-  // Rótulos em cada ponto de linha, sem inventar valores para dias sem atribuição registrada.
-  rows.forEach((r,i)=>{
-    if(!hasAssignment(r))return;
-    const cx=center(i),v=Number(r.assignedTotal)||0,yp=y(v);
-    chart+='<circle cx="'+cx+'" cy="'+yp+'" r="5.5" fill="#07865c" stroke="white" stroke-width="2.5"><title>'+fmtShort(r.date)+' · Total atribuído: '+fmt(v)+'</title></circle>';
-    chart+='<text x="'+cx+'" y="'+Math.max(17,yp-17)+'" text-anchor="middle" font-size="12" font-weight="800" fill="#07865c" stroke="#fff" stroke-width="3" paint-order="stroke">'+fmt(v)+'</text>';
-  });
-  const names=[{name:'Total de rotas · data operacional'},{name:'Total atribuído · data de atribuição'}];
-  return '<div class="chart chart-scroll" tabindex="0" aria-label="Comparação diária com colunas de rotas operacionais e linha de rotas atribuídas"><svg viewBox="0 0 '+W+' '+H+'" style="min-width:'+W+'px" role="img" aria-label="Colunas para rotas operacionais e linha para rotas atribuídas, com valores">'+chart+'</svg></div><div class="legend"><span><i style="background:#192c49"></i>'+names[0].name+'</span><span><i style="background:#07865c"></i>'+names[1].name+'</span></div><p class="chart-note">As colunas usam a data operacional. A linha prioriza as capturas do Resumo de Expedição; nas demais datas, usa os registros disponíveis do horário de atribuição. Zero reconstruído não comprova ausência de atividade.</p>';
-}
-function dailyRouteBars(rows){
- if(!rows.length)return '<div class="empty">Sem registros no período.</div>';
- const max=Math.max(1,...rows.map(r=>r.chartTotal));
- return '<div class="daily-route-bars" role="list" aria-label="Total de rotas por data">'+rows.map(r=>'<div class="daily-route-row" role="listitem"><span>'+fmtShort(r.date)+'</span><div class="daily-route-track"><div style="width:'+Math.max(0,r.chartTotal)/max*100+'%"></div></div><strong>'+fmt(r.chartTotal)+'</strong></div>').join('')+'</div>';
-}
-function disclosure(title,body){return '<details class="disclosure"><summary>'+escapeHtml(title)+'</summary><div>'+body+'</div></details>'}
-function panel(title,description,body){return '<section class="panel"><h3>'+escapeHtml(title)+'</h3><div class="desc">'+escapeHtml(description)+'</div>'+body+'</section>'}
-function table(rows,cols){return '<div class="scroll"><table class="data-table"><thead><tr>'+cols.map(c=>'<th>'+escapeHtml(c.label)+'</th>').join('')+'</tr></thead><tbody>'+rows.slice().reverse().map(r=>'<tr>'+cols.map(c=>'<td>'+escapeHtml(c.date?formatDate(r[c.key]):fmt(r[c.key]))+'</td>').join('')+'</tr>').join('')+'</tbody></table></div>'}
-function indicatorGuide(){return '<section class="panel" aria-label="Metas dos indicadores"><h3>Nossos indicadores · metas e orientações</h3><p class="desc">Referência para acompanhamento e tratativas da operação.</p><div class="indicator-guide"><article><h4>Parcel Sweeper</h4><p><strong>Meta: acima de 95%</strong></p><p>Acuracidade de bipagem: garantir que todos os pacotes solicitados no Parcel sejam inventariados.</p></article><article><h4>Auto Add</h4><p><strong>Meta: acima de 95%</strong></p><p>Garantir a expedição de todos os pacotes alocados pela ferramenta.</p></article><article><h4>Lost · Perda</h4><p><strong>Meta: abaixo de 0,012%</strong></p><p>Acompanhar e tratar os pacotes com possível perda.</p><p class="indicator-formula">Perdas (%) = perdas ÷ volume recebido × 100</p></article><article><h4>Damage · Avaria</h4><p><strong>Meta informada: 0,012%</strong></p><p>Acompanhar as avarias identificadas na operação.</p></article><article><h4>Returning</h4><p><strong>Meta: acima de 98%</strong></p></article><article><h4>Leftover</h4><p><strong>Meta: abaixo de 0,60%</strong></p><p>Tratar todos os pacotes da área de inventário e garantir sua expedição ou devolução ao SOC.</p></article></div></section>';}
-function render(){let p=pages[state.page],rs=state.rows,last=rs.at(-1),prev=rs.at(-2);$('#page-title').textContent=p[0];$('#page-sub').textContent=p[1];$('#count').textContent=rs.length+' data(s)';document.querySelectorAll('.tab').forEach(t=>{let active=t.dataset.page===state.page;t.classList.toggle('active',active);t.setAttribute('aria-selected',String(active))});if(['insucessos','erros'].includes(state.page)){$('#count').textContent='Acesso corporativo';$('#root').innerHTML='<section class="panel"><h3>'+p[0]+'</h3><p class="desc">Consulte os indicadores da fonte central na área corporativa.</p><a class="restricted-link" href="'+RESTRICTED_APP_URL+'?area='+state.page+'" target="_blank" rel="noopener noreferrer">Abrir '+p[0]+'</a></section>';return;}if(!rs.length){$('#root').innerHTML='<div class="panel empty">Não existem dados disponíveis para o período selecionado ou para esta visualização histórica.</div>';return}
 
-let content='',tiles='',dateCols=[{key:'date',label:'Data',date:true}];const real=state.data?.mode==='REAL_AGGREGATED';if(real&&((state.page==='insucessos'&&!state.data.insucessos)||(state.page==='erros'&&!state.data.erros))){$('#root').innerHTML='<div class="panel empty">Esta página ainda não recebeu dados reais da fonte correspondente. Não serão mostrados números fictícios como resultados da operação.</div>';return;}switch(state.page){
-case'producao':{const out=sum(rs,'packagesOut'),routes=sum(rs,'routesOut');const spr=routes&&rs.every(r=>Number(r.pendingPackagesOut||0)===0)?(out/routes).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2}):'—';tiles='<div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr))">'+metric('Rotas expedidas',fmt(routes),'Assigned + Complete')+metric('Rotas No-Show',fmt(sum(rs,'routesFloor')),'Audit completo e pendente')+metric('Pacotes expedidos',fmt(out),'Quantidade conhecida')+metric('Pacotes No-Show',fmt(sum(rs,'packagesFloor')),'Quantidade conhecida')+metric('SPR',spr,'Pacotes expedidos por rota')+'</div>';content=panel('Rotas por dia','Expedidas e Rotas No-Show; passe o mouse para ver os valores.',bars(rs,[{name:'Expedidas',key:'routesOut'},{name:'No-Show',key:'routesFloor'},{name:'Total de rotas',key:'routesTotal'}]))+panel('Pacotes por dia','Expedidos e No-Show; valores conhecidos da fonte.',bars(rs,[{name:'Expedidos',key:'packagesOut'},{name:'No-Show',key:'packagesFloor'}]))+panel('Resumo diário','Dados por data operacional conforme fonte sincronizada.',table(rs,[...dateCols,{key:'routesOut',label:'Rotas expedidas'},{key:'routesFloor',label:'Rotas No-Show'},{key:'packagesOut',label:'Pacotes expedidos'},{key:'packagesFloor',label:'Pacotes No-Show'}]));break;
-}case'atribuicao':{
- const turn=state.data?.expeditionTurn;
- if(!turn?.current||!Array.isArray(turn.daily)){$('#root').innerHTML='<section class="panel"><h3>Expedição do turno · fonte central</h3><p class="desc">Aguardando a sincronização dos valores de Expedição Hoje. Instale o módulo atualizado e execute syncLsp133ToGitHub no Apps Script.</p><a class="restricted-link" href="'+RESTRICTED_APP_URL+'" target="_blank" rel="noopener noreferrer">Abrir Central Operacional</a></section>';return;}
- const c=turn.current,daily=turn.daily.filter(r=>(!$('#start').value||r.date>=$('#start').value)&&(!$('#end').value||r.date<=$('#end').value));
- $('#count').textContent=daily.length+' captura(s) diária(s)';
- if(Number(c.assigned)+Number(c.complete)!==Number(c.total)){$('#root').innerHTML='<div class="panel empty">Os totais do turno não conferem. Execute uma nova sincronização.</div>';return;}
- const cells=rows=>rows.map(r=>({...r,chartTotal:Number(r.total)||0}));
- tiles='<div class="exp-context"><span><strong>Turno de '+formatDate(c.date)+'</strong> · desde ontem às 21h</span><span>Mesmos valores da aba Expedição Hoje</span></div><div class="grid exp-kpis turn-kpis">'+metric('Rotas do turno',fmt(c.total),'Assigned + Complete')+metric('Assigned',fmt(c.assigned),'Mesmo valor da planilha')+metric('Complete',fmt(c.complete),'Mesmo valor da planilha')+metric('Pacotes expedidos',fmt(c.packages),'Soma por data operacional')+'</div>';
- content=panel('Rotas por dia','Última captura de cada turno. Dias sem captura não são preenchidos com zero.',dailyRouteBars(cells(daily)));
- content+=panel('Resumo diário · mesmos valores da planilha','Assigned, Complete, total de rotas e pacotes registrados juntos em cada captura.',table(daily,[...dateCols,{key:'assigned',label:'Assigned'},{key:'complete',label:'Complete'},{key:'total',label:'Total de rotas'},{key:'packages',label:'Pacotes expedidos'}]));
- const origins=(c.origins||[]).map(r=>({...r,date:r.operationalDate}));
- content+=panel('Origem operacional do turno atual','Mesma tabela F:J da aba Expedição Hoje · turno de '+formatDate(c.date)+'.',table(origins,[...dateCols,{key:'assigned',label:'Assigned'},{key:'complete',label:'Complete'},{key:'total',label:'Total'},{key:'packages',label:'Pacotes expedidos'}]));
- content+=disclosure('Consultar pacotes por dia',panel('Pacotes expedidos por turno','Quantidade registrada na última captura de cada dia.',dailyRouteBars(daily.map(r=>({...r,chartTotal:Number(r.packages)||0})))));
- content+='<p class="exp-caption">Captura da planilha: '+escapeHtml(new Date(c.capturedAt).toLocaleString('pt-BR',{timeZone:'America/Sao_Paulo'}))+'. '+escapeHtml(turn.criterion||'')+' Atribuição não comprova saída física.</p>';
- break}
-case'insucessos':{const ins=state.data?.insucessos; if(ins){const shown=(ins.daily||[]).filter(r=>(!$('#start').value||r.date>=$('#start').value)&&(!$('#end').value||r.date<=$('#end').value));tiles='<div class="grid">'+metric('BRs únicos devolvidos',fmt(ins.uniqueReturns),'Indicador da fonte')+metric('Pacotes VOANDO',fmt(ins.flying),'Entregues sem saída')+metric('VOANDO / insucessos',fmt(ins.flying)+' pacotes · '+ins.flyingRate,'Quantidade VOANDO e % sobre os insucessos da fonte')+metric('Outros insucessos',fmt(ins.other),'MISSORT')+'</div>';content=panel('Devoluções por dia','Histórico das devoluções registrado na planilha de insucessos.',bars(shown,[{name:'Devoluções',key:'returns'}]))+panel('Tabela de devoluções','Dados consolidados por data; fonte: aba Dashboard de Insucessos.',table(shown,[...dateCols,{key:'returns',label:'Devoluções'}]));break;} tiles='<div class="grid">'+metric('Insucessos',fmt(sum(rs,'failures')),'Período filtrado')+metric('BRs únicos',fmt(sum(rs,'uniqueBR')),'Demonstração')+metric('Tratativas concluídas',fmt(sum(rs,'resolved')),'Demonstração')+metric('Pendentes',fmt(sum(rs,'failures')-sum(rs,'resolved')),'Demonstração')+'</div>';content=panel('Evolução de insucessos','Quantidade de registros fictícios por data.',lineChart(rs,[{name:'Insucessos',key:'failures'},{name:'Tratados',key:'resolved'}]))+panel('Resumo diário','Somente registros demonstrativos.',table(rs,[...dateCols,{key:'failures',label:'Insucessos'},{key:'uniqueBR',label:'BRs únicos'},{key:'resolved',label:'Tratados'}]));break;
-}case'erros':{const err=state.data?.erros;if(err){const shown=(err.daily||[]).filter(r=>(!$('#start').value||r.date>=$('#start').value)&&(!$('#end').value||r.date<=$('#end').value));tiles='<div class="grid">'+metric('Erros de etiquetagem',fmt(sum(shown,'labelErrors')),'Ocorrências no período')+metric('Outros tipos de erro',fmt(sum(shown,'otherErrors')),'Ocorrências no período')+metric('Dias com registros',fmt(shown.length),'Histórico de expedição')+metric('Total de ocorrências',fmt(sum(shown,'labelErrors')+sum(shown,'otherErrors')),'BR por dia e tipo')+'</div>';content=panel('Evolução dos erros','Dados consolidados da planilha de erros de expedição.',bars(shown,[{name:'Etiquetagem',key:'labelErrors'},{name:'Outros',key:'otherErrors'}]))+panel('Ocorrências por dia','Contagem de BRs distintos por data e tipo.',table(shown,[...dateCols,{key:'labelErrors',label:'Etiquetagem'},{key:'otherErrors',label:'Outros'}]));break;}tiles='<div class="grid">'+metric('Erros de etiquetagem',fmt(sum(rs,'labelErrors')),'Período filtrado')+metric('Erros de expedição',fmt(sum(rs,'shippingErrors')),'Período filtrado')+metric('Datas analisadas',fmt(rs.length),'Demonstração')+metric('Total de ocorrências',fmt(sum(rs,'labelErrors')+sum(rs,'shippingErrors')),'Demonstração')+'</div>';content=panel('Evolução dos erros','Comparativo diário demonstrativo.',bars(rs,[{name:'Etiquetagem',key:'labelErrors'},{name:'Expedição',key:'shippingErrors'}]))+panel('Resumo diário','Sem dados de operadores ou rastreios reais.',table(rs,[...dateCols,{key:'labelErrors',label:'Etiquetagem'},{key:'shippingErrors',label:'Expedição'}]));break}}
-$('#root').innerHTML=tiles+(state.page==='producao'?disclosure('Consultar metas e critérios operacionais',indicatorGuide()):'')+'<div class="section"><h2>'+(state.page==='atribuicao'?'Acompanhamento diário':'Visão analítica')+'</h2><p>'+(state.data?.mode==='REAL_AGGREGATED'?'Indicadores sincronizados das fontes operacionais.':'Dados demonstrativos para validação do ambiente.')+'</p></div>'+content+'<div class="notes"><strong>Fonte:</strong> '+(state.data?.mode==='REAL_AGGREGATED'?'indicadores agregados da fonte central Validação de Dados - Fonte Dashboard - Lucas. Totais de pacotes podem ser parciais quando há quantidades pendentes.':'dados inteiramente fictícios, utilizados para testar a atualização automática.')+'</div>'}
-function preferredAssignment(row){
-  const captured=row.assignmentRecorded===true||Number(row.assignedTotal)>0;
-  if(captured)return {...row,preferredAssignedTotal:Number(row.assignedTotal)||0,assignmentSource:'capture'};
-  if(row.eventDataCovered===true)return {...row,preferredAssignedTotal:Number(row.assignedOnDate)||0,assignmentSource:'reconstructed'};
-  return row;
-}
-function apply(){
-  if(!state.data)return;
-  const from=$('#start').value,to=$('#end').value,exp=state.page==='atribuicao';
-  const historical=state.page==='producao'&&state.history;
-  const rows=(historical?(state.data.history||[]):state.data.days).map(r=>({...r}));
-  let combined=rows;
-  if(exp&&Array.isArray(state.data.assignmentTimeline)&&state.data.assignmentTimeline.length){
-    const byDate=new Map(rows.map(r=>[r.date,r]));
-    const quality=state.data.eventQuality||{};
-    for(const ev of state.data.assignmentTimeline){
-      const r=byDate.get(ev.date)||{date:ev.date,routesOut:0,routesFloor:0,routesObserved:false};
-      r.assignedOnDate=Number(ev.assigned)||0;r.completedOnDate=Number(ev.completed)||0;
-      r.assignmentCurrent=Number(ev.assignedCurrent)||0;
-      r.completeCurrent=Number(ev.completedCurrent)||0;
-      byDate.set(ev.date,r);
-    }
-    for(const r of byDate.values()){
-      if(r.date>=(quality.firstEventDate||'9999')&&r.date<=(quality.lastEventDate||'0000')){
-        r.eventDataCovered=true;
-        if(r.assignedOnDate===undefined)r.assignedOnDate=0;
-        if(r.completedOnDate===undefined)r.completedOnDate=0;
-      }
-    }
-    combined=[...byDate.values()].sort((a,b)=>a.date.localeCompare(b.date));
+  function productionChart(id,rows,a,b) {
+    productionSvgChart($(id),rows,[
+      {name:'Expedidas',color:'#07865c',value:r=>r[a]},
+      {name:'No-Show',color:'#ed4d2d',value:r=>r[b]},
+      {name:'Total de rotas',color:'#192c49',value:r=>Number(r[a]||0)+Number(r[b]||0)}
+    ],'Rótulos: valores de cada categoria. Passe o mouse para detalhes. Até 14 datas no período.');
   }
-  state.rows=combined.filter(r=>(!from||r.date>=from)&&(!to||r.date<=to)).map(r=>exp?preferredAssignment(r):r);
-  state.rows.forEach(r=>r.routesTotal=(Number(r.routesOut)||0)+(Number(r.routesFloor)||0));
-  $('#historical-note').textContent=state.history?(state.data.history?.length?'Última captura registrada de cada data operacional.':'Ainda não existem capturas históricas disponíveis.'):'Valores atuais da planilha; volumes podem ser parciais.';
-  $('#historical-toolbar').style.display=state.page==='producao'?'flex':'none';
-  render();
+
+  function productionPackagesChart(rows) {
+    productionSvgChart($('prod-packages'),rows,[
+      {name:'Expedidos',color:'#07865c',value:r=>r.packagesOut},
+      {name:'No-Show',color:'#ed4d2d',value:r=>r.packagesFloor},
+      {name:'Histórico auditado',color:'#2563eb',value:r=>r.packagesHistorical},
+      {name:'Total de pacotes',color:'#192c49',value:r=>Number(r.packagesOut||0)+Number(r.packagesFloor||0)+Number(r.packagesHistorical||0)}
+    ],'Rótulos: valores por categoria. Histórico auditado não altera KPIs, rotas ou SPR; quantidades ausentes continuam sinalizadas.');
+  }
+
+  function toggleProductionReport(){
+    const active=document.body.classList.toggle('report-mode');
+    const button=$('prod-report-toggle');
+    if(button)button.textContent=active?'Sair do modo relatório':'Ativar modo relatório';
+  }
+  function printProductionReport(){
+    document.body.classList.add('report-mode');
+    const button=$('prod-report-toggle');if(button)button.textContent='Sair do modo relatório';
+    window.print();
+  }
+  function renderProductionInsights(d){
+    const root=$('prod-insights'),note=$('prod-insights-note'),caption=$('prod-report-period');
+    if(!root)return;
+    root.replaceChildren();
+    const rows=(d.daily||[]).slice(-14);
+    if(!rows.length){root.append(el('div','empty','Sem dados disponíveis para este período.'));if(note)note.textContent='';return;}
+    const sum=k=>rows.reduce((v,r)=>v+Math.max(0,Number(r[k])||0),0);
+    const fmt=x=>Number(x).toLocaleString('pt-BR',{maximumFractionDigits:1,minimumFractionDigits:1});
+    const missing=rows.reduce((v,r)=>v+Math.max(0,Number(r.missingPackages)||0),0);
+    const metrics=[
+      ['Média de rotas expedidas / dia',fmt(sum('routesOut')/rows.length),'Média nas datas exibidas'],
+      ['Média de rotas No-Show / dia',fmt(sum('routesFloor')/rows.length),'Média nas datas exibidas'],
+      ['Média de pacotes expedidos / dia',fmt(sum('packagesOut')/rows.length),'Parcial se houver origem sem quantidade'],
+      ['Média de pacotes No-Show / dia',fmt(sum('packagesFloor')/rows.length),'Parcial se houver origem sem quantidade']
+    ];
+    metrics.forEach(([label,value,context])=>{
+      const card=el('div','prod-insight');card.append(el('div','name',label),el('div','metric',value),el('div','context',context));root.append(card);
+    });
+    if(caption)caption.textContent='Período exibido: '+shortDate(rows[0].date)+' a '+shortDate(rows[rows.length-1].date)+' · '+rows.length+' data(s) · atualização: '+(d.updatedAt||'—');
+    if(note)note.textContent=missing?'Atenção: '+number(missing)+' rota(s) sem pacotes informados nas datas exibidas; médias de pacotes são parciais.':'Médias calculadas sobre as datas exibidas, sem modificar os indicadores originais.';
+  }
+
+  function renderProduction(d){
+ $('status').textContent='Fonte central sincronizada';$('time').textContent='Dados publicados: '+d.updatedAt;const k=d.kpis;if(d.missingPackages)showError('Há '+number(d.missingPackages)+' rota(s) sem quantidade de pacotes na origem. Os volumes são parciais. O SPR depende das quantidades das rotas expedidas.');
+ appendKpis('prod-kpis',[['Rotas expedidas',number(k.routesOut)],['Rotas No-Show',number(k.routesFloor)],['Pacotes expedidos',number(k.packagesOut)],['Pacotes No-Show',number(k.packagesFloor)],['SPR',k.spr!==null&&k.spr!==undefined?Number(k.spr).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2}):'—','Pacotes expedidos por rota']]);
+ productionChart('prod-routes',d.daily,'routesOut','routesFloor');productionPackagesChart(d.packagesDaily || d.daily);renderProductionInsights(d);
+ const root=$('prod-table');root.replaceChildren();if(!d.daily.length){noData(root);return;}
+ const wrap=el('div','table-wrap'),table=el('table','table'),head=el('thead'),hr=el('tr');['Data','Rotas expedidas','Rotas No-Show','Pacotes expedidos','Pacotes No-Show','Situação','Observações'].forEach(t=>hr.append(el('th','',t)));head.append(hr);const body=el('tbody');d.daily.slice().reverse().forEach(r=>{const tr=el('tr');[shortDate(r.date),number(r.routesOut),number(r.routesFloor),number(r.packagesOut),number(r.packagesFloor),r.status,r.notes].forEach(t=>tr.append(el('td','',t)));body.append(tr);});table.append(head,body);wrap.append(table);root.append(wrap);
+ }
+
+  // Expedição: todo conteúdo é inserido via textContent (nunca HTML arbitrário de planilha).
+  function expSeriesLegend(root){const line=el('div','exp-legend');[['#087f5b','Assigned'],['#ee4d2d','Complete']].forEach(([color,name])=>{const span=el('span'),dot=el('i');dot.style.background=color;span.append(dot,document.createTextNode(name));line.append(span);});root.append(line);}
+  function expTrend(rows){
+    const root=$('exp-daily'),summary=$('exp-trend-summary');
+    root.replaceChildren();if(summary)summary.replaceChildren();
+    const clean=(rows||[]).filter(r=>/^\d{4}-\d{2}-\d{2}$/.test(String(r.date||'')))
+      .slice().sort((a,b)=>a.date.localeCompare(b.date)).slice(-14);
+    if(!clean.length){noData(root);return;}
+    const latest=clean[clean.length-1],prev=clean.length>1?clean[clean.length-2]:null;
+    const integer=x=>Math.max(0,Number(x)||0);
+    const total=r=>integer(r.total!==undefined?r.total:integer(r.assigned)+integer(r.complete));
+    const lastValue=total(latest),prevValue=prev?total(prev):null;
+    const delta=prevValue===null?null:lastValue-prevValue;
+    const pct=prevValue===null||prevValue===0?null:delta/prevValue*100;
+    const metric=(label,value,detail,cls)=>{
+      if(!summary)return;
+      const card=el('div','trend-card');
+      const v=el('div','trend-number'+(cls?' '+cls:''),value);
+      card.append(el('div','trend-label',label),v,el('div','trend-detail',detail));summary.append(card);
+    };
+    metric('Última data',number(lastValue),shortDate(latest.date)+' · ATs atribuídas','');
+    metric('Data anterior',prev?number(prevValue):'—',prev?shortDate(prev.date)+' · captura anterior':'Sem outra data disponível','');
+    metric('Variação de rotas',delta===null?'—':(delta>0?'+':'')+number(delta),prev?'Comparação com '+shortDate(prev.date):'Aguardando duas datas',delta===null?'na':delta>0?'up':delta<0?'down':'flat');
+    metric('Variação percentual',pct===null?'—':(pct>0?'+':'')+pct.toLocaleString('pt-BR',{minimumFractionDigits:1,maximumFractionDigits:1})+'%',pct===null?'Sem base para comparação':'Entre as duas últimas datas registradas',pct===null?'na':pct>0?'up':pct<0?'down':'flat');
+    const ns='http://www.w3.org/2000/svg',W=1080,H=330,left=64,right=36,top=43,bottom=50;
+    const svg=document.createElementNS(ns,'svg');svg.setAttribute('viewBox','0 0 '+W+' '+H);
+    svg.setAttribute('role','img');svg.setAttribute('class','exp-evolution-svg');
+    svg.setAttribute('aria-label','Evolução de atribuições entre '+shortDate(clean[0].date)+' e '+shortDate(latest.date));
+    const add=(tag,attrs,txt)=>{const n=document.createElementNS(ns,tag);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,String(v)));if(txt!==undefined)n.textContent=String(txt);svg.append(n);return n;};
+    const series=[
+      {key:'total',label:'Total atribuído',color:'#192c49',get:total},
+      {key:'assigned',label:'Assigned',color:'#07865c',get:r=>integer(r.assigned)},
+      {key:'complete',label:'Complete',color:'#ee4d2d',get:r=>integer(r.complete)}
+    ];
+    const peak=Math.max(1,...clean.flatMap(r=>series.map(s=>s.get(r))));
+    const yMax=Math.max(5,Math.ceil(peak*1.17/5)*5);
+    const chartHeight=H-top-bottom,chartWidth=W-left-right;
+    const X=i=>left+(clean.length===1?chartWidth/2:(clean.length===2?chartWidth*(.23+.54*i):chartWidth*i/(clean.length-1)));
+    const Y=v=>top+chartHeight*(1-v/yMax);
+    for(let i=0;i<=4;i++){
+      const val=yMax*i/4,y=Y(val);
+      add('line',{x1:left,y1:y,x2:W-right,y2:y,stroke:'#e4eaf1','stroke-width':1});
+      add('text',{x:left-12,y:y+4,'text-anchor':'end',fill:'#78879b','font-size':12,'font-family':'Arial, sans-serif'},number(Math.round(val)));
+    }
+    add('line',{x1:left,y1:H-bottom,x2:W-right,y2:H-bottom,stroke:'#bbc7d6','stroke-width':1.2});
+    clean.forEach((r,i)=>{const x=X(i);
+      add('text',{x,y:H-bottom+25,'text-anchor':'middle',fill:'#43536c','font-size':12,'font-weight':700,'font-family':'Arial, sans-serif'},shortDate(r.date));
+    });
+    series.forEach((s,j)=>{
+      const coords=clean.map((r,i)=>({x:X(i),y:Y(s.get(r)),val:s.get(r),date:r.date}));
+      if(coords.length>1)add('polyline',{points:coords.map(p=>p.x.toFixed(1)+','+p.y.toFixed(1)).join(' '),fill:'none',stroke:s.color,'stroke-width':j===0?3.5:2.8,'stroke-linejoin':'round','stroke-linecap':'round'});
+      coords.forEach((p,i)=>{
+        const c=add('circle',{cx:p.x,cy:p.y,r:j===0?5.3:4.5,fill:s.color,stroke:'#fff','stroke-width':2});
+        const tip=document.createElementNS(ns,'title');tip.textContent=shortDate(p.date)+' · '+s.label+': '+number(p.val);c.append(tip);
+        // Os rótulos de total e Assigned podem ficar próximos. Alternamos as posições.
+        const dy=j===0?-15:j===1?18:(p.val<=yMax*.14?-12:-13);
+        let labelY=Math.max(15,Math.min(H-bottom-4,p.y+dy));
+        add('text',{x:p.x,y:labelY,'text-anchor':'middle',fill:s.color,'font-size':clean.length>9?10:12,'font-weight':800,'font-family':'Arial, sans-serif','paint-order':'stroke',stroke:'#fff','stroke-width':3,'stroke-linejoin':'round'},number(p.val));
+      });
+    });
+    const legend=el('div','exp-evolution-legend');
+    series.forEach(s=>{const item=el('span');const swatch=el('i','swatch');swatch.style.background=s.color;item.append(swatch,document.createTextNode(s.label));legend.append(item);});
+    root.append(svg,legend,el('div','exp-evolution-foot',
+      clean.length===1?'A evolução será exibida quando houver mais de uma data de atribuição registrada.':
+      'Evolução entre '+shortDate(clean[0].date)+' e '+shortDate(latest.date)+' · '+clean.length+' data(s) com registro. A linha conecta as capturas disponíveis; dias sem registros não foram tratados como zero.'));
+  }
+  function expOrigins(rows){
+    const root=$('exp-origins');root.replaceChildren();if(!rows.length){noData(root);return;}
+    const table=el('table','table'),head=el('thead'),tr=el('tr');['Data operacional','Assigned','Complete','Total','Pacotes expedidos'].forEach(v=>tr.append(el('th','',v)));head.append(tr);
+    const body=el('tbody');rows.slice().sort((a,b)=>a.operationalDate.localeCompare(b.operationalDate)).forEach(r=>{const row=el('tr');[isoToDate(r.operationalDate),number(r.assigned),number(r.complete),number(r.total),r.packages===undefined?'—':number(r.packages)].forEach(v=>row.append(el('td','',v)));body.append(row);});table.append(head,body);const wrap=el('div','table-wrap');wrap.append(table);root.append(wrap);
+  }
+  function expHours(rows,today){const root=$('exp-hours');root.replaceChildren();const chosen=rows.filter(r=>r.date===today);if(!chosen.length){noData(root);return;}const lookup=new Map(chosen.map(r=>[Number(r.hour),r]));const max=Math.max(1,...chosen.map(r=>r.total));const chart=el('div','exp-hours');for(let h=0;h<24;h++){const r=lookup.get(h)||{assigned:0,complete:0,total:0};const item=el('div','exp-hour'),bars=el('div','bars');[['assigned','#087f5b'],['complete','#ee4d2d']].forEach(([key,color])=>{const b=el('div','bar');b.style.background=color;b.style.height=(r[key]?Math.max(2,r[key]/max*158):0)+'px';b.title=String(h).padStart(2,'0')+'h — '+key+': '+number(r[key]);bars.append(b);});item.append(el('div','value',r.total?number(r.total):''),bars,el('small','',h%3===0?String(h).padStart(2,'0')+'h':''));chart.append(item);}root.append(chart);expSeriesLegend(root);}
+  function expDetails(d){const root=$('exp-table');root.replaceChildren();if(!d.details.length){noData(root);return;}const wrap=el('div','table-wrap'),table=el('table','table'),head=el('thead'),tr=el('tr');['Data atribuição','Data operacional','AT','Status','Horário'].forEach(s=>tr.append(el('th','',s)));head.append(tr);const body=el('tbody');d.details.forEach(r=>{const line=el('tr');[shortDate(r.date),shortDate(r.operationalDate),r.at,r.status,r.hour||'—'].forEach(v=>line.append(el('td','',v)));body.append(line);});table.append(head,body);wrap.append(table);root.append(wrap);if(d.detailCount>d.detailLimit)root.append(el('div','prod-note','Mostrando '+number(d.detailLimit)+' de '+number(d.detailCount)+' ATs. Refine o período ou pesquise um código.'));}
+  function renderExpedition(d){
+    $('status').textContent='Expedição · fonte central';$('time').textContent='Dados publicados: '+d.updatedAt;
+    const k=d.kpis.today;
+    const value=x=>x===null||x===undefined?'—':number(x);
+    appendKpis('exp-kpis',[
+      ['Rotas do turno',value(k.total),'Mesmo valor de D3 da planilha'],
+      ['Assigned',value(k.assigned),'Mesmo valor de F3 da planilha'],
+      ['Complete',value(k.complete),'Mesmo valor de H3 da planilha'],
+      ['Pacotes expedidos',value(k.packages),'Soma dos pacotes por data operacional']
+    ]);
+    $('exp-period').textContent='Turno de '+isoToDate(d.today)+' · desde ontem às 21h';
+    const info=document.querySelector('#exp .exp-info');if(info)info.textContent='Contagens da aba Expedição Hoje, desde ontem às 21h até a consulta. Assigned + Complete = total de rotas. Atribuição não comprova saída física.';
+    expTrend(d.daily||[]);expOrigins(d.origins||[]);expHours(d.hours||[],d.today);expDetails(d);
+    let daily=$('exp-daily-values');
+    if(!daily){daily=el('div','panel wide');daily.id='exp-daily-values';$('exp-daily').closest('.panel').after(daily);}
+    daily.replaceChildren(el('h2','','Resumo diário · mesmos valores da planilha'));
+    const table=el('table','table'),head=el('thead'),header=el('tr');
+    ['Data do turno','Assigned','Complete','Total de rotas','Pacotes expedidos'].forEach(t=>header.append(el('th','',t)));head.append(header);
+    const body=el('tbody');(d.daily||[]).slice().reverse().forEach(r=>{const row=el('tr');[isoToDate(r.date),value(r.assigned),value(r.complete),value(r.total),value(r.packages)].forEach(v=>row.append(el('td','',v)));body.append(row);});table.append(head,body);
+    const wrap=el('div','table-wrap');wrap.append(table);daily.append(wrap,el('p','exp-info','Cada linha guarda a última captura daquele turno. Dias anteriores sem captura confiável não são inventados.'));
+    const q=$('exp-quality');q.replaceChildren();[['Fonte','Validação de Dados - Fonte Dashboard - Lucas'],['Critério','Desde ontem às 21h até a consulta'],['Última consulta',d.updatedAt],['Capturas diárias anteriores',String(d.historyDates)]].forEach(([a,b])=>{const line=el('div','exp-stat');line.append(el('span','',a),el('strong','',b));q.append(line);});q.append(el('p','exp-info',d.note||''));
+  }
+
+  function showError(message){$('error').textContent=message;$('error').classList.remove('hidden');}
+  changeTab('prod');setInterval(()=>{if(!document.hidden)loadData();},60000);
+</script>
+<!-- Cole este complemento uma única vez, antes de <style>
+.spx-cloud{box-sizing:border-box;max-width:1220px;margin:24px auto;padding:20px;border:1px solid #e1e5ec;border-radius:10px;background:#fff;font:14px Arial,sans-serif;color:#172338}.spx-cloud h2{font-size:18px;margin:0 0 8px}.spx-cloud p{line-height:1.5;margin:8px 0;color:#475467}.spx-cloud button{background:#ee4d2d;color:white;border:0;border-radius:6px;padding:12px 18px;font:700 14px Arial,sans-serif;cursor:pointer}.spx-cloud button:disabled{background:#98a2b3;cursor:default}.spx-cloud button:focus-visible,.spx-cloud a:focus-visible{outline:3px solid #172338;outline-offset:3px}.spx-cloud a{color:#172338;margin-left:16px}.spx-cloud small{display:block;margin-top:12px;color:#667085}@media print{.spx-cloud{display:none}}
+.spx-cloud{max-width:none;margin:0 0 22px;padding:16px 20px;display:flex;gap:12px 18px;align-items:center;flex-wrap:wrap;border-radius:12px}.spx-cloud h2{font-size:14px;margin:0;flex:1}.spx-cloud>p:first-of-type{display:none}.spx-cloud button{padding:10px 16px;font-size:13px}.spx-cloud a{font-size:12px;margin-left:0}.spx-cloud #spx-cloud-status{font-size:12px;margin:0;flex-basis:100%}.spx-cloud small{margin:0;font-size:11px}@media(max-width:600px){.spx-cloud{padding:16px}.spx-cloud h2{flex-basis:100%}}
+</style>
+<section class="spx-cloud" aria-labelledby="spx-cloud-title">
+  <h2 id="spx-cloud-title">Atualização do SPX</h2>
+  <p>Consulta os dados recentes e revisa alterações antigas quando necessário, preservando o histórico.</p>
+  <button id="spx-cloud-update" type="button" disabled>Atualizar SPX</button>
+  <a id="spx-cloud-run" target="_blank" rel="noopener noreferrer" hidden>Ver execução</a>
+  <p id="spx-cloud-status" role="status" aria-live="polite">Verificando acesso…</p>
+  <small id="spx-cloud-last"></small>
+</section>
+<script>
+(function(){
+  'use strict';
+  const section=document.querySelector('.spx-cloud');
+  const filters=document.querySelector('.filters');
+  if(section&&filters)filters.after(section);
+  const button=document.getElementById('spx-cloud-update');
+  const label=document.getElementById('spx-cloud-status');
+  const last=document.getElementById('spx-cloud-last');
+  const link=document.getElementById('spx-cloud-run');
+  let running=false, timer=null;
+  function schedule(){clearTimeout(timer);timer=setTimeout(refresh,15000);}
+  function paint(state){
+    running=!!state.busy;
+    button.disabled=!state.canUpdate;
+    button.textContent=running?'Atualização em andamento':'Atualizar SPX';
+    label.textContent=state.label;
+    last.textContent=state.updatedAt?'Última atualização concluída: '+new Date(state.updatedAt).toLocaleString('pt-BR',{timeZone:'America/Sao_Paulo'})+(state.records?' · '+state.records.toLocaleString('pt-BR')+' registros':''):'';
+    link.hidden=!state.runUrl;
+    if(state.runUrl)link.href=state.runUrl;
+    if(running)schedule();
+  }
+  function failed(error){
+    running=false;
+    button.disabled=true;
+    label.textContent=error&&error.message?error.message:'Não foi possível consultar a atualização.';
+  }
+  function refresh(){
+    if(!window.google||!google.script||!google.script.run){label.textContent='Abra este controle pela dashboard autenticada do Google.';return;}
+    google.script.run.withSuccessHandler(paint).withFailureHandler(failed).getSpxCloudStatus();
+  }
+  button.addEventListener('click',function(){
+    if(running||button.disabled)return;
+    button.disabled=true;label.textContent='Solicitando atualização…';
+    google.script.run.withSuccessHandler(paint).withFailureHandler(failed).requestSpxCloudUpdate();
+  });
+  document.addEventListener('visibilitychange',function(){if(!document.hidden)refresh();});
+  refresh();
+})();
+</script>
+
+</body>, no Index.html. -->
+<style>
+/* Layout simplificado — indicadores, gráfico principal, detalhes sob demanda. */
+main{max-width:1360px;padding:26px 24px 44px}.filters{padding:18px;gap:14px;box-shadow:none}header{box-shadow:none}.tabs{gap:8px;margin-bottom:24px;padding-bottom:12px}.tabs button{border-radius:9px;padding:12px 16px;border-bottom:0}.tabs button.active{background:#172338;color:white}.panel,.card{box-shadow:none}h1{font-size:26px}.section-heading{margin:8px 0 22px}.panel{padding:24px}.card{padding:24px}.card .value{font-size:38px}.card .key{font-size:12px}.subhead{line-height:1.7;max-width:850px}#exp-kpis{gap:16px;margin:20px 0 28px}#exp-kpis .card:first-child{background:#172338;border-color:#172338}#exp-kpis .card:first-child .key,#exp-kpis .card:first-child .sub{color:#d7dfed}#exp-kpis .card:first-child .value{color:white}#exp-kpis .card:nth-child(2) .value{color:#b74623}#exp-kpis .card:nth-child(3) .value{color:#07865c}#exp .charts{display:grid;grid-template-columns:minmax(0,1fr);gap:16px}#exp .exp-evolution-panel{padding:26px;border-radius:14px}#exp .exp-evolution-panel h2{font-size:18px;margin-bottom:8px}#exp .exp-evolution-subtitle{font-size:12px;line-height:1.7;color:#66758b;margin:0 0 12px}#exp-trend-summary{margin:12px 0;font-size:12px;color:#52617a}.exp-disclosure{background:#fff;border:1px solid #dfe6ee;border-radius:12px;overflow:hidden}.exp-disclosure>summary{padding:18px 22px;font-size:13px;font-weight:700;cursor:pointer}.exp-disclosure>summary:hover{background:#f8fafc}.exp-disclosure>.panel{border:0;border-radius:0;padding-top:8px}.exp-disclosure>summary:focus-visible{outline:3px solid #9db6da;outline-offset:-3px}#exp .executive-chart-wrap{width:100%;overflow-x:auto}#exp .executive-chart{width:100%;height:auto;min-width:620px;max-height:none}.exp-chart-context{display:block}#exp .exp-info{line-height:1.8}.trend-card{box-shadow:none}.prod-report-actions{box-shadow:none}@media(max-width:700px){main{padding:18px 14px}.tabs button{padding:11px 13px}.filters{padding:14px}.panel,#exp .exp-evolution-panel{padding:18px}#exp-kpis{grid-template-columns:1fr;gap:10px}#exp-kpis .card{padding:20px}.exp-disclosure>summary{padding:17px 18px}h1{font-size:23px}}@media print{.exp-disclosure>.panel{display:block!important}.exp-disclosure{break-inside:avoid}.exp-disclosure>summary{background:#f5f7fb}#exp-kpis .card:first-child{background:#fff}#exp-kpis .card:first-child .value,#exp-kpis .card:first-child .key,#exp-kpis .card:first-child .sub{color:#172338}}
+
+</style>
+<script>
+
+(function(){
+'use strict';
+const section=document.getElementById('exp');
+if(!section||typeof productionSvgChart!=='function')return;
+function fold(id,title){
+ const node=document.getElementById(id);if(!node)return;
+ const panel=node.closest('.panel');if(!panel||panel.parentElement.tagName==='DETAILS')return;
+ const details=document.createElement('details');details.className='exp-disclosure wide';
+ const summary=document.createElement('summary');summary.textContent=title;
+ panel.before(details);details.append(summary,panel);
+ const heading=panel.querySelector('h2');if(heading)heading.hidden=true;
 }
-async function load(){const s=$('#start').value,e=$('#end').value;$('#updated').textContent='Atualizando…';try{let res=await fetch('./data/indicadores.json?t='+Date.now(),{cache:'no-store'});if(!res.ok)res=await fetch('./data/indicadores-demo.json?t='+Date.now(),{cache:'no-store'});if(!res.ok)throw Error('HTTP '+res.status);let data=await res.json();if(!['DEMO','REAL_AGGREGATED'].includes(data.mode)||!Array.isArray(data.days))throw Error('Formato de dados inválido');data.days.forEach(r=>r.assignedTotal=(+r.assigned||0)+(+r.complete||0));state.data=data;let sorted=data.days.slice().sort((a,b)=>a.date.localeCompare(b.date));data.days=sorted;if(!s&&sorted.length)$('#start').value=sorted[0].date;if(!e&&sorted.length)$('#end').value=sorted.at(-1).date;$('#updated').textContent=(data.mode==='REAL_AGGREGATED'?'Dados agregados · ':'Demonstração · ')+new Date(data.generatedAt).toLocaleString('pt-BR');document.querySelector('.demo').textContent=data.mode==='REAL_AGGREGATED'?'DADOS AGREGADOS · PUBLICAÇÃO AUTORIZADA':'DADOS DEMONSTRATIVOS';apply()}catch(err){$('#updated').textContent='Falha de atualização';$('#root').innerHTML='<div class="notes">Não foi possível carregar os indicadores: '+escapeHtml(err.message)+'</div>'}}
-document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{state.page=t.dataset.page;apply()}));$('#view-mode').addEventListener('change',e=>{state.history=e.target.value==='history';apply()});$('#report').addEventListener('click',()=>{state.report=!state.report;document.body.classList.toggle('report-mode',state.report);$('#report').textContent=state.report?'Sair do modo relatório':'Ativar modo relatório'});['start','end'].forEach(k=>$('#'+k).addEventListener('change',apply));$('#reload').addEventListener('click',load);load();setInterval(()=>{if(!document.hidden)load()},60000);
-</script></body></html>
+const main=document.getElementById('exp-daily')?.closest('.panel');
+if(main){
+ const heading=main.querySelector('h2');if(heading)heading.textContent='Rotas por dia';
+ const caption=main.querySelector('.exp-evolution-subtitle');if(caption)caption.textContent='Uma barra por captura diária. Consulte os detalhes de status abaixo.';
+ if(!document.getElementById('exp-status-bars')){
+  const details=document.createElement('details');details.className='exp-disclosure wide';
+  const summary=document.createElement('summary');summary.textContent='Comparar Assigned e Complete por dia';
+  const panel=document.createElement('div');panel.className='panel';
+  const chart=document.createElement('div');chart.id='exp-status-bars';
+  panel.append(chart);details.append(summary,panel);main.after(details);
+ }
+}
+fold('exp-origins','Origem operacional das rotas');
+fold('exp-hours','Horários das atribuições');
+fold('exp-quality','Qualidade e atualização dos dados');
+fold('exp-table','Detalhamento por AT');
+  window.expTrend=function(rows){
+    const clean=(rows||[]).filter(r=>/^\d{4}-\d{2}-\d{2}$/.test(String(r.date||''))).slice().sort((a,b)=>a.date.localeCompare(b.date));
+    const summary=$('exp-trend-summary');summary.replaceChildren();
+    if(clean.length){const last=clean.at(-1);summary.append(el('span','exp-chart-context','Última captura: '+isoToDate(last.date)+' · '+number(last.total)+' rotas. Exibindo até 14 datas.'));}
+    productionSvgChart($('exp-daily'),clean,[{name:'Total de rotas',color:'#192c49',value:r=>r.total!==undefined?r.total:Number(r.assigned||0)+Number(r.complete||0)}],
+      'Uma barra por data de captura. Dias sem captura não são tratados como zero.');
+    productionSvgChart($('exp-status-bars'),clean,[{name:'Assigned',color:'#ee4d2d',value:r=>r.assigned},{name:'Complete',color:'#07865c',value:r=>r.complete}],
+      'Status registrados na mesma captura. Assigned + Complete = total de rotas.');
+  };
+
+})();
+</script>
+
+<style>
+.spx-cloud{box-sizing:border-box;max-width:1220px;margin:24px auto;padding:20px;border:1px solid #e1e5ec;border-radius:10px;background:#fff;font:14px Arial,sans-serif;color:#172338}.spx-cloud h2{font-size:18px;margin:0 0 8px}.spx-cloud p{line-height:1.5;margin:8px 0;color:#475467}.spx-cloud button{background:#ee4d2d;color:white;border:0;border-radius:6px;padding:12px 18px;font:700 14px Arial,sans-serif;cursor:pointer}.spx-cloud button:disabled{background:#98a2b3;cursor:default}.spx-cloud button:focus-visible,.spx-cloud a:focus-visible{outline:3px solid #172338;outline-offset:3px}.spx-cloud a{color:#172338;margin-left:16px}.spx-cloud small{display:block;margin-top:12px;color:#667085}@media print{.spx-cloud{display:none}}
+.spx-cloud{max-width:none;margin:0 0 22px;padding:16px 20px;display:flex;gap:12px 18px;align-items:center;flex-wrap:wrap;border-radius:12px}.spx-cloud h2{font-size:14px;margin:0;flex:1}.spx-cloud>p:first-of-type{display:none}.spx-cloud button{padding:10px 16px;font-size:13px}.spx-cloud a{font-size:12px;margin-left:0}.spx-cloud #spx-cloud-status{font-size:12px;margin:0;flex-basis:100%}.spx-cloud small{margin:0;font-size:11px}@media(max-width:600px){.spx-cloud{padding:16px}.spx-cloud h2{flex-basis:100%}}
+</style>
+<section class="spx-cloud" aria-labelledby="spx-cloud-title">
+  <h2 id="spx-cloud-title">Atualização do SPX</h2>
+  <p>Consulta os dados recentes e revisa alterações antigas quando necessário, preservando o histórico.</p>
+  <button id="spx-cloud-update" type="button" disabled>Atualizar SPX</button>
+  <a id="spx-cloud-run" target="_blank" rel="noopener noreferrer" hidden>Ver execução</a>
+  <p id="spx-cloud-status" role="status" aria-live="polite">Verificando acesso…</p>
+  <small id="spx-cloud-last"></small>
+</section>
+<script>
+(function(){
+  'use strict';
+  const section=document.querySelector('.spx-cloud');
+  const filters=document.querySelector('.filters');
+  if(section&&filters)filters.after(section);
+  const button=document.getElementById('spx-cloud-update');
+  const label=document.getElementById('spx-cloud-status');
+  const last=document.getElementById('spx-cloud-last');
+  const link=document.getElementById('spx-cloud-run');
+  let running=false, timer=null;
+  function schedule(){clearTimeout(timer);timer=setTimeout(refresh,15000);}
+  function paint(state){
+    running=!!state.busy;
+    button.disabled=!state.canUpdate;
+    button.textContent=running?'Atualização em andamento':'Atualizar SPX';
+    label.textContent=state.label;
+    last.textContent=state.updatedAt?'Última atualização concluída: '+new Date(state.updatedAt).toLocaleString('pt-BR',{timeZone:'America/Sao_Paulo'})+(state.records?' · '+state.records.toLocaleString('pt-BR')+' registros':''):'';
+    link.hidden=!state.runUrl;
+    if(state.runUrl)link.href=state.runUrl;
+    if(running)schedule();
+  }
+  function failed(error){
+    running=false;
+    button.disabled=true;
+    label.textContent=error&&error.message?error.message:'Não foi possível consultar a atualização.';
+  }
+  function refresh(){
+    if(!window.google||!google.script||!google.script.run){label.textContent='Abra este controle pela dashboard autenticada do Google.';return;}
+    google.script.run.withSuccessHandler(paint).withFailureHandler(failed).getSpxCloudStatus();
+  }
+  button.addEventListener('click',function(){
+    if(running||button.disabled)return;
+    button.disabled=true;label.textContent='Solicitando atualização…';
+    google.script.run.withSuccessHandler(paint).withFailureHandler(failed).requestSpxCloudUpdate();
+  });
+  document.addEventListener('visibilitychange',function(){if(!document.hidden)refresh();});
+  refresh();
+})();
+</script>
+
+</body>
+</html>

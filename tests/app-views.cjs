@@ -1,0 +1,11 @@
+const vm=require('vm'),fs=require('fs'),assert=require('node:assert/strict');
+const code=fs.readFileSync(__dirname+'/../integracao/AppsScript_Sync_LSP133.gs','utf8');
+const captured=[],ctx={console,Utilities:{formatDate:()=> '2026-11-13'},productionAggregate_:(rows)=>({daily:[{date:'2026-11-13',routesOut:1,routesFloor:2,packagesOut:10,packagesFloor:20,missingOut:0,missingFloor:0,missingPackages:0,status:'D0',notes:'',at:'AT_PRIVADA'}]}),addHistoricalPackages_:(view)=>({...view,packagesDaily:[{date:'2026-11-13',packagesOut:10,packagesFloor:20,packagesHistorical:30,br:'BR_PRIVADO'}]})};
+vm.createContext(ctx);vm.runInContext(code,ctx);
+const result=ctx.lspPublicAppViews_([['2026-11-13','AT_PRIVADA']],[{date:'2026-11-12',routesOut:3,routesFloor:1,packagesOut:30,packagesFloor:4,pendingPackagesOut:0,pendingPackagesFloor:0,snapshotType:'CAPTURA',snapshotAt:'2026-11-12T22:00:00Z'}]);
+assert.equal(result.production.daily[0].routesOut,1);
+assert.equal(result.production.packagesDaily[0].packagesHistorical,30);
+assert.equal(result.history.daily[0].routesOut,3);
+assert.equal(JSON.stringify(result).includes('AT_PRIVADA'),false);
+assert.equal(JSON.stringify(result).includes('BR_PRIVADO'),false);
+console.log('PASS: publicação das mesmas séries de produção/histórico, com histórico auditado e sem códigos AT/BR.');
