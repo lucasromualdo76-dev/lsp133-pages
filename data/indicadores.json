@@ -1,7 +1,7 @@
 {
   "mode": "REAL_AGGREGATED",
   "schemaVersion": 1,
-  "generatedAt": "2026-11-16T02:43:29.521Z",
+  "generatedAt": "2026-11-16T03:14:58.720Z",
   "source": "Validação de Dados - Fonte Dashboard - Lucas / Base de Produção / Resumo de Expedição",
   "coverage": {
     "routes": 1268,
@@ -430,14 +430,14 @@
   },
   "expeditionTurn": {
     "current": {
-      "date": "2026-11-15",
+      "date": "2026-11-16",
       "assigned": 0,
       "complete": 0,
       "total": 0,
       "packages": 0,
-      "windowStart": "2026-11-14T21:00:00-03:00",
-      "windowEnd": "2026-11-16T02:43:29.522Z",
-      "capturedAt": "2026-11-16T02:43:29.522Z",
+      "windowStart": "2026-11-15T21:00:00-03:00",
+      "windowEnd": "2026-11-16T03:14:58.720Z",
+      "capturedAt": "2026-11-16T03:14:58.720Z",
       "origins": []
     },
     "daily": [
@@ -495,8 +495,19 @@
         "total": 0,
         "packages": 0,
         "windowStart": "2026-11-14T21:00:00-03:00",
-        "windowEnd": "2026-11-16T02:43:29.522Z",
-        "capturedAt": "2026-11-16T02:43:29.522Z",
+        "windowEnd": "2026-11-16T02:54:11.078Z",
+        "capturedAt": "2026-11-16T02:54:11.078Z",
+        "origins": []
+      },
+      {
+        "date": "2026-11-16",
+        "assigned": 0,
+        "complete": 0,
+        "total": 0,
+        "packages": 0,
+        "windowStart": "2026-11-15T21:00:00-03:00",
+        "windowEnd": "2026-11-16T03:14:58.720Z",
+        "capturedAt": "2026-11-16T03:14:58.720Z",
         "origins": []
       }
     ],
@@ -587,7 +598,7 @@
           "missingOut": 138,
           "missingFloor": 3,
           "missingPackages": 141,
-          "status": "D9",
+          "status": "D10",
           "notes": "141 rota(s) sem quantidade de pacotes na origem"
         },
         {
@@ -599,7 +610,7 @@
           "missingOut": 0,
           "missingFloor": 0,
           "missingPackages": 0,
-          "status": "D8",
+          "status": "D9",
           "notes": ""
         },
         {
@@ -611,7 +622,7 @@
           "missingOut": 0,
           "missingFloor": 0,
           "missingPackages": 0,
-          "status": "D5",
+          "status": "D6",
           "notes": ""
         },
         {
@@ -623,7 +634,7 @@
           "missingOut": 1,
           "missingFloor": 328,
           "missingPackages": 329,
-          "status": "D3",
+          "status": "D4",
           "notes": "329 rota(s) sem quantidade de pacotes na origem"
         }
       ],
