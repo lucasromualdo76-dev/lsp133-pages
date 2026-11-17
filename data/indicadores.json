@@ -1,7 +1,7 @@
 {
   "mode": "REAL_AGGREGATED",
   "schemaVersion": 1,
-  "generatedAt": "2026-11-17T02:58:24.040Z",
+  "generatedAt": "2026-11-17T03:12:38.992Z",
   "source": "Validação de Dados - Fonte Dashboard - Lucas / Base de Produção / Resumo de Expedição",
   "coverage": {
     "routes": 866,
@@ -282,40 +282,15 @@
   },
   "expeditionTurn": {
     "current": {
-      "date": "2026-11-16",
-      "assigned": 27,
-      "complete": 70,
-      "total": 97,
-      "packages": 19150,
-      "windowStart": "2026-11-15T21:00:00-03:00",
-      "windowEnd": "2026-11-17T02:58:24.040Z",
-      "capturedAt": "2026-11-17T02:58:24.040Z",
-      "origins": [
-        {
-          "date": "2026-11-16",
-          "operationalDate": "2026-11-10",
-          "assigned": 1,
-          "complete": 0,
-          "total": 1,
-          "packages": 149
-        },
-        {
-          "date": "2026-11-16",
-          "operationalDate": "2026-11-12",
-          "assigned": 17,
-          "complete": 38,
-          "total": 55,
-          "packages": 11046
-        },
-        {
-          "date": "2026-11-16",
-          "operationalDate": "2026-11-14",
-          "assigned": 9,
-          "complete": 32,
-          "total": 41,
-          "packages": 7955
-        }
-      ]
+      "date": "2026-11-17",
+      "assigned": 0,
+      "complete": 0,
+      "total": 0,
+      "packages": 0,
+      "windowStart": "2026-11-16T21:00:00-03:00",
+      "windowEnd": "2026-11-17T03:12:38.994Z",
+      "capturedAt": "2026-11-17T03:12:38.994Z",
+      "origins": []
     },
     "daily": [
       {
@@ -383,8 +358,8 @@
         "total": 97,
         "packages": 19150,
         "windowStart": "2026-11-15T21:00:00-03:00",
-        "windowEnd": "2026-11-17T02:58:24.040Z",
-        "capturedAt": "2026-11-17T02:58:24.040Z",
+        "windowEnd": "2026-11-17T02:54:11.978Z",
+        "capturedAt": "2026-11-17T02:54:11.978Z",
         "origins": [
           {
             "date": "2026-11-16",
@@ -411,6 +386,17 @@
             "packages": 7955
           }
         ]
+      },
+      {
+        "date": "2026-11-17",
+        "assigned": 0,
+        "complete": 0,
+        "total": 0,
+        "packages": 0,
+        "windowStart": "2026-11-16T21:00:00-03:00",
+        "windowEnd": "2026-11-17T03:12:38.994Z",
+        "capturedAt": "2026-11-17T03:12:38.994Z",
+        "origins": []
       }
     ],
     "source": "Expedição Hoje",
@@ -440,7 +426,7 @@
           "missingOut": 4,
           "missingFloor": 80,
           "missingPackages": 84,
-          "status": "D4",
+          "status": "D5",
           "notes": "84 rota(s) sem quantidade de pacotes na origem"
         },
         {
@@ -452,7 +438,7 @@
           "missingOut": 30,
           "missingFloor": 140,
           "missingPackages": 170,
-          "status": "D2",
+          "status": "D3",
           "notes": "170 rota(s) sem quantidade de pacotes na origem"
         },
         {
@@ -464,7 +450,7 @@
           "missingOut": 0,
           "missingFloor": 135,
           "missingPackages": 135,
-          "status": "D0",
+          "status": "D1",
           "notes": "135 rota(s) sem quantidade de pacotes na origem"
         }
       ],
