@@ -1,10 +1,10 @@
 {
   "mode": "REAL_AGGREGATED",
   "schemaVersion": 1,
-  "generatedAt": "2026-11-17T01:28:25.169Z",
+  "generatedAt": "2026-11-17T01:43:06.880Z",
   "source": "Validação de Dados - Fonte Dashboard - Lucas / Base de Produção / Resumo de Expedição",
   "coverage": {
-    "routes": 884,
+    "routes": 866,
     "excludedDemolishedRoutes": 5,
     "assignmentDays": 3,
     "assignment": {
@@ -17,11 +17,11 @@
     {
       "date": "2026-11-10",
       "routesOut": 221,
-      "routesFloor": 5,
+      "routesFloor": 0,
       "packagesOut": 13104,
-      "packagesFloor": 290,
+      "packagesFloor": 0,
       "pendingPackagesOut": 131,
-      "pendingPackagesFloor": 3,
+      "pendingPackagesFloor": 0,
       "assigned": 79,
       "complete": 29,
       "assignedTotal": 108,
@@ -44,11 +44,11 @@
     {
       "date": "2026-11-12",
       "routesOut": 231,
-      "routesFloor": 98,
+      "routesFloor": 97,
       "packagesOut": 47949,
       "packagesFloor": 3359,
       "pendingPackagesOut": 4,
-      "pendingPackagesFloor": 81,
+      "pendingPackagesFloor": 80,
       "assigned": 0,
       "complete": 0,
       "assignedTotal": 0,
@@ -57,11 +57,11 @@
     {
       "date": "2026-11-14",
       "routesOut": 42,
-      "routesFloor": 142,
+      "routesFloor": 140,
       "packagesOut": 2606,
       "packagesFloor": 0,
       "pendingPackagesOut": 30,
-      "pendingPackagesFloor": 142,
+      "pendingPackagesFloor": 140,
       "assigned": 0,
       "complete": 0,
       "assignedTotal": 0,
@@ -70,11 +70,11 @@
     {
       "date": "2026-11-16",
       "routesOut": 0,
-      "routesFloor": 145,
+      "routesFloor": 135,
       "packagesOut": 0,
       "packagesFloor": 0,
       "pendingPackagesOut": 0,
-      "pendingPackagesFloor": 145,
+      "pendingPackagesFloor": 135,
       "assigned": 0,
       "complete": 0,
       "assignedTotal": 0,
@@ -269,8 +269,8 @@
   ],
   "eventQuality": {
     "rowsScanned": 147609,
-    "matchedRows": 147599,
-    "uniqueRoutes": 884,
+    "matchedRows": 147581,
+    "uniqueRoutes": 866,
     "assignedRoutes": 494,
     "completedRoutes": 458,
     "missingAssignedTime": 2,
@@ -288,8 +288,8 @@
       "total": 97,
       "packages": 19150,
       "windowStart": "2026-11-15T21:00:00-03:00",
-      "windowEnd": "2026-11-17T01:28:25.169Z",
-      "capturedAt": "2026-11-17T01:28:25.169Z",
+      "windowEnd": "2026-11-17T01:43:06.880Z",
+      "capturedAt": "2026-11-17T01:43:06.880Z",
       "origins": [
         {
           "date": "2026-11-16",
@@ -383,8 +383,8 @@
         "total": 97,
         "packages": 19150,
         "windowStart": "2026-11-15T21:00:00-03:00",
-        "windowEnd": "2026-11-17T01:28:25.169Z",
-        "capturedAt": "2026-11-17T01:28:25.169Z",
+        "windowEnd": "2026-11-17T01:43:06.880Z",
+        "capturedAt": "2026-11-17T01:43:06.880Z",
         "origins": [
           {
             "date": "2026-11-16",
@@ -422,50 +422,50 @@
         {
           "date": "2026-11-10",
           "routesOut": 221,
-          "routesFloor": 5,
+          "routesFloor": 0,
           "packagesOut": 13104,
-          "packagesFloor": 290,
+          "packagesFloor": 0,
           "missingOut": 131,
-          "missingFloor": 3,
-          "missingPackages": 134,
-          "status": "D6",
-          "notes": "134 rota(s) sem quantidade de pacotes na origem"
+          "missingFloor": 0,
+          "missingPackages": 131,
+          "status": "Piso zerado",
+          "notes": "131 rota(s) sem quantidade de pacotes na origem"
         },
         {
           "date": "2026-11-12",
           "routesOut": 231,
-          "routesFloor": 98,
+          "routesFloor": 97,
           "packagesOut": 47949,
           "packagesFloor": 3359,
           "missingOut": 4,
-          "missingFloor": 81,
-          "missingPackages": 85,
+          "missingFloor": 80,
+          "missingPackages": 84,
           "status": "D4",
-          "notes": "85 rota(s) sem quantidade de pacotes na origem"
+          "notes": "84 rota(s) sem quantidade de pacotes na origem"
         },
         {
           "date": "2026-11-14",
           "routesOut": 42,
-          "routesFloor": 142,
+          "routesFloor": 140,
           "packagesOut": 2606,
           "packagesFloor": 0,
           "missingOut": 30,
-          "missingFloor": 142,
-          "missingPackages": 172,
+          "missingFloor": 140,
+          "missingPackages": 170,
           "status": "D2",
-          "notes": "172 rota(s) sem quantidade de pacotes na origem"
+          "notes": "170 rota(s) sem quantidade de pacotes na origem"
         },
         {
           "date": "2026-11-16",
           "routesOut": 0,
-          "routesFloor": 145,
+          "routesFloor": 135,
           "packagesOut": 0,
           "packagesFloor": 0,
           "missingOut": 0,
-          "missingFloor": 145,
-          "missingPackages": 145,
+          "missingFloor": 135,
+          "missingPackages": 135,
           "status": "D0",
-          "notes": "145 rota(s) sem quantidade de pacotes na origem"
+          "notes": "135 rota(s) sem quantidade de pacotes na origem"
         }
       ],
       "packagesDaily": [
@@ -478,7 +478,7 @@
         {
           "date": "2026-11-10",
           "packagesOut": 13104,
-          "packagesFloor": 290,
+          "packagesFloor": 0,
           "packagesHistorical": 0
         },
         {
