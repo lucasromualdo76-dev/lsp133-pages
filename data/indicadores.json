@@ -1,7 +1,7 @@
 {
   "mode": "REAL_AGGREGATED",
   "schemaVersion": 1,
-  "generatedAt": "2026-11-18T09:15:21.313Z",
+  "generatedAt": "2026-11-18T09:28:53.216Z",
   "source": "Validação de Dados - Fonte Dashboard - Lucas / Base de Produção / Resumo de Expedição",
   "coverage": {
     "routes": 832,
@@ -300,8 +300,8 @@
       "total": 78,
       "packages": 16968,
       "windowStart": "2026-11-17T21:00:00-03:00",
-      "windowEnd": "2026-11-18T09:15:21.313Z",
-      "capturedAt": "2026-11-18T09:15:21.313Z",
+      "windowEnd": "2026-11-18T09:28:53.216Z",
+      "capturedAt": "2026-11-18T09:28:53.216Z",
       "origins": [
         {
           "date": "2026-11-18",
@@ -434,14 +434,39 @@
       },
       {
         "date": "2026-11-17",
-        "assigned": 0,
-        "complete": 0,
-        "total": 0,
-        "packages": 0,
+        "assigned": 28,
+        "complete": 152,
+        "total": 180,
+        "packages": 39648,
         "windowStart": "2026-11-16T21:00:00-03:00",
-        "windowEnd": "2026-11-18T02:54:15.117Z",
-        "capturedAt": "2026-11-18T02:54:15.117Z",
-        "origins": []
+        "windowEnd": "2026-11-17T21:00:00-03:00",
+        "capturedAt": "2026-11-18T09:21:47Z",
+        "origins": [
+          {
+            "date": "2026-11-17",
+            "operationalDate": "12/11/2026",
+            "assigned": 12,
+            "complete": 58,
+            "total": 70,
+            "packages": 13927
+          },
+          {
+            "date": "2026-11-17",
+            "operationalDate": "14/11/2026",
+            "assigned": 16,
+            "complete": 90,
+            "total": 106,
+            "packages": 25098
+          },
+          {
+            "date": "2026-11-17",
+            "operationalDate": "16/11/2026",
+            "assigned": 0,
+            "complete": 4,
+            "total": 4,
+            "packages": 623
+          }
+        ]
       },
       {
         "date": "2026-11-18",
@@ -450,8 +475,8 @@
         "total": 78,
         "packages": 16968,
         "windowStart": "2026-11-17T21:00:00-03:00",
-        "windowEnd": "2026-11-18T09:15:21.313Z",
-        "capturedAt": "2026-11-18T09:15:21.313Z",
+        "windowEnd": "2026-11-18T09:28:53.216Z",
+        "capturedAt": "2026-11-18T09:28:53.216Z",
         "origins": [
           {
             "date": "2026-11-18",
