@@ -1,7 +1,7 @@
 {
   "mode": "REAL_AGGREGATED",
   "schemaVersion": 1,
-  "generatedAt": "2026-11-18T09:57:51.610Z",
+  "generatedAt": "2026-11-18T10:13:56.112Z",
   "source": "Validação de Dados - Fonte Dashboard - Lucas / Base de Produção / Resumo de Expedição",
   "coverage": {
     "routes": 832,
@@ -293,8 +293,8 @@
       "total": 78,
       "packages": 16968,
       "windowStart": "2026-11-17T21:00:00-03:00",
-      "windowEnd": "2026-11-18T09:57:51.611Z",
-      "capturedAt": "2026-11-18T09:57:51.611Z",
+      "windowEnd": "2026-11-18T10:13:56.112Z",
+      "capturedAt": "2026-11-18T10:13:56.112Z",
       "origins": [
         {
           "date": "2026-11-18",
@@ -468,8 +468,8 @@
         "total": 78,
         "packages": 16968,
         "windowStart": "2026-11-17T21:00:00-03:00",
-        "windowEnd": "2026-11-18T09:57:51.611Z",
-        "capturedAt": "2026-11-18T09:57:51.611Z",
+        "windowEnd": "2026-11-18T10:13:56.112Z",
+        "capturedAt": "2026-11-18T10:13:56.112Z",
         "origins": [
           {
             "date": "2026-11-18",
