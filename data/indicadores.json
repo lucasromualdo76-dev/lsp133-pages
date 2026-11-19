@@ -1,11 +1,11 @@
 {
   "mode": "REAL_AGGREGATED",
   "schemaVersion": 1,
-  "generatedAt": "2026-11-19T11:30:26.231Z",
+  "generatedAt": "2026-11-19T11:59:24.161Z",
   "source": "Validação de Dados - Fonte Dashboard - Lucas / Base de Produção / Resumo de Expedição",
   "coverage": {
-    "routes": 1044,
-    "excludedDemolishedRoutes": 5,
+    "routes": 1007,
+    "excludedDemolishedRoutes": 0,
     "assignmentDays": 3,
     "assignment": {
       "firstRecordedDate": "2026-11-10",
@@ -16,16 +16,15 @@
   "days": [
     {
       "date": "2026-11-10",
-      "routesOut": 37,
+      "routesOut": 0,
       "routesFloor": 0,
-      "packagesOut": 4812,
+      "packagesOut": 0,
       "packagesFloor": 0,
       "pendingPackagesOut": 0,
       "pendingPackagesFloor": 0,
       "assigned": 77,
       "complete": 29,
       "assignedTotal": 106,
-      "routesObserved": true,
       "assignmentRecorded": true
     },
     {
@@ -43,12 +42,12 @@
     },
     {
       "date": "2026-11-12",
-      "routesOut": 312,
-      "routesFloor": 13,
+      "routesOut": 318,
+      "routesFloor": 7,
       "packagesOut": 51038,
       "packagesFloor": 0,
-      "pendingPackagesOut": 70,
-      "pendingPackagesFloor": 13,
+      "pendingPackagesOut": 76,
+      "pendingPackagesFloor": 7,
       "assigned": 0,
       "complete": 0,
       "assignedTotal": 0,
@@ -56,12 +55,12 @@
     },
     {
       "date": "2026-11-14",
-      "routesOut": 173,
-      "routesFloor": 8,
+      "routesOut": 174,
+      "routesFloor": 7,
       "packagesOut": 2606,
       "packagesFloor": 0,
-      "pendingPackagesOut": 161,
-      "pendingPackagesFloor": 8,
+      "pendingPackagesOut": 162,
+      "pendingPackagesFloor": 7,
       "assigned": 0,
       "complete": 0,
       "assignedTotal": 0,
@@ -69,12 +68,12 @@
     },
     {
       "date": "2026-11-16",
-      "routesOut": 117,
-      "routesFloor": 28,
+      "routesOut": 133,
+      "routesFloor": 12,
       "packagesOut": 0,
       "packagesFloor": 0,
-      "pendingPackagesOut": 117,
-      "pendingPackagesFloor": 28,
+      "pendingPackagesOut": 133,
+      "pendingPackagesFloor": 12,
       "assigned": 0,
       "complete": 0,
       "assignedTotal": 0,
@@ -82,12 +81,12 @@
     },
     {
       "date": "2026-11-17",
-      "routesOut": 85,
-      "routesFloor": 94,
+      "routesOut": 122,
+      "routesFloor": 57,
       "packagesOut": 0,
       "packagesFloor": 0,
-      "pendingPackagesOut": 85,
-      "pendingPackagesFloor": 94,
+      "pendingPackagesOut": 122,
+      "pendingPackagesFloor": 57,
       "assigned": 0,
       "complete": 0,
       "assignedTotal": 0,
@@ -95,12 +94,12 @@
     },
     {
       "date": "2026-11-18",
-      "routesOut": 6,
-      "routesFloor": 171,
+      "routesOut": 44,
+      "routesFloor": 133,
       "packagesOut": 0,
       "packagesFloor": 0,
-      "pendingPackagesOut": 6,
-      "pendingPackagesFloor": 171,
+      "pendingPackagesOut": 44,
+      "pendingPackagesFloor": 133,
       "assigned": 0,
       "complete": 0,
       "assignedTotal": 0,
@@ -244,32 +243,18 @@
   ],
   "assignmentTimeline": [
     {
-      "date": "2026-11-11",
-      "assigned": 2,
-      "completed": 0,
-      "assignedCurrent": 0,
-      "completedCurrent": 2
-    },
-    {
-      "date": "2026-11-12",
-      "assigned": 10,
-      "completed": 10,
-      "assignedCurrent": 1,
-      "completedCurrent": 9
-    },
-    {
       "date": "2026-11-13",
-      "assigned": 88,
-      "completed": 17,
-      "assignedCurrent": 2,
-      "completedCurrent": 86
+      "assigned": 67,
+      "completed": 1,
+      "assignedCurrent": 1,
+      "completedCurrent": 66
     },
     {
       "date": "2026-11-14",
-      "assigned": 110,
-      "completed": 147,
+      "assigned": 107,
+      "completed": 143,
       "assignedCurrent": 0,
-      "completedCurrent": 110
+      "completedCurrent": 107
     },
     {
       "date": "2026-11-15",
@@ -280,96 +265,96 @@
     },
     {
       "date": "2026-11-16",
-      "assigned": 97,
-      "completed": 96,
-      "assignedCurrent": 4,
+      "assigned": 96,
+      "completed": 94,
+      "assignedCurrent": 3,
       "completedCurrent": 93
     },
     {
       "date": "2026-11-17",
       "assigned": 180,
       "completed": 155,
-      "assignedCurrent": 8,
-      "completedCurrent": 172
+      "assignedCurrent": 5,
+      "completedCurrent": 175
     },
     {
       "date": "2026-11-18",
-      "assigned": 211,
-      "completed": 171,
-      "assignedCurrent": 69,
-      "completedCurrent": 142
+      "assigned": 268,
+      "completed": 168,
+      "assignedCurrent": 114,
+      "completedCurrent": 154
     },
     {
       "date": "2026-11-19",
-      "assigned": 30,
-      "completed": 15,
-      "assignedCurrent": 30,
-      "completedCurrent": 0
+      "assigned": 71,
+      "completed": 32,
+      "assignedCurrent": 70,
+      "completedCurrent": 1
     }
   ],
   "eventQuality": {
-    "rowsScanned": 354118,
-    "matchedRows": 215792,
-    "uniqueRoutes": 1044,
-    "assignedRoutes": 730,
-    "completedRoutes": 616,
+    "rowsScanned": 210360,
+    "matchedRows": 210351,
+    "uniqueRoutes": 1007,
+    "assignedRoutes": 791,
+    "completedRoutes": 598,
     "missingAssignedTime": 2,
     "missingCompleteTime": 0,
-    "firstEventDate": "2026-11-11",
+    "firstEventDate": "2026-11-13",
     "lastEventDate": "2026-11-19",
-    "completedRoutesInFolha": 616,
+    "completedRoutesInFolha": 598,
     "preservedCompletedOutsideCurrentLoad": 0
   },
   "expeditionTurn": {
     "current": {
       "date": "2026-11-19",
-      "assigned": 81,
-      "complete": 0,
-      "total": 81,
-      "packages": 15452,
+      "assigned": 175,
+      "complete": 4,
+      "total": 179,
+      "packages": 36304,
       "windowStart": "2026-11-18T21:00:00-03:00",
-      "windowEnd": "2026-11-19T11:30:26.232Z",
-      "capturedAt": "2026-11-19T11:30:26.232Z",
+      "windowEnd": "2026-11-19T11:59:24.162Z",
+      "capturedAt": "2026-11-19T11:59:24.162Z",
       "origins": [
         {
           "date": "2026-11-19",
           "operationalDate": "2026-11-12",
-          "assigned": 3,
+          "assigned": 9,
           "complete": 0,
-          "total": 3,
-          "packages": 452
+          "total": 9,
+          "packages": 1558
         },
         {
           "date": "2026-11-19",
           "operationalDate": "2026-11-14",
-          "assigned": 7,
+          "assigned": 8,
           "complete": 0,
-          "total": 7,
-          "packages": 1207
+          "total": 8,
+          "packages": 1334
         },
         {
           "date": "2026-11-19",
           "operationalDate": "2026-11-16",
-          "assigned": 11,
-          "complete": 0,
-          "total": 11,
-          "packages": 2526
+          "assigned": 26,
+          "complete": 1,
+          "total": 27,
+          "packages": 6206
         },
         {
           "date": "2026-11-19",
           "operationalDate": "2026-11-17",
-          "assigned": 54,
-          "complete": 0,
-          "total": 54,
-          "packages": 9717
+          "assigned": 89,
+          "complete": 2,
+          "total": 91,
+          "packages": 16544
         },
         {
           "date": "2026-11-19",
           "operationalDate": "2026-11-18",
-          "assigned": 6,
-          "complete": 0,
-          "total": 6,
-          "packages": 1550
+          "assigned": 43,
+          "complete": 1,
+          "total": 44,
+          "packages": 10662
         }
       ]
     },
@@ -550,53 +535,53 @@
       },
       {
         "date": "2026-11-19",
-        "assigned": 81,
-        "complete": 0,
-        "total": 81,
-        "packages": 15452,
+        "assigned": 175,
+        "complete": 4,
+        "total": 179,
+        "packages": 36304,
         "windowStart": "2026-11-18T21:00:00-03:00",
-        "windowEnd": "2026-11-19T11:30:26.232Z",
-        "capturedAt": "2026-11-19T11:30:26.232Z",
+        "windowEnd": "2026-11-19T11:59:24.162Z",
+        "capturedAt": "2026-11-19T11:59:24.162Z",
         "origins": [
           {
             "date": "2026-11-19",
             "operationalDate": "2026-11-12",
-            "assigned": 3,
+            "assigned": 9,
             "complete": 0,
-            "total": 3,
-            "packages": 452
+            "total": 9,
+            "packages": 1558
           },
           {
             "date": "2026-11-19",
             "operationalDate": "2026-11-14",
-            "assigned": 7,
+            "assigned": 8,
             "complete": 0,
-            "total": 7,
-            "packages": 1207
+            "total": 8,
+            "packages": 1334
           },
           {
             "date": "2026-11-19",
             "operationalDate": "2026-11-16",
-            "assigned": 11,
-            "complete": 0,
-            "total": 11,
-            "packages": 2526
+            "assigned": 26,
+            "complete": 1,
+            "total": 27,
+            "packages": 6206
           },
           {
             "date": "2026-11-19",
             "operationalDate": "2026-11-17",
-            "assigned": 54,
-            "complete": 0,
-            "total": 54,
-            "packages": 9717
+            "assigned": 89,
+            "complete": 2,
+            "total": 91,
+            "packages": 16544
           },
           {
             "date": "2026-11-19",
             "operationalDate": "2026-11-18",
-            "assigned": 6,
-            "complete": 0,
-            "total": 6,
-            "packages": 1550
+            "assigned": 43,
+            "complete": 1,
+            "total": 44,
+            "packages": 10662
           }
         ]
       }
@@ -608,73 +593,61 @@
     "production": {
       "daily": [
         {
-          "date": "2026-11-10",
-          "routesOut": 37,
-          "routesFloor": 0,
-          "packagesOut": 4812,
-          "packagesFloor": 0,
-          "missingOut": 0,
-          "missingFloor": 0,
-          "missingPackages": 0,
-          "status": "Piso zerado",
-          "notes": ""
-        },
-        {
           "date": "2026-11-12",
-          "routesOut": 312,
-          "routesFloor": 13,
+          "routesOut": 318,
+          "routesFloor": 7,
           "packagesOut": 51038,
           "packagesFloor": 0,
-          "missingOut": 70,
-          "missingFloor": 13,
+          "missingOut": 76,
+          "missingFloor": 7,
           "missingPackages": 83,
           "status": "D7",
           "notes": "83 rota(s) sem quantidade de pacotes na origem"
         },
         {
           "date": "2026-11-14",
-          "routesOut": 173,
-          "routesFloor": 8,
+          "routesOut": 174,
+          "routesFloor": 7,
           "packagesOut": 2606,
           "packagesFloor": 0,
-          "missingOut": 161,
-          "missingFloor": 8,
+          "missingOut": 162,
+          "missingFloor": 7,
           "missingPackages": 169,
           "status": "D5",
           "notes": "169 rota(s) sem quantidade de pacotes na origem"
         },
         {
           "date": "2026-11-16",
-          "routesOut": 117,
-          "routesFloor": 28,
+          "routesOut": 133,
+          "routesFloor": 12,
           "packagesOut": 0,
           "packagesFloor": 0,
-          "missingOut": 117,
-          "missingFloor": 28,
+          "missingOut": 133,
+          "missingFloor": 12,
           "missingPackages": 145,
           "status": "D3",
           "notes": "145 rota(s) sem quantidade de pacotes na origem"
         },
         {
           "date": "2026-11-17",
-          "routesOut": 85,
-          "routesFloor": 94,
+          "routesOut": 122,
+          "routesFloor": 57,
           "packagesOut": 0,
           "packagesFloor": 0,
-          "missingOut": 85,
-          "missingFloor": 94,
+          "missingOut": 122,
+          "missingFloor": 57,
           "missingPackages": 179,
           "status": "D2",
           "notes": "179 rota(s) sem quantidade de pacotes na origem"
         },
         {
           "date": "2026-11-18",
-          "routesOut": 6,
-          "routesFloor": 171,
+          "routesOut": 44,
+          "routesFloor": 133,
           "packagesOut": 0,
           "packagesFloor": 0,
-          "missingOut": 6,
-          "missingFloor": 171,
+          "missingOut": 44,
+          "missingFloor": 133,
           "missingPackages": 177,
           "status": "D1",
           "notes": "177 rota(s) sem quantidade de pacotes na origem"
@@ -686,12 +659,6 @@
           "packagesOut": 0,
           "packagesFloor": 0,
           "packagesHistorical": 1173
-        },
-        {
-          "date": "2026-11-10",
-          "packagesOut": 4812,
-          "packagesFloor": 0,
-          "packagesHistorical": 0
         },
         {
           "date": "2026-11-12",
