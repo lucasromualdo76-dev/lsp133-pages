@@ -1,7 +1,7 @@
 {
   "mode": "REAL_AGGREGATED",
   "schemaVersion": 1,
-  "generatedAt": "2026-11-20T02:46:56.162Z",
+  "generatedAt": "2026-11-20T03:02:41.839Z",
   "source": "Validação de Dados - Fonte Dashboard - Lucas / Base de Produção / Resumo de Expedição",
   "coverage": {
     "routes": 1060,
@@ -322,56 +322,15 @@
   },
   "expeditionTurn": {
     "current": {
-      "date": "2026-11-19",
-      "assigned": 214,
-      "complete": 44,
-      "total": 258,
-      "packages": 51747,
-      "windowStart": "2026-11-18T21:00:00-03:00",
-      "windowEnd": "2026-11-20T02:46:56.163Z",
-      "capturedAt": "2026-11-20T02:46:56.163Z",
-      "origins": [
-        {
-          "date": "2026-11-19",
-          "operationalDate": "2026-11-12",
-          "assigned": 10,
-          "complete": 1,
-          "total": 11,
-          "packages": 1862
-        },
-        {
-          "date": "2026-11-19",
-          "operationalDate": "2026-11-14",
-          "assigned": 9,
-          "complete": 3,
-          "total": 12,
-          "packages": 2097
-        },
-        {
-          "date": "2026-11-19",
-          "operationalDate": "2026-11-16",
-          "assigned": 24,
-          "complete": 5,
-          "total": 29,
-          "packages": 6755
-        },
-        {
-          "date": "2026-11-19",
-          "operationalDate": "2026-11-17",
-          "assigned": 100,
-          "complete": 27,
-          "total": 127,
-          "packages": 23215
-        },
-        {
-          "date": "2026-11-19",
-          "operationalDate": "2026-11-18",
-          "assigned": 71,
-          "complete": 8,
-          "total": 79,
-          "packages": 17818
-        }
-      ]
+      "date": "2026-11-20",
+      "assigned": 0,
+      "complete": 0,
+      "total": 0,
+      "packages": 0,
+      "windowStart": "2026-11-19T21:00:00-03:00",
+      "windowEnd": "2026-11-20T03:02:41.839Z",
+      "capturedAt": "2026-11-20T03:02:41.839Z",
+      "origins": []
     },
     "daily": [
       {
@@ -555,8 +514,8 @@
         "total": 258,
         "packages": 51747,
         "windowStart": "2026-11-18T21:00:00-03:00",
-        "windowEnd": "2026-11-20T02:46:56.163Z",
-        "capturedAt": "2026-11-20T02:46:56.163Z",
+        "windowEnd": "2026-11-20T02:54:21.590Z",
+        "capturedAt": "2026-11-20T02:54:21.590Z",
         "origins": [
           {
             "date": "2026-11-19",
@@ -599,6 +558,17 @@
             "packages": 17818
           }
         ]
+      },
+      {
+        "date": "2026-11-20",
+        "assigned": 0,
+        "complete": 0,
+        "total": 0,
+        "packages": 0,
+        "windowStart": "2026-11-19T21:00:00-03:00",
+        "windowEnd": "2026-11-20T03:02:41.839Z",
+        "capturedAt": "2026-11-20T03:02:41.839Z",
+        "origins": []
       }
     ],
     "source": "Expedição Hoje",
@@ -628,7 +598,7 @@
           "missingOut": 78,
           "missingFloor": 5,
           "missingPackages": 83,
-          "status": "D7",
+          "status": "D8",
           "notes": "83 rota(s) sem quantidade de pacotes na origem"
         },
         {
@@ -640,7 +610,7 @@
           "missingOut": 166,
           "missingFloor": 3,
           "missingPackages": 169,
-          "status": "D5",
+          "status": "D6",
           "notes": "169 rota(s) sem quantidade de pacotes na origem"
         },
         {
@@ -652,7 +622,7 @@
           "missingOut": 135,
           "missingFloor": 10,
           "missingPackages": 145,
-          "status": "D3",
+          "status": "D4",
           "notes": "145 rota(s) sem quantidade de pacotes na origem"
         },
         {
@@ -664,7 +634,7 @@
           "missingOut": 158,
           "missingFloor": 21,
           "missingPackages": 179,
-          "status": "D2",
+          "status": "D3",
           "notes": "179 rota(s) sem quantidade de pacotes na origem"
         },
         {
@@ -676,7 +646,7 @@
           "missingOut": 79,
           "missingFloor": 98,
           "missingPackages": 177,
-          "status": "D1",
+          "status": "D2",
           "notes": "177 rota(s) sem quantidade de pacotes na origem"
         }
       ],
