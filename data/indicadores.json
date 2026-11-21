@@ -1,7 +1,7 @@
 {
   "mode": "REAL_AGGREGATED",
   "schemaVersion": 1,
-  "generatedAt": "2026-11-21T02:59:56.208Z",
+  "generatedAt": "2026-11-21T03:15:02.086Z",
   "source": "Validação de Dados - Fonte Dashboard - Lucas / Base de Produção / Resumo de Expedição",
   "coverage": {
     "routes": 2155,
@@ -537,48 +537,15 @@
   },
   "expeditionTurn": {
     "current": {
-      "date": "2026-11-20",
-      "assigned": 129,
-      "complete": 3,
-      "total": 132,
-      "packages": 29176,
-      "windowStart": "2026-11-19T21:00:00-03:00",
-      "windowEnd": "2026-11-21T02:59:56.208Z",
-      "capturedAt": "2026-11-21T02:59:56.208Z",
-      "origins": [
-        {
-          "date": "2026-11-20",
-          "operationalDate": "2026-11-16",
-          "assigned": 2,
-          "complete": 0,
-          "total": 2,
-          "packages": 649
-        },
-        {
-          "date": "2026-11-20",
-          "operationalDate": "2026-11-17",
-          "assigned": 11,
-          "complete": 1,
-          "total": 12,
-          "packages": 2167
-        },
-        {
-          "date": "2026-11-20",
-          "operationalDate": "2026-11-18",
-          "assigned": 54,
-          "complete": 0,
-          "total": 54,
-          "packages": 12282
-        },
-        {
-          "date": "2026-11-20",
-          "operationalDate": "2026-11-19",
-          "assigned": 62,
-          "complete": 2,
-          "total": 64,
-          "packages": 14078
-        }
-      ]
+      "date": "2026-11-21",
+      "assigned": 0,
+      "complete": 0,
+      "total": 0,
+      "packages": 0,
+      "windowStart": "2026-11-20T21:00:00-03:00",
+      "windowEnd": "2026-11-21T03:15:02.087Z",
+      "capturedAt": "2026-11-21T03:15:02.087Z",
+      "origins": []
     },
     "daily": [
       {
@@ -814,8 +781,8 @@
         "total": 132,
         "packages": 29176,
         "windowStart": "2026-11-19T21:00:00-03:00",
-        "windowEnd": "2026-11-21T02:59:56.208Z",
-        "capturedAt": "2026-11-21T02:59:56.208Z",
+        "windowEnd": "2026-11-21T02:54:13.398Z",
+        "capturedAt": "2026-11-21T02:54:13.398Z",
         "origins": [
           {
             "date": "2026-11-20",
@@ -850,6 +817,17 @@
             "packages": 14078
           }
         ]
+      },
+      {
+        "date": "2026-11-21",
+        "assigned": 0,
+        "complete": 0,
+        "total": 0,
+        "packages": 0,
+        "windowStart": "2026-11-20T21:00:00-03:00",
+        "windowEnd": "2026-11-21T03:15:02.087Z",
+        "capturedAt": "2026-11-21T03:15:02.087Z",
+        "origins": []
       }
     ],
     "source": "Expedição Hoje",
@@ -975,7 +953,7 @@
           "missingOut": 77,
           "missingFloor": 5,
           "missingPackages": 82,
-          "status": "D8",
+          "status": "D9",
           "notes": "82 rota(s) sem quantidade de pacotes na origem"
         },
         {
@@ -987,7 +965,7 @@
           "missingOut": 166,
           "missingFloor": 3,
           "missingPackages": 169,
-          "status": "D6",
+          "status": "D7",
           "notes": "169 rota(s) sem quantidade de pacotes na origem"
         },
         {
@@ -999,7 +977,7 @@
           "missingOut": 137,
           "missingFloor": 8,
           "missingPackages": 145,
-          "status": "D4",
+          "status": "D5",
           "notes": "145 rota(s) sem quantidade de pacotes na origem"
         },
         {
@@ -1011,7 +989,7 @@
           "missingOut": 169,
           "missingFloor": 9,
           "missingPackages": 178,
-          "status": "D3",
+          "status": "D4",
           "notes": "178 rota(s) sem quantidade de pacotes na origem"
         },
         {
@@ -1023,7 +1001,7 @@
           "missingOut": 133,
           "missingFloor": 44,
           "missingPackages": 177,
-          "status": "D2",
+          "status": "D3",
           "notes": "177 rota(s) sem quantidade de pacotes na origem"
         },
         {
@@ -1035,7 +1013,7 @@
           "missingOut": 64,
           "missingFloor": 140,
           "missingPackages": 204,
-          "status": "D1",
+          "status": "D2",
           "notes": "204 rota(s) sem quantidade de pacotes na origem"
         }
       ],
